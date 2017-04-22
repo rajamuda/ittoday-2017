@@ -1,0 +1,20 @@
+{
+  "name": "ittoday-2017-backend",
+  "version": "1.0.0",
+  "description": "Backend IT Today IPB 2017",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "node index.js"
+  },
+  "author": "PSBO Team",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "crypto": "0.0.3",
+    "express": "^4.15.2",
+    "http-server": "^0.9.0",
+    "mysql": "^2.13.0"
+  }
+}
