@@ -14,7 +14,7 @@ npm install
 npm start
 ```
 
-Server will run in port 3000. `http://locahost:3000`
+Server will run in port 3000. `http://localhost:3000`
 
 # Back-end
 All nodejs scripts are inside `./api` directory.
@@ -34,4 +34,4 @@ npm install -g nodemon
 npm start
 ```
 
-Server will run in port 4200. `http://locahost:4200`
+Server will run in port 4200. `http://localhost:4200`
