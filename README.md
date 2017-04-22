@@ -5,15 +5,23 @@ Source code web IT Today IPB 2017. Build with Angular2 version 4 with Webpack bu
 All directory except `./api`
 
 ## Installation
-`npm install`
+```
+npm install
+```
 
 ## Running the server
-`npm start`
+```
+npm start
+```
 
-Server will run in port 3000
+Server will run in port 3000. `http://locahost:3000`
 
 # Back-end
 All nodejs scripts are inside `./api` directory.
+In root directory, first go to `./api` directory.
+```
+cd api
+```
 
 ## Installation
 ```
@@ -22,6 +30,8 @@ npm install -g nodemon
 ```
 
 ## Running the server
-`npm start`
+```
+npm start
+```
 
-Server will run in port 4200
+Server will run in port 4200. `http://locahost:4200`
