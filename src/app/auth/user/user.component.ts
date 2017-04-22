@@ -21,8 +21,8 @@ export class UserComponent{
 		 this.http.post('http://localhost:4200/login', creds, {headers: headers})
 		 	.subscribe(res => {
 		 		let data = res.json();
-
-		 		if(data['status'] == 0){
+		 		console.log(data);
+		 		if(data['status']){
 		 			console.log("You've been logged in");
 		 		}else{
 		 			console.log(data['message']);
