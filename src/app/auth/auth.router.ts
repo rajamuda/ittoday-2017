@@ -2,8 +2,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 const appRoutes: Routes = [
 	{ path: '', children: [
-		{ path: '', redirectTo: 'user' },
-		{ path: 'user', loadChildren: './user/user.module#UserModule' }
+		{ path: '', redirectTo: 'login' },
+		{ path: 'login', loadChildren: './login/login.module#UserModule' }
 	]}
 ]
 

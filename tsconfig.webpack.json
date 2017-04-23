@@ -27,7 +27,8 @@
     "node_modules",
     "dist",
     "src/**/*.spec.ts",
-    "src/**/*.e2e.ts"
+    "src/**/*.e2e.ts",
+    "api"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,

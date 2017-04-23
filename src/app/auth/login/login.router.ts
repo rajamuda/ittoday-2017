@@ -1,8 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
-import { UserComponent } from './user.component';
+import { LoginComponent } from './login.component';
 
 const appRoutes: Routes = [
-	{ path: '', component: UserComponent, pathMatch: 'full' }
+	{ path: '', component: LoginComponent, pathMatch: 'full' }
 ]
 
 export const Routing = RouterModule.forChild(appRoutes);

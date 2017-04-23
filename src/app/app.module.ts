@@ -14,10 +14,12 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
+import { DataService } from './providers/data.service';
 import { HomeComponent } from './home';
 import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
 import { XLargeDirective } from './home/x-large';
+import { AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -25,7 +27,8 @@ import '../styles/headings.css';
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  AppState
+  AppState,
+  DataService
 ];
 
 type StoreType = {
@@ -54,7 +57,15 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    AUTH_PROVIDERS,
+    provideAuth({
+      headerName: "Authorization",
+      headerPrefix: "",
+      globalHeaders: [{'Content-Type':'application/json'}],
+      noJwtError: true,
+      noTokenScheme: true
+    })
   ]
 })
 export class AppModule {

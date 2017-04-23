@@ -19,7 +19,11 @@ app.use(bodyparser.json());
 // app.use(allowCrossDomain);
 
 app.get('/', function(req, res){
-	res.send('Hello, world!');
+	if(req.header['Authorization']){
+		res.send('Hello, world');
+	}else{
+		res.send('You are cheater!');
+	}
 });
 
 conn.init();

@@ -1,34 +1,30 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AppState } from './app.service';
+import { DataService } from './providers/data.service';
+import { Subscription }   from 'rxjs/Subscription';
 
 @Component({
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: [
-    './app.component.css'
-  ],
-  template: `
-    <nav>
-      <a routerLink="/">Home</a>
-      <a routerLink="/about">About</a>
-      <a routerLink="/auth/user">Login</a>
-    </nav>
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-  `
+  styleUrls: [ './app.component.css' ],
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  public angularclassLogo = 'assets/img/angularclass-avatar.png';
-  public name = 'Angular 2 Webpack Starter';
-  public url = 'https://twitter.com/AngularClass';
+  public loggedin;
+  public subscription: Subscription;
 
-  constructor(
-    public appState: AppState
-  ) {}
-
-  public ngOnInit() {
-    console.log('Initial App State', this.appState.state);
+  constructor(public appState: AppState, public dataService: DataService) {
+    this.subscription = dataService.loginAnnounced$.subscribe(status => {
+      this.loggedin = status;
+    })
   }
 
+  public ngOnInit() {
+    // console.log('Initial App State', this.appState.state);
+  }
+
+  public logout() {
+    localStorage.removeItem('token');
+    this.dataService.loginState(false);
+  }
 }

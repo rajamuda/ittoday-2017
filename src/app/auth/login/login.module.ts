@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { UserComponent } from './user.component';
+import { LoginComponent } from './login.component';
 
-import { Routing } from './user.router';
+import { Routing } from './login.router';
 
 @NgModule({
 	imports: [ Routing, CommonModule, FormsModule ],
-	declarations: [ UserComponent ]
+	declarations: [ LoginComponent ]
 })
 
 export class UserModule{

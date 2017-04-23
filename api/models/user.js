@@ -1,5 +1,6 @@
 var conn = require('../connection.js');
 var crypto = require('crypto');
+var modtoken = require('../token.js');
 
 function User(){
 	this.login = function(data, res){
@@ -15,10 +16,15 @@ function User(){
 				con.query(query, query_data, function(err, result){
 					con.release();
 					if(err == null){
-						if(!result.length)
+						if(!result.length){
 							res.json({"status":false, "message":"wrong email or password"});
-						else
-							res.json({"status":true, "message":"success"});
+						}else{
+							var signInTime = Math.floor(Date.now()/1000); // iat
+							var expired = signInTime + (2*60*60) // exp after 2 hours
+							var data = {'id': result[0].id_user, 'nama': result[0].nama_lengkap, 'email': result[0].email, 'iat': signInTime, 'exp': expired};
+							var token = modtoken.createToken(data, res);
+							res.json({"status":true, "message":"success", "token": token});
+						}
 					}else{
 						res.json({"status":false, "message":"error retrieving data"});
 					}
