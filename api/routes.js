@@ -7,6 +7,10 @@ module.exports = {
 			user.login(req.body, res);
 		});
 
+		app.post('/session', function(req, res){
+			user.session(req, res);
+		});
+
 		/* TODO: admin */
 
 		/* TODO: events */

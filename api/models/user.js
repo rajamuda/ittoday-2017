@@ -3,6 +3,11 @@ var crypto = require('crypto');
 var modtoken = require('../token.js');
 
 function User(){
+	this.session = function(req, res){
+		var data = req;
+		modtoken.checkToken(data, res);
+	}
+
 	this.login = function(data, res){
 		let email = data.email;
 		let pass = crypto.createHash('md5').update(data.pass).digest('hex');
