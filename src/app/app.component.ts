@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   constructor(public authHttp: AuthHttp, public appState: AppState, public dataService: DataService) {
     this.subscription = dataService.loginAnnounced$.subscribe(status => {
       this.loggedin = status;
-    })
+    });
   }
 
   public ngOnInit() {
@@ -25,8 +25,19 @@ export class AppComponent implements OnInit {
     if(token){
       this.authHttp.post('http://localhost:4200/session', JSON.stringify({"token": token}))
         .subscribe(data => {
-          console.log(data);
-        })
+          let res = data.json();
+          if(res.status){
+            this.loggedin = true;
+            this.dataService.loginState(true);
+          }else{
+            this.loggedin = false;
+            this.dataService.loginState(false);
+            localStorage.removeItem('token');
+          }
+        });
+    }else{
+      this.loggedin = false;
+      this.dataService.loginState(false);
     }
   }
 
