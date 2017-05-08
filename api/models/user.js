@@ -18,6 +18,7 @@ function User(){
 			conn.acquire(function(err, con){
 				var query = 'SELECT * FROM ittoday WHERE email = ? and password = ?';
 				var query_data = [email, pass]; 
+				console.log(query_data);
 				con.query(query, query_data, function(err, result){
 					con.release();
 					if(err == null){
