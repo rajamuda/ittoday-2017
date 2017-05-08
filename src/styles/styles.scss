@@ -1,19 +1,149 @@
-/* this file will be extracted to main dist folder and is imported in index.html */
-/* This file is for setting global styles  */
-@import 'variables';
-
-nav {
-  margin-top: 16px;
+a {
+  color: #FE0037;
 }
 
-nav a {
-  background-color: $nav-button-color;
-  color: white;
-  padding: 8px 16px;
-  margin: 8px;
-  vertical-align: middle;
-  line-height: 1.25;
+.navbar {
+  background-color: #FE0037;
+}
+
+.navbar-light .navbar-nav .nav-link {
   text-align: center;
-  text-decoration: none;
-  border-radius: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #000;
+}
+
+@media (min-width: 768px) {
+  .navbar-light .navbar-nav .nav-link {
+    border: 2px solid #FE0037;
+  }
+
+  .navbar-light .navbar-nav .nav-link:hover {
+    border-bottom: 2px solid #EBDB01;
+  }
+}
+
+.navbar-light .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(235, 219, 1, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar-light .navbar-toggler {
+  margin-top: 3px;
+  border-color: #EBDB01;
+}
+
+.navbar-text {
+  margin-top: 3px;
+  font-size: 16px;
+}
+
+.carousel {
+  background-color: #000;
+  margin: 40px auto;
+  width: 80%;
+}
+
+@media (max-width: 991px) {
+  .carousel {
+    width: 100%;
+  }
+
+  .carousel-item {
+    height: 400px;
+  }
+}
+
+@media (max-width: 767px) {
+  .carousel {
+    width: 100%;
+  }
+
+  .carousel-item {
+    height: 200px;
+  }
+}
+
+.carousel-indicators .active {
+  background-color: #EBDB01;
+}
+
+.carousel-item img {
+  margin: auto;
+}
+
+.cards {
+  background-color: #FE0037;
+  margin: 40px auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.card .btn {
+  float: right;
+}
+
+.btn-custom {
+  background-color: #EBDB01;
+  font-weight: bold;
+  color: #000;
+}
+
+.btn-custom:hover {
+  color: #000;
+}
+
+.medias {
+  margin: 80px auto;
+}
+
+.media img {
+  width: 25%;
+}
+
+.media-body {
+  text-align: justify;
+}
+
+.media-body h5 {
+  font-weight: 600;
+}
+
+.page-item.active .page-link {
+  background-color: #FE0037;
+  border-color: #FE0037;
+}
+
+.page-link, .page-link:focus, .page-link:hover {
+  color: #FE0037;
+}
+
+.footer-content {
+  background-color: #FE0037;
+}
+
+.footer-sub {
+  background-color: #FE0037;
+  color: #000;
+  text-align: center;
+  font-weight: 600;
+  padding: 5px 0;
+  border-radius: 40px 40px 0 0;
+  border-bottom: 3px solid #EBDB01;
+}
+
+@media (min-width: 768px) {
+  .footer-sub {
+    margin-top: -40px;
+  }
+}
+
+.footer-text {
+  margin-bottom: 40px;
+  color: #000;
+}
+
+.copyright {
+  background-color: #EBDB01;
+  text-align: center;
+  color: #000;
 }

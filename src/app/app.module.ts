@@ -22,7 +22,6 @@ import { XLargeDirective } from './home/x-large';
 import { AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
 
 import '../styles/styles.scss';
-import '../styles/headings.css';
 
 // Application wide providers
 const APP_PROVIDERS = [
