@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
         </li>
         <div class="navbar-text hidden-sm-down"> | </div>
         <li class="nav-item">
@@ -30,7 +30,7 @@
       <div class="navbar-nav" *ngIf="!loggedin">
         <a class="nav-item nav-link" routerLink="/auth/login" routerLinkActive="active">Login</a>
         <div class="navbar-text hidden-sm-down"> / </div>
-        <a class="nav-item nav-link" href="#">Register</a>
+        <a class="nav-item nav-link" routerLink="/auth/register" routerLinkActive="active">Register</a>
       </div>
       <div class="navbar-nav" *ngIf="loggedin">
         <a class="nav-item nav-link" routerLink="/">Dashboard</a>
@@ -41,7 +41,7 @@
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 
 <footer>
   <div class="footer-content py-2">
@@ -63,6 +63,6 @@
     </div>
   </div>
   <div class="copyright">
-    <span>© IT Today 2017</span>
+    <span>&copy; IT Today IPB 2017</span>
   </div>
 </footer>
