@@ -1,12 +1,15 @@
-<h1>Login</h1>
-<div>
-	<form class="margin-bottom-0" (ngSubmit)="submit()">
-     <p>E-mail</p>
-     <input class="form-control" type="text" [(ngModel)]="email" name="e-mail" placeholder="e-mail" autofocus/>
-     <br /><p>Password</p>
-     <input class="form-control" type="password" [(ngModel)]="password" name="password" placeholder="Password" autofocus/>
-     <br />
-     <button type="submit" class="form-control btn btn-block btn-raised btn-primary btn-lg" [disabled]="!email || !password">Login</button>
-  </form>
-
+<div class="main-component">
+  <div class="container">
+    <h1>Login</h1>
+    <div>
+    	<form class="margin-bottom-0" (ngSubmit)="submit()">
+         <p>E-mail</p>
+         <input class="form-control" type="text" [(ngModel)]="email" name="e-mail" placeholder="e-mail" autofocus/>
+         <br /><p>Password</p>
+         <input class="form-control" type="password" [(ngModel)]="password" name="password" placeholder="Password" autofocus/>
+         <br />
+         <button type="submit" class="form-control btn btn-block btn-raised btn-primary btn-lg" [disabled]="!email || !password">Login</button>
+      </form>
+    </div>
+  </div>
 </div>
