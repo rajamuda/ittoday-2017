@@ -9,6 +9,16 @@ a {
   box-shadow: 0 3px 5px rgba(182, 182, 182, 0.75);
 }
 
+@media (max-width: 767px) {
+  .navbar .container {
+    text-align: center;
+  }
+
+  .show .dropdown-menu {
+    text-align: center;
+  }
+}
+
 .navbar-light .navbar-nav .nav-link {
   text-align: center;
   font-weight: 500;
@@ -21,7 +31,8 @@ a {
   color: #EBDB01;
 }
 
-.navbar-light .navbar-nav .nav-link:hover {
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
   color: #EBDB01;
 }
 
@@ -51,6 +62,20 @@ a {
 
 .footer-content {
   background-color: #E20302;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 999;
+  }
+
+  .footer-content {
+    margin-top: 80px;
+  }
 }
 
 .footer-sub {
