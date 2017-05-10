@@ -6,6 +6,7 @@ import { DataService } from '../../providers/data.service';
 @Component({
 	selector: 'login',
 	encapsulation: ViewEncapsulation.None,
+	styleUrls: [ './login.component.css' ],
 	templateUrl: './login.component.html'
 })
 
@@ -29,7 +30,7 @@ export class LoginComponent{
 		 this.http.post('http://localhost:4200/login', creds, {headers: headers})
 		 	.subscribe(res => {
 		 		let data = res.json();
-
+		 		console.log(data);
 		 		if(data['status']){
 		 			localStorage.setItem('token', data['token']);
 		 			this.dataService.loginState(true);

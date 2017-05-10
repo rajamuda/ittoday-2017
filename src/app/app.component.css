@@ -1,29 +1,33 @@
-body {
-  font-family: Montserrat !important;
-}
-
 a {
-  color: #FE0037;
+  color: #E20302;
 }
 
 .navbar {
-  background-color: #FE0037;
+  background-color: #E20302;
+  -moz-box-shadow:0 3px 5px rgba(182, 182, 182, 0.75);
+  -webkit-box-shadow: 0 3px 5px rgba(182, 182, 182, 0.75);
+  box-shadow: 0 3px 5px rgba(182, 182, 182, 0.75);
 }
 
 .navbar-light .navbar-nav .nav-link {
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
   color: #fff;
 }
 
 .navbar-light .navbar-nav .nav-link.active {
   border-bottom: 2px solid #EBDB01;
+  color: #EBDB01;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #EBDB01;
 }
 
 @media (min-width: 768px) {
   .navbar-light .navbar-nav .nav-link {
-    border: 2px solid #FE0037;
+    border: 2px solid #E20302;
   }
 
   .navbar-light .navbar-nav .nav-link:hover {
@@ -46,14 +50,13 @@ a {
 }
 
 .footer-content {
-  background-color: #FE0037;
+  background-color: #E20302;
 }
 
 .footer-sub {
-  background-color: #FE0037;
-  color: #000;
+  background-color: #E20302;
+  color: #fff;
   text-align: center;
-  font-weight: 600;
   padding: 5px 0;
   border-radius: 40px 40px 0 0;
   border-bottom: 3px solid #EBDB01;
@@ -67,7 +70,7 @@ a {
 
 .footer-text {
   margin-bottom: 40px;
-  color: #000;
+  color: #fff;
 }
 
 .copyright {

@@ -1,15 +1,47 @@
 <div class="main-component">
   <div class="container">
-    <h1>Login</h1>
-    <div>
-    	<form class="margin-bottom-0" (ngSubmit)="submit()">
-         <p>E-mail</p>
-         <input class="form-control" type="text" [(ngModel)]="email" name="e-mail" placeholder="e-mail" autofocus/>
-         <br /><p>Password</p>
-         <input class="form-control" type="password" [(ngModel)]="password" name="password" placeholder="Password" autofocus/>
-         <br />
-         <button type="submit" class="form-control btn btn-block btn-raised btn-primary btn-lg" [disabled]="!email || !password">Login</button>
-      </form>
+    <div class="row login-form">
+      <div class="col col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header">
+            Login
+          </div>
+          <div class="card-block">
+            <form>
+              <div class="form-group">
+                <label>Email</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">person</i></div>
+                  <input type="email" class="form-control" placeholder="Masukkan email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">lock</i></div>
+                  <input type="password" class="form-control" placeholder="Masukkan password">
+                </div>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input">
+                  Remember me
+                </label>
+              </div>
+              <button type="submit" class="btn btn-custom">Submit</button>
+            </form>
+
+            <!-- <form class="margin-bottom-0" (ngSubmit)="submit()">
+              <p>E-mail</p>
+              <input class="form-control" type="text" [(ngModel)]="email" name="e-mail" placeholder="e-mail" autofocus/>
+              <br /><p>Password</p>
+              <input class="form-control" type="password" [(ngModel)]="password" name="password" placeholder="Password" autofocus/>
+              <br />
+              <button type="submit" class="form-control btn btn-block btn-raised btn-primary btn-lg" [disabled]="!email || !password">Login</button>
+            </form> -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

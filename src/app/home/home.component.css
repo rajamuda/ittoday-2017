@@ -33,7 +33,7 @@
 }
 
 .cards {
-  background-color: #FE0037;
+  background-color: #E20302;
   margin: 40px auto;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -70,10 +70,10 @@
 }
 
 .page-item.active .page-link {
-  background-color: #FE0037;
-  border-color: #FE0037;
+  background-color: #E20302;
+  border-color: #E20302;
 }
 
 .page-link, .page-link:focus, .page-link:hover {
-  color: #FE0037;
+  color: #E20302;
 }
