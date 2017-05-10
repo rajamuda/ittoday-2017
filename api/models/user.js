@@ -23,16 +23,16 @@ function User(){
 					con.release();
 					if(err == null){
 						if(!result.length){
-							res.json({"status":false, "message":"wrong email or password"});
+							res.json({"status":false, "message":"Wrong email or password"});
 						}else{
 							var signInTime = Math.floor(Date.now()/1000); // iat
 							var expired = signInTime + (2*60*60) // exp after 2 hours
 							var data = {'id': result[0].id_user, 'nama': result[0].nama_lengkap, 'email': result[0].email, 'iat': signInTime, 'exp': expired};
 							var token = modtoken.createToken(data, res);
-							res.json({"status":true, "message":"success", "token": token});
+							res.json({"status":true, "message":"Login success", "token": token});
 						}
 					}else{
-						res.json({"status":false, "message":"error retrieving data"});
+						res.json({"status":false, "message":"Error retrieving data"});
 					}
 				});
 			});

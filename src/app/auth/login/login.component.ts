@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Router } from '@angular/router';
+import { ToastrService } from 'toastr-ng2';
 import { DataService } from '../../providers/data.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent{
 	private email: string;
 	private password: string;
 
-	constructor(public http: Http, public router: Router, public dataService: DataService){}
+	constructor(public toast: ToastrService, public http: Http, public router: Router, public dataService: DataService){}
 	
 	ngOnInit(){
 		if(localStorage.getItem('token')){
@@ -35,9 +36,9 @@ export class LoginComponent{
 		 			localStorage.setItem('token', data['token']);
 		 			this.dataService.loginState(true);
 		 			this.router.navigate(['/']);
-		 			console.log("You've been logged in");
+		 			this.toast.success('Yeeay', data['message']);
 		 		}else{
-		 			console.log(data['message']);
+		 			this.toast.error('Failed', data['message']);
 		 		}
 
 		 	});
