@@ -33,7 +33,7 @@
         <a class="nav-item nav-link" routerLink="/auth/register" routerLinkActive="active">Register</a>
       </div>
       <div class="navbar-nav" *ngIf="loggedin">
-        <a class="nav-item nav-link" routerLink="/">Dashboard</a>
+        <a class="nav-item nav-link" routerLink="/user/dashboard">Dashboard</a>
         <div class="navbar-text hidden-sm-down"> / </div>
         <a class="nav-item nav-link" routerLink="/" (click)="logout()">Logout</a>
       </div>
