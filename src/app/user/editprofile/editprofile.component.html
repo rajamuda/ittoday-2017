@@ -1,0 +1,66 @@
+<div class="main-component">
+  <div class="container">
+    <div class="row editprofile-form">
+      <div class="col col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header">
+            Edit your profile info
+          </div>
+          <div class="card-block">
+            <form (ngSubmit)="submit()" #editProfileForm="ngForm">
+              <div class="form-group">
+                <label>Nama Lengkap</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">person</i></div>
+                  <input type="text" [(ngModel)]="name" name="name" #profilename="ngModel" class="form-control" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <p [hidden]="profilename.valid || profilename.pristine" style="color: #E30203">Name lengkap wajib diisi</p>
+              </div>
+              <div class="form-group">
+                <label>Tanggal Lahir</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">today</i></div>
+                  <input type="text" [(ngModel)]="birthdate" name="birthdate" class="form-control" placeholder="" required>
+                </div>
+                <!-- <p *ngIf="password != repassword" style="color: #E30203">Password tidak sama</p> -->
+              </div>
+              <div class="form-group">
+                <label>Jenis Kelamin</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">face</i></div>
+                  <input type="text" [(ngModel)]="gender" name="gender" class="form-control" placeholder="" required>
+                </div>
+                <!-- <p *ngIf="password != repassword" style="color: #E30203">Password tidak sama</p> -->
+              </div>
+              <div class="form-group">
+                <label>Nomor Handphone</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">smartphone</i></div>
+                  <input type="text" [(ngModel)]="phone" name="phone" #profilephone="ngModel" class="form-control" placeholder="Masukkan nomor handphone Anda" required>
+                </div>
+                <p [hidden]="profilephone.valid || profilephone.pristine" style="color: #E30203">Nomor handphone wajib diisi</p>
+              </div>
+              <div class="form-group">
+                <label>Tingkatan</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">school</i></div>
+                  <input type="text" [(ngModel)]="criteria" name="criteria" class="form-control" placeholder="" required>
+                </div>
+                <!-- <p [hidden]="email || !submitted" style="color: #E30203">E-mail wajib diisi</p> -->
+              </div>
+              <div class="form-group">
+                <label>Institusi</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">account_balance</i></div>
+                  <input type="text" [(ngModel)]="institution" name="institution" #profileinstitution="ngModel" class="form-control" placeholder="Nama institusi pendidikan atau tempat Anda bekerja" required>
+                </div>
+                 <p [hidden]="profileinstitution.valid || profileinstitution.pristine" style="color: #E30203">Institusi wajib diisi</p>
+              </div>
+              <button type="submit" class="btn btn-custom" [disabled]="!name || !birthdate || !gender || !phone || !criteria || !instituton">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

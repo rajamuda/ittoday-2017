@@ -16,16 +16,16 @@ export class AppComponent implements OnInit {
   public subscription: Subscription;
   public navIsFixed;
 
-  constructor(@Inject(DOCUMENT) private document: Document, public authHttp: AuthHttp, public appState: AppState, public dataService: DataService) {
+  constructor(@Inject(DOCUMENT) public document: Document, public authHttp: AuthHttp, public appState: AppState, public dataService: DataService) {
     this.subscription = dataService.loginAnnounced$.subscribe(status => {
       this.loggedin = status;
     });
   }
 
-  public ngOnInit() {
+  ngOnInit() {
     let token = localStorage.getItem('token');
     if(token){
-      this.authHttp.post('http://localhost:4200/session', JSON.stringify({"token": token}))
+      this.authHttp.post(this.dataService.urlSession, JSON.stringify({"token": token}))
         .subscribe(data => {
           let res = data.json();
           if(res.status){
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
   @HostListener("window:scroll", [])
     onWindowScroll() {
       let number = this.document.body.scrollTop;
-      if (number > 120) {
+      if (number > 70) {
         this.navIsFixed = true;
       } else if (this.navIsFixed && number < 120) {
         this.navIsFixed = false;

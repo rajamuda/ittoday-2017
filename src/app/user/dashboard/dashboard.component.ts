@@ -17,7 +17,7 @@ export class DashboardComponent{
 	constructor(public http: Http, public router: Router, public dataService: DataService){}
 
 	ngOnInit(){
-		
+		window.scrollTo(0,0);
 	}
 
 	public submit(){

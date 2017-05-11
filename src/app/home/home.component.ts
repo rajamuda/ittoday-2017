@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   public ngOnInit() {
-
+     window.scrollTo(0,0);
   }
 
   public submitState(value: string) {

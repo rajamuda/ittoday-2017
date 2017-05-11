@@ -18,6 +18,7 @@ export class LoginComponent{
 	constructor(public toast: ToastrService, public http: Http, public router: Router, public dataService: DataService){}
 	
 	ngOnInit(){
+		window.scrollTo(0,0);
 		if(localStorage.getItem('token')){
 			this.router.navigate(['/']);
 		}
@@ -28,7 +29,7 @@ export class LoginComponent{
 
 		 var headers = new Headers();
 		 headers.append('Content-Type', 'application/json');
-		 this.http.post('http://localhost:4200/login', creds, {headers: headers})
+		 this.http.post(this.dataService.urlLogin, creds, {headers: headers})
 		 	.subscribe(res => {
 		 		let data = res.json();
 		 		console.log(data);
@@ -36,11 +37,12 @@ export class LoginComponent{
 		 			localStorage.setItem('token', data['token']);
 		 			this.dataService.loginState(true);
 		 			this.router.navigate(['/']);
-		 			this.toast.success('Yeeay', data['message']);
+		 			this.toast.success(data['message'], 'Success');
 		 		}else{
-		 			this.toast.error('Failed', data['message']);
+		 			this.toast.warning(data['message'], 'Failed');
 		 		}
-
+		 	}, err => {
+		 		this.toast.error('No connection', 'Failed');
 		 	});
 	}
 }

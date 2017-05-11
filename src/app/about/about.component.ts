@@ -34,6 +34,7 @@ export class AboutComponent implements OnInit {
   ) {}
 
   public ngOnInit() {
+    window.scrollTo(0,0);
     this.route
       .data
       .subscribe((data: any) => {
