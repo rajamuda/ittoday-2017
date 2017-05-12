@@ -51,9 +51,9 @@ export class AppComponent implements OnInit {
   @HostListener("window:scroll", [])
     onWindowScroll() {
       let number = this.document.body.scrollTop;
-      if (number > 70) {
+      if (number > 200) {
         this.navIsFixed = true;
-      } else if (this.navIsFixed && number < 120) {
+      } else if (this.navIsFixed && number < 10) {
         this.navIsFixed = false;
       }
   }

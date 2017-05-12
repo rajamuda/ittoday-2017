@@ -12,12 +12,24 @@ import { DataService } from '../../providers/data.service';
 })
 
 export class EditProfileComponent{
-	private name: string;
-	private institution: string;
-	private criteria: string;
-	private birthdate: string;
-	private gender: number;
-	private phone: number;
+	private criterion: any = [
+		{ value: '', display: 'Pilih Salah Satu', disabled: true },
+		{ value: 'sma', display: 'SMA/SMK', disabled: false },
+		{ value: 's1', display: 'Mahasiswa (S1)', disabled: false },
+		{ value: 'general', display: 'Umum', disabled: false }
+	];
+	private genders: any = [
+		{ value: 'M', display: 'Male' },
+		{ value: 'F', display: 'Female' }
+	];
+	private user: any = {
+		name: '',
+		institution: '',
+		criteria: this.criterion[0],
+		phone: '',
+		gender: this.genders[0].value,
+		address: '',
+	}
 	private submitted: boolean = false;
 
 	constructor(public toast: ToastrService, public http: Http, public router: Router, public dataService: DataService){}
@@ -31,8 +43,8 @@ export class EditProfileComponent{
 
 	public submit(){
 		this.submitted = true;
-		let creds = JSON.stringify({name: this.name, institution: this.institution, criteria: this.criteria, birthdate: this.birthdate, gender: this.gender, phone: this.phone});
-		console.log(creds);
+		// let creds = JSON.stringify({name: this.name, institution: this.institution, criteria: this.criteria, birthdate: this.birthdate, gender: this.gender, phone: this.phone});
+		// console.log(creds);
 
 	}
 
