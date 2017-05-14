@@ -10,5 +10,6 @@ export const ROUTES: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
   { path: 'user', loadChildren: './user/user.module#UserModule'},
+  { path: 'event', loadChildren: './event/event.module#EventModule'},
   { path: '**',    component: NoContentComponent },
 ];
