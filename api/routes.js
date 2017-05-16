@@ -2,12 +2,21 @@ var user = require('./models/user');
 
 module.exports = {
 	configure: function(app){
+		/* API */
+		app.get('/api', function(req, res){
+			if(req.header['Authorization']){
+				res.send('Hello, world');
+			}else{
+				res.send('You are cheater!');
+			}
+		});
+
 		/* user */
-		app.post('/login', function(req, res){
+		app.post('/api/login', function(req, res){
 			user.login(req.body, res);
 		});
 
-		app.post('/session', function(req, res){
+		app.post('/api/session', function(req, res){
 			user.session(req, res);
 		});
 

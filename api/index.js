@@ -3,32 +3,25 @@ var bodyparser = require('body-parser');
 var conn = require('./connection');
 var routes = require('./routes');
 var cors = require('cors');
-
+var path = require('path');
 var app = express();
 
 app.use(cors());
-// var allowCrossDomain = function(req, res){
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-//   res.setHeader('Access-Control-Allow-Credentials', true);
-// }
+
+// app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
-// app.use(allowCrossDomain);
-
-app.get('/', function(req, res){
-	if(req.header['Authorization']){
-		res.send('Hello, world');
-	}else{
-		res.send('You are cheater!');
-	}
-});
 
 conn.init();
 routes.configure(app);
 
-var server = app.listen(4200, function(){
-	console.log("Server listening on port "+server.address().port);
+/* angular frontend */
+app.use(express.static(path.join(__dirname, 'views')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views/index.html'));
 });
+
+var server = app.listen(4200, function(){
+        console.log('Server is listening on port ' + server.address().port);
+})
