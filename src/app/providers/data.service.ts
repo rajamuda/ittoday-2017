@@ -10,6 +10,8 @@ export class DataService{
 	public isLoggedIn = new Subject<boolean>();
 
 	public urlLogin = 'http://localhost:4200/login';
+	public urlRegister = 'http://localhost:4200/register';
+	public urlSession = 'http://localhost:4200/session';
 
 	loginAnnounced$ = this.isLoggedIn.asObservable();
 

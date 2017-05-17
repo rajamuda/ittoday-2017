@@ -11,6 +11,6 @@ import { Routing } from './login.router';
 	declarations: [ LoginComponent ]
 })
 
-export class UserModule{
+export class LoginModule{
 	
 }

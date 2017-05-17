@@ -1,8 +1,105 @@
-html, body{
-  height: 100%;
-  font-family: Arial, Helvetica, sans-serif
+a {
+  color: #E20302;
 }
 
-a.active {
-  background-color: gray;
+.navbar {
+  background-color: #E20302;
+  -moz-box-shadow:0 3px 5px rgba(182, 182, 182, 0.75);
+  -webkit-box-shadow: 0 3px 5px rgba(182, 182, 182, 0.75);
+  box-shadow: 0 3px 5px rgba(182, 182, 182, 0.75);
+}
+
+@media (max-width: 767px) {
+  .navbar .container {
+    text-align: center;
+  }
+
+  .show .dropdown-menu {
+    text-align: center;
+  }
+}
+
+.navbar-light .navbar-nav .nav-link {
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+  border-bottom: 2px solid #EBDB01;
+  color: #EBDB01;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+  color: #EBDB01;
+}
+
+@media (min-width: 768px) {
+  .navbar-light .navbar-nav .nav-link {
+    border: 2px solid #E20302;
+  }
+
+  .navbar-light .navbar-nav .nav-link:hover {
+    border-bottom: 2px solid #EBDB01;
+  }
+}
+
+.navbar-light .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(235, 219, 1, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar-light .navbar-toggler {
+  margin-top: 3px;
+  border-color: #EBDB01;
+}
+
+.navbar-text {
+  margin-top: 3px;
+  font-size: 16px;
+}
+
+.footer-content {
+  background-color: #E20302;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 999;
+  }
+
+  .footer-content {
+    margin-top: 80px;
+  }
+}
+
+.footer-sub {
+  background-color: #E20302;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 40px 40px 0 0;
+  border-bottom: 3px solid #EBDB01;
+}
+
+@media (min-width: 768px) {
+  .footer-sub {
+    margin-top: -40px;
+  }
+}
+
+.footer-text {
+  margin-bottom: 40px;
+  color: #fff;
+}
+
+.copyright {
+  background-color: #EBDB01;
+  text-align: center;
+  color: #000;
 }

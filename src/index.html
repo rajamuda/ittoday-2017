@@ -16,14 +16,47 @@
 
   <!-- base url -->
   <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
+  
+  <!-- Assets -->
+  <script src="assets/js/jquery-3.2.1.min.js"></script>
+  <script src="assets/js/tether.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/toastr.css" />
+  
+  <style>
+    @font-face{
+      font-family: Palanquin;
+      src: url("assets/fonts/palanquin-regular.ttf");
+    }
+    @font-face{
+      font-family: Palanquin;
+      src: url("assets/fonts/palanquin-bold.ttf");
+      font-weight: bold;
+    }
+    body {
+      font-family: Palanquin !important;
+    }
+    .preboot{
+      position: absolute;
+      text-align: center;
+      top: 40%;
+      right: 0px;
+      left: 0px;
+    }
+  </style>
 
+  <!-- Onestyd, Rajamuda, Abdurrohim -->
 
 </head>
 
 <body>
 
   <app>
-    Loading...
+    <div class="preboot">
+      <img src="assets/img/spinner.svg" alt="Loading icon" />
+    </div>
   </app>
 
   <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->

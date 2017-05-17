@@ -1,0 +1,71 @@
+<div class="main-component">
+  <div class="container">
+    <div class="row editprofile-form">
+      <div class="col col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header">
+            Edit your profile info
+          </div>
+          <div class="card-block">
+            <form (ngSubmit)="submit()" #editProfileForm="ngForm">
+              <div class="form-group">
+                <label>Nama Lengkap</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">person</i></div>
+                  <input type="text" [(ngModel)]="user.name" name="name" #name="ngModel" class="form-control" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <p [hidden]="name.valid || name.pristine" style="color: #E30203">Name lengkap wajib diisi</p>
+              </div>
+              <div class="form-group">
+                <label>Gender</label>
+                <div class="form-check" *ngFor="let gender of genders">
+                  <!-- <div class="input-group-addon"><i class="material-icons">school</i></div> -->
+                  <label class="form-check-label">
+                    <input type="radio" name="gender" [(ngModel)]="user.gender" [value]="gender.value" [checked]="gender.checked">
+                    {{gender.display}}
+                  </label>
+                </div>
+                <!-- <p [hidden]="email || !submitted" style="color: #E30203">E-mail wajib diisi</p> -->
+              </div>
+              <div class="form-group">
+                <label>Nomor Handphone</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">smartphone</i></div>
+                  <input type="number" [(ngModel)]="user.phone" name="phone" #phone="ngModel" class="form-control" placeholder="Masukkan nomor handphone Anda" required>
+                </div>
+                <p [hidden]="phone.valid || phone.pristine" style="color: #E30203">Nomor handphone wajib diisi</p>
+              </div>
+              <div class="form-group">
+                <label>Tingkatan</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">school</i></div>
+                  <select name="criteria" class="form-control" [(ngModel)]="user.criteria">
+                    <option *ngFor="let criteria of criterion" [ngValue]="criteria" [disabled]="criteria.disabled">{{criteria.display}}</option>
+                  </select>
+                </div>
+                <!-- <p [hidden]="email || !submitted" style="color: #E30203">E-mail wajib diisi</p> -->
+              </div>
+              <div class="form-group">
+                <label>Institusi</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">account_balance</i></div>
+                  <input type="text" [(ngModel)]="user.institution" name="institution" #institution="ngModel" class="form-control" placeholder="Nama institusi pendidikan atau tempat Anda bekerja" required>
+                </div>
+                 <p [hidden]="institution.valid || institution.pristine" style="color: #E30203">Institusi wajib diisi</p>
+              </div>
+              <div class="form-group">
+                <label>Alamat tinggal</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">home</i></div>
+                  <input type="text" [(ngModel)]="user.address" name="address" #address="ngModel" class="form-control" placeholder="Masukkan alamat Anda" required>
+                </div>
+                 <p [hidden]="address.valid || address.pristine" style="color: #E30203">Alamat tinggal wajib diisi</p>
+              </div>
+              <button type="submit" class="btn btn-custom" [disabled]="!user.name || !user.phone || !user.institution || !user.address || !user.criteria.value">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
