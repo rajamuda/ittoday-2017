@@ -1,7 +1,6 @@
 var Sequelize = require('sequelize');
-var json = require('json');
 
-var sequelize = new Sequelize('ittodayw_2017', 'root', '', {
+module.exports = new Sequelize('ittodayw_2017', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
   pool: {
