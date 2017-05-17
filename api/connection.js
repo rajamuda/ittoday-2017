@@ -1,22 +1,12 @@
-var mysql = require('mysql');
+var Sequelize = require('sequelize');
+var json = require('json');
 
-function Connection() {
-  this.pool = null;
-
-  this.init = function() {
-    this.pool = mysql.createPool({
-      host: 'localhost',
-      user: 'root',
-      password: '',
-      database: 'ittodayw_2016'
-    });
-  };
-
-  this.acquire = function(callback) {
-    this.pool.getConnection(function(err, connection) {
-      callback(err, connection);
-    });
-  };
-}
-
-module.exports = new Connection();
+var sequelize = new Sequelize('ittodayw_2017', 'root', '', {
+  host: 'localhost',
+  dialect: 'mysql',
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
+  }
+});
