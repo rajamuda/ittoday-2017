@@ -4,14 +4,14 @@ var bodyParser = require('body-parser');
 var sequelize = require('./connection');
 
 /* Sync Database */
-var User = sequelize.import(__dirname + "/models/user");
+var User = sequelize.import(__dirname + "/models/user.models");
 User.sync();
-var News = sequelize.import(__dirname + "/models/news");
+var News = sequelize.import(__dirname + "/models/news.models");
 News.sync();
 
 /* ROUTING */
 var index = require('./routes/index');
-var user = require('./routes/user');
+var user = require('./routes/user.routes');
 
 var app = express();
 
@@ -22,6 +22,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', index);
 app.use('/api/user', user);
 app.use('/api/user/register', user);
+app.use('/api/user/login', user);
+app.use('/api/user/session', user);
+app.use('/api/user/editprofile', user);
 
 /* frontend routes handler */
 app.use(express.static(path.join(__dirname, 'views')));

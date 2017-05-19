@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('artikel', {
+  return sequelize.define('news', {
     judul_artikel: DataTypes.STRING,
     isi_artikel: DataTypes.STRING
   }, {
