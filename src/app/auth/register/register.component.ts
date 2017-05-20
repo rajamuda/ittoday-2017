@@ -29,8 +29,31 @@ export class RegisterComponent{
 
 	public submit(){
 		this.submitted = true;
-		let creds = JSON.stringify({name: this.name, email: this.email, pass: this.password, pass2: this.repassword});
-		console.log(creds);
+		let creds = JSON.stringify({nama_user: this.name, email_user: this.email, password_user: this.password, password_lagi: this.repassword});
+		
+		var headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		this.http.post(this.dataService.urlRegister, creds, {headers: headers})
+			.subscribe(res => {
+				let data = res.json();
+
+				if(data.status){
+					this.toast.success(data.message, 'Success');
+					creds = JSON.stringify({email_user: this.email, password_user: this.password, rembember_me: false});
+					this.http.post(this.dataService.urlLogin, creds, {headers: headers})
+						.subscribe(res => {
+							let info = res.json();
+							localStorage.setItem('token', info.token);
+							this.dataService.loginState(true);
+							this.router.navigate(['/user/dashboard']);
+						})
+				}else{
+					this.toast.warning(data.message, 'Failed');
+				}
+
+			}, err => {
+				this.toast.error('No connection', 'Failed!');
+			});
 
 	}
 

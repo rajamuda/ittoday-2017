@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var cors = require('cors');
 var bodyParser = require('body-parser');
 var sequelize = require('./connection');
 
@@ -15,6 +16,7 @@ var user = require('./routes/user.routes');
 
 var app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -25,6 +27,7 @@ app.use('/api/user/register', user);
 app.use('/api/user/login', user);
 app.use('/api/user/session', user);
 app.use('/api/user/editprofile', user);
+app.use('/api/user/showprofile/:id', user);
 
 /* frontend routes handler */
 app.use(express.static(path.join(__dirname, 'views')));

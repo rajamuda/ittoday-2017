@@ -25,7 +25,7 @@ export class LoginComponent{
 	}
 
 	public submit(){
-		 let creds = JSON.stringify({email: this.email, pass: this.password});
+		 let creds = JSON.stringify({email_user: this.email, password_user: this.password, remember_me: false});
 
 		 var headers = new Headers();
 		 headers.append('Content-Type', 'application/json');
@@ -33,13 +33,13 @@ export class LoginComponent{
 		 	.subscribe(res => {
 		 		let data = res.json();
 		 		console.log(data);
-		 		if(data['status']){
-		 			localStorage.setItem('token', data['token']);
+		 		if(data.status){
+		 			localStorage.setItem('token', data.token);
 		 			this.dataService.loginState(true);
-		 			this.router.navigate(['/']);
-		 			this.toast.success(data['message'], 'Success');
+		 			this.router.navigate(['/user/dashboard']);
+		 			this.toast.success(data.message, 'Success');
 		 		}else{
-		 			this.toast.warning(data['message'], 'Failed');
+		 			this.toast.warning(data.message, 'Failed');
 		 		}
 		 	}, err => {
 		 		this.toast.error('No connection', 'Failed');

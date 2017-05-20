@@ -9,9 +9,11 @@ export class DataService{
 	public id_user: number;
 	public isLoggedIn = new Subject<boolean>();
 
-	public urlLogin = 'http://localhost:4200/login';
-	public urlRegister = 'http://localhost:4200/register';
-	public urlSession = 'http://localhost:4200/session';
+	public urlLogin = 'http://localhost:4200/api/user/login';
+	public urlRegister = 'http://localhost:4200/api/user/register';
+	public urlSession = 'http://localhost:4200/api/user/session';
+	public urlEditProfile = 'http://localhost:4200/api/user/editprofile';
+	public urlShowProfile = 'http://localhost:4200/api/user/showprofile';
 
 	loginAnnounced$ = this.isLoggedIn.asObservable();
 

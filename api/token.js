@@ -29,8 +29,8 @@ function Token(){
     }
   }
 
-  this.validateToken = function(req, res){
-    var token = req.headers['authorization'];
+  this.validateToken = function(header, res){
+    var token = header['authorization'];
 
     try{
       var decoded = jwt.verify(token, 'ithariini2017');
