@@ -11,9 +11,12 @@ function UserControllers(){
 	  	var nama_user = data.nama_user;
 	  	var email_user = data.email_user;
 	  	var password_user = crypto.createHash('sha256').update(data.password_user).digest('hex');
+	  	var password_confirm = data.password_lagi;
 
-	  	if (!nama_user || !email_user || !password_user) {
+	  	if (!nama_user || !email_user || !password_user || !password_confirm) {
 	    	res.json({status: false, message: "There is empty field!", err_code: 406});
+	  	} else if (password_user != password_confirm) {
+	  		res.json({status: false, message: "Confirmation password does not match", err_code: 406});
 	  	} else {
 	    	User
 	    		.create({nama_user: nama_user, email_user: email_user, password_user: password_user})
@@ -34,6 +37,7 @@ function UserControllers(){
 	  	var password_user = crypto.createHash('sha256').update(data.password_user).digest('hex');
 	  	var remember_me = data.remember_me;
 
+<<<<<<< HEAD
 	  	User
 	    	.findAll({
 	      		where: { email_user: email_user, password_user: password_user }
@@ -45,18 +49,17 @@ function UserControllers(){
 		        	var signInTime = Math.floor(Date.now()/1000); // iat
 		        	var expired;
 		        	if (remember_me == true) {
-		          	expired = 99999999999;
+		          		expired = 99999999999;
 		        	} else {
 		          		expired = signInTime + (2*60*60) // exp after 2 hours
 		        	}
 		        	var data = { id: user[0].id, nama_user: user[0].nama_user, email_user: user[0].email_user, tingkat_user: user[0].tingkat_user, iat: signInTime, exp: expired }
 		        	var token = jwt.createToken(data);
-
-		        	res.json({status: true, message: "Login successs", token: token});
+		        	res.json({status: true, message: "Login success!", token: token});
 		      	}
 	    	})
 	    	.catch(function(err) {
-	      		res.json({status: false, message: "Login failed", err: err});
+	      		res.json({status: false, message: "Login failed!", err: err});
 	    	})
 	}
 
@@ -75,9 +78,9 @@ function UserControllers(){
 		    var kelamin_user = data.kelamin_user;
 		    var tingkat_user = data.tingkat_user;
 		    var institusi_user = data.institusi_user;
-		    var tinggal_user = data.tinggal_user;
+		    var alamat_user = data.alamat_user;
 
-	    	if (!nama_user || !telepon_user || !kelamin_user || !tingkat_user || !institusi_user || !tinggal_user) {
+	    	if (!nama_user || !telepon_user || !kelamin_user || !tingkat_user || !institusi_user || !alamat_user) {
 	      		res.json({status: false, message: 'There is empty field!', err_code: 406});
 	    	} else {
 		      	User
@@ -101,6 +104,29 @@ function UserControllers(){
 		    }
 	    }
   	}
+
+	this.showprofile = function(id, header, res){
+		var auth = jwt.validateToken(header, res);
+		if (auth == false) {
+	    	res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});			
+		} else {
+	    	if(auth.id != id) {
+	   			res.json({status: false, message: 'Access Denied', err_code: 403});			
+	    	} else {
+		    	User
+		    		.findAll({
+		    			where: { id: id, email_user: auth.email_user },
+		    			attributes: ['nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user']
+		    		})
+		    		.then(function(user){
+		    			res.json({status: true, message: "Retrieve data success", data: user});					
+		    		})
+		    		.catch(function(err) {
+				      res.json({status: false, message: "Retrieve data failed", err: err});
+				    })
+	    	}
+		}
+	}
 }
 
 module.exports = new UserControllers();

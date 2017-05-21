@@ -25,7 +25,13 @@ router.post('/session', function(req, res, next){
 
 /*POST user editprofile */
 router.post('/editprofile', function(req, res, next){
-  user.editprofile(req.body, res);
+  user.editprofile(req.body, req.headers, res);
 });
+
+router.get('/showprofile/:id', function(req, res, next){
+	var id = req.params.id;
+	var header = req.headers;
+	user.showprofile(id, header, res);
+})
 
 module.exports = router;
