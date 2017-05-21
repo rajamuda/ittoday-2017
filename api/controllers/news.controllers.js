@@ -5,7 +5,7 @@ var sequelize = require('../connection');
 var News = sequelize.import(__dirname + "/../models/news.models");
 
 function NewsControllers() {
-	this.getAll(res) {
+	this.getAll = function(res) {
 		News
 			.findAll({order: ['createdAt', 'DESC']})
 			.then(function(result) {
@@ -18,7 +18,7 @@ function NewsControllers() {
 			});
 	}
 
-	this.getOne(id, res) {
+	this.getOne = function(id, res) {
 		News
 			.findById(id)
 			.then(function(result) {
@@ -31,7 +31,7 @@ function NewsControllers() {
 			});
 	}
 
-	this.create(data, res) {
+	this.create = function(data, res) {
 		var judul_news = data.judul_news;
 		var isi_news = data.isi_news;
 
@@ -51,7 +51,7 @@ function NewsControllers() {
 		}
 	}
 
-	this.edit(id, data, res) {
+	this.edit = function(id, data, res) {
 		var judul_news = data.judul_news;
 		var isi_news = data.isi_news;
 

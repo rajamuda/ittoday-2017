@@ -36,8 +36,6 @@ function UserControllers(){
 	  	var email_user = data.email_user;
 	  	var password_user = crypto.createHash('sha256').update(data.password_user).digest('hex');
 	  	var remember_me = data.remember_me;
-
-<<<<<<< HEAD
 	  	User
 	    	.findAll({
 	      		where: { email_user: email_user, password_user: password_user }

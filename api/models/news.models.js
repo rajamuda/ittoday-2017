@@ -5,18 +5,18 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     getterMethods: {
       getJudul: function() {
-        return this.getDataValue('judul_artikel');
+        return this.getDataValue('judul_news');
       },
       getIsi: function() {
-        return this.getDataValue('isi_artikel');
+        return this.getDataValue('isi_news');
       }
     },
     setterMethods: {
       setJudul: function(judul) {
-        return this.setDataValue('judul_artikel', judul);
+        return this.setDataValue('judul_news', judul);
       },
       setIsi: function(judul) {
-        return this.setDataValue('isi_artikel', isi);
+        return this.setDataValue('isi_news', isi);
       }
     }
   });
