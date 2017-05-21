@@ -7,7 +7,7 @@ var sequelize = require('./connection');
 var User = sequelize.import(__dirname + "/models/user.models");
 User.sync();
 var News = sequelize.import(__dirname + "/models/news.models");
-News.sync();
+News.sync({force: true});
 
 /* ROUTING */
 var index = require('./routes/index');
