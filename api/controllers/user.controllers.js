@@ -12,7 +12,7 @@ function UserControllers(){
 	this.register = function(data, res){
 	  	var nama_user = data.nama_user;
 	  	var email_user = data.email_user;
-	  	var password_user = crypto.createHash('sha256').update(data.password_user).digest('hex');
+	  	var password_user = data.password_user;
 	  	var password_confirm = data.password_lagi;
 
 	  	if (!nama_user || !email_user || !password_user || !password_confirm) {
@@ -21,7 +21,7 @@ function UserControllers(){
 	  		res.json({status: false, message: "Confirmation password does not match", err_code: 406});
 	  	} else {
 	    	User
-	    		.create({nama_user: nama_user, email_user: email_user, password_user: password_user})
+	    		.create({nama_user: nama_user, email_user: email_user, password_user: crypto.createHash('sha256').update(password_user).digest('hex')})
 	    		.then(function() {
 	    			console.log('User built successfully');
 	        		res.json({status: true, message: "Register Success!"});
@@ -64,11 +64,11 @@ function UserControllers(){
 	}
 
 	this.session = function(data, res){
-  	  	jwt.checkToken(data);
+  	  	jwt.checkToken(data, res);
 	}
 
-	this.editprofile = function(data, res) {
-		var auth = jwt.validateToken(req, res);
+	this.editprofile = function(data, header, res) {
+		var auth = jwt.validateToken(header, res);
 	  	if (auth == false) {
 	    	res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
 	   	} else {
@@ -90,7 +90,7 @@ function UserControllers(){
 		        		kelamin_user: kelamin_user,
 		        		tingkat_user: tingkat_user,
 		        		institusi_user: institusi_user,
-		        		alamat_user: tinggal_user,
+		        		alamat_user: alamat_user,
 		        		status_user: true
 		        	}, {
 		        		where: { id: id_user }
@@ -133,7 +133,7 @@ function UserControllers(){
 		var storage = multer.diskStorage({ //multers disk storage settings
 		  destination: function (req, file, cb) {
 		  		console.log(req.headers.authorization);
-		      cb(null, './uploads/')
+		      cb(null, './views/uploads/')
 		  },
 		  filename: function (req, file, cb) {
 		      var datetimestamp = Date.now();

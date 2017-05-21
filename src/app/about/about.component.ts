@@ -127,6 +127,6 @@ export class AboutComponent {
   //       });
 
   //   });
-  }
+  // }
 
 }
