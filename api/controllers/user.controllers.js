@@ -1,5 +1,7 @@
 var express = require('express');
 var crypto = require('crypto');
+var multer = require('multer');
+var path = require('path');
 
 var sequelize = require('../connection');
 var jwt = require('../token');
@@ -89,10 +91,10 @@ function UserControllers(){
 	        .update({ nama_user: nama_user, telepon_user: telepon_user, kelamin_user: kelamin_user, tingkat_user: tingkat_user, institusi_user: institusi_user, alamat_user: alamat_user, status_user: true },
 	                { where: {id: id_user} })
 	        .then(function(){
-	          res.json({status: true, message: 'Success!'});
+	          res.json({status: true, message: 'Update profile success!'});
 	        })
 	        .catch(function(err){
-	          res.json({status: false, message: "Registration failed", err: err});
+	          res.json({status: false, message: "Update profile failed", err: err});
 	        })
 	    }
  	 }
@@ -109,7 +111,7 @@ function UserControllers(){
 	    	User
 	    		.findAll({
 	    			where: { id: id, email_user: auth.email_user },
-	    			attributes: ['nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user']
+	    			attributes: ['nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'status_user']
 	    		})
 	    		.then(function(user){
 	    			res.json({status: true, message: 'Retrieve data success', data: user});					
@@ -119,6 +121,43 @@ function UserControllers(){
 			    })
 	    }
 		}
+	}
+
+	this.uploadid = function(req, res){
+		var storage = multer.diskStorage({ //multers disk storage settings
+		  destination: function (req, file, cb) {
+		  		console.log(req.headers.authorization);
+		      cb(null, './uploads/')
+		  },
+		  filename: function (req, file, cb) {
+		      var datetimestamp = Date.now();
+		      cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+		  }
+		});
+
+		var upload = multer({ //multer settings
+		    storage: storage,
+		    fileFilter: function (req, file, callback) {
+		        var ext = path.extname(file.originalname);
+		        console.log(file.mimetype);
+		        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+		        		req.fileValidateError = "Only images are allowed";
+		            return callback(new Error('Only images are allowed'))
+		        }
+		        callback(null, true)
+		    },
+		    limits: { fileSize: 1*1024*1024 } //10 MiB
+		}).single('profilepic');
+	
+		upload(req, res, function(err){
+			// console.log(req);
+			console.log(req.fileValidateError);
+			if(err){
+				res.send(err);
+			}else{
+				res.json({message: 'success'});
+			}
+		})
 	}
 }
 

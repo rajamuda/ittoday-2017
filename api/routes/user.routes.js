@@ -4,7 +4,7 @@ var router = express.Router();
 var user = require('../controllers/user.controllers');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.json({status: false, message: 'none API implemented'});
 });
 
@@ -14,24 +14,28 @@ router.post('/register', function(req, res) {
 });
 
 /*POST user authentication */
-router.post('/login', function(req, res, next){
+router.post('/login', function(req, res){
   user.login(req.body, res);
 });
 
 /*POST user validation */
-router.post('/session', function(req, res, next){
+router.post('/session', function(req, res){
   user.session(req, res);
 });
 
 /*POST user editprofile */
-router.post('/editprofile', function(req, res, next){
+router.post('/editprofile', function(req, res){
   user.editprofile(req.body, req.headers, res);
 });
 
-router.get('/showprofile/:id', function(req, res, next){
+router.get('/showprofile/:id', function(req, res){
 	var id = req.params.id;
 	var header = req.headers;
 	user.showprofile(id, header, res);
+});
+
+router.post('/uploadid', function(req, res){
+	user.uploadid(req, res);
 })
 
 module.exports = router;
