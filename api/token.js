@@ -3,7 +3,6 @@ var jwt = require('jsonwebtoken');
 function Token(){
   this.createToken = function(data, res){
     var token = jwt.sign(data, 'ithariini2017');
-
     return token;
   }
 

@@ -13,6 +13,7 @@ News.sync();
 /* ROUTING */
 var index = require('./routes/index');
 var user = require('./routes/user.routes');
+var news = require('./routes/news.routes');
 
 var app = express();
 
@@ -28,6 +29,10 @@ app.use('/api/user/login', user);
 app.use('/api/user/session', user);
 app.use('/api/user/editprofile', user);
 app.use('/api/user/showprofile/:id', user);
+app.use('/api/news', news);
+app.use('/api/news/:id', news);
+app.use('/api/news/create', news);
+app.use('/api/news/edit', news);
 
 /* frontend routes handler */
 app.use(express.static(path.join(__dirname, 'views')));
