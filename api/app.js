@@ -9,6 +9,12 @@ var User = sequelize.import(__dirname + "/models/user.models");
 User.sync();
 var News = sequelize.import(__dirname + "/models/news.models");
 News.sync();
+var Event = sequelize.import(__dirname + "/models/event.models");
+Event.sync();
+var HackTeam = sequelize.import(__dirname + "/models/hackteam.models");
+HackTeam.sync();
+var AppTeam = sequelize.import(__dirname + "/models/appteam.models");
+AppTeam.sync();
 
 /* ROUTING */
 var index = require('./routes/index');
