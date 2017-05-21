@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'toastr-ng2';
 import { DataService } from '../../providers/data.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
 	selector: 'register',
@@ -18,10 +19,11 @@ export class RegisterComponent{
 	private repassword: string;
 	private submitted: boolean = false;
 
-	constructor(public toast: ToastrService, public http: Http, public router: Router, public dataService: DataService){}
+	constructor(public title: Title, public toast: ToastrService, public http: Http, public router: Router, public dataService: DataService){}
 
 	ngOnInit(){
 		window.scrollTo(0,0);
+		this.title.setTitle('Register | '+this.dataService.baseTitle);
 		if(localStorage.getItem('token')){
 			this.router.navigate(['/']);
 		}

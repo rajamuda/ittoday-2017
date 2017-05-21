@@ -3,6 +3,7 @@ import { AuthHttp, JwtHelper } from 'angular2-jwt';
 import { Router } from '@angular/router';
 import { ToastrService } from 'toastr-ng2';
 import { DataService } from '../../providers/data.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
 	selector: 'editprofile',
@@ -34,10 +35,11 @@ export class EditProfileComponent{
 
 	jwtHelper: JwtHelper = new JwtHelper();
 
-	constructor(public toast: ToastrService, public authHttp: AuthHttp, public router: Router, public dataService: DataService){}
+	constructor(public title: Title, public toast: ToastrService, public authHttp: AuthHttp, public router: Router, public dataService: DataService){}
 
 	ngOnInit(){
 		window.scrollTo(0,0);
+		this.title.setTitle('Profile Information | '+this.dataService.baseTitle);
 		if(localStorage.getItem('token')){
 			let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
 			this.authHttp.get(this.dataService.urlShowProfile+'/'+decode.id)

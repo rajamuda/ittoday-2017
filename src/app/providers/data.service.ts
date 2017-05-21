@@ -9,6 +9,7 @@ export class DataService{
 	public id_user: number;
 	public isLoggedIn = new Subject<boolean>();
 
+	public baseTitle = 'IT Today IPB 2017 - CreativITy';
 	public urlLogin = 'http://localhost:4200/api/user/login';
 	public urlRegister = 'http://localhost:4200/api/user/register';
 	public urlSession = 'http://localhost:4200/api/user/session';

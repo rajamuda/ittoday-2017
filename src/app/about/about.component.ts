@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Subject }    from 'rxjs/Subject';
 import { ToastrService } from 'toastr-ng2';
+import { DataService } from '../providers/data.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'about',
@@ -20,7 +22,7 @@ export class AboutComponent {
   filesToUpload: Array<File>;
   inUpload: boolean = false;
 
-  constructor(toast: ToastrService) {
+  constructor(public title: Title, public dataService: DataService, toast: ToastrService) {
     this.filesToUpload = []; 
     
     this.progress$.subscribe(status => {
@@ -30,7 +32,8 @@ export class AboutComponent {
   }
 
   ngOnInit() {
-   
+    window.scrollTo(0,0);
+    this.title.setTitle('About | '+this.dataService.baseTitle);
   }
 
   upload() {
