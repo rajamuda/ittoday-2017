@@ -1,5 +1,7 @@
 var express = require('express');
 var crypto = require('crypto');
+var multer = require('multer');
+var path = require('path');
 
 var sequelize = require('../connection');
 var jwt = require('../token');
@@ -10,7 +12,7 @@ function UserControllers(){
 	this.register = function(data, res){
 	  	var nama_user = data.nama_user;
 	  	var email_user = data.email_user;
-	  	var password_user = crypto.createHash('sha256').update(data.password_user).digest('hex');
+	  	var password_user = data.password_user;
 	  	var password_confirm = data.password_lagi;
 
 	  	if (!nama_user || !email_user || !password_user || !password_confirm) {
@@ -19,7 +21,7 @@ function UserControllers(){
 	  		res.json({status: false, message: "Confirmation password does not match", err_code: 406});
 	  	} else {
 	    	User
-	    		.create({nama_user: nama_user, email_user: email_user, password_user: password_user})
+	    		.create({nama_user: nama_user, email_user: email_user, password_user: crypto.createHash('sha256').update(password_user).digest('hex')})
 	    		.then(function() {
 	    			console.log('User built successfully');
 	        		res.json({status: true, message: "Register Success!"});
@@ -62,11 +64,11 @@ function UserControllers(){
 	}
 
 	this.session = function(data, res){
-  	  	jwt.checkToken(data);
+  	  	jwt.checkToken(data, res);
 	}
 
-	this.editprofile = function(data, res) {
-		var auth = jwt.validateToken(req, res);
+	this.editprofile = function(data, header, res) {
+		var auth = jwt.validateToken(header, res);
 	  	if (auth == false) {
 	    	res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
 	   	} else {
@@ -88,16 +90,16 @@ function UserControllers(){
 		        		kelamin_user: kelamin_user,
 		        		tingkat_user: tingkat_user,
 		        		institusi_user: institusi_user,
-		        		alamat_user: tinggal_user,
+		        		alamat_user: alamat_user,
 		        		status_user: true
 		        	}, {
 		        		where: { id: id_user }
 		        	})
 		        	.then(function() {
-		          		res.json({status: true, message: 'Success!'});
+		          		res.json({status: true, message: 'Update profile success!'});
 		        	})
 		        	.catch(function(err) {
-		          		res.json({status: false, message: "Registration failed", err: err});
+		          		res.json({status: false, message: "Update profile failed", err: err});
 		        	})
 		    }
 	    }
@@ -105,6 +107,7 @@ function UserControllers(){
 
 	this.showprofile = function(id, header, res){
 		var auth = jwt.validateToken(header, res);
+
 		if (auth == false) {
 	    	res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});			
 		} else {
@@ -114,7 +117,7 @@ function UserControllers(){
 		    	User
 		    		.findAll({
 		    			where: { id: id, email_user: auth.email_user },
-		    			attributes: ['nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user']
+		    			attributes: ['nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'status_user']
 		    		})
 		    		.then(function(user){
 		    			res.json({status: true, message: "Retrieve data success", data: user});					
@@ -124,6 +127,43 @@ function UserControllers(){
 				    })
 	    	}
 		}
+	}
+
+	this.uploadid = function(req, res){
+		var storage = multer.diskStorage({ //multers disk storage settings
+		  destination: function (req, file, cb) {
+		  		console.log(req.headers.authorization);
+		      cb(null, './views/uploads/')
+		  },
+		  filename: function (req, file, cb) {
+		      var datetimestamp = Date.now();
+		      cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+		  }
+		});
+
+		var upload = multer({ //multer settings
+		    storage: storage,
+		    fileFilter: function (req, file, callback) {
+		        var ext = path.extname(file.originalname);
+		        console.log(file.mimetype);
+		        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+		        		req.fileValidateError = "Only images are allowed";
+		            return callback(new Error('Only images are allowed'))
+		        }
+		        callback(null, true)
+		    },
+		    limits: { fileSize: 1*1024*1024 } //10 MiB
+		}).single('profilepic');
+	
+		upload(req, res, function(err){
+			// console.log(req);
+			console.log(req.fileValidateError);
+			if(err){
+				res.send(err);
+			}else{
+				res.json({message: 'success'});
+			}
+		})
 	}
 }
 

@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { AuthHttp, JwtHelper } from 'angular2-jwt';
 import { Router } from '@angular/router';
+import { ToastrService } from 'toastr-ng2';
 import { DataService } from '../../providers/data.service';
 
 @Component({
@@ -10,14 +11,27 @@ import { DataService } from '../../providers/data.service';
 })
 
 export class DashboardComponent{
-	private email;
-	private password;
-	private repassword;
 
-	constructor(public http: Http, public router: Router, public dataService: DataService){}
+	jwtHelper: JwtHelper = new JwtHelper();
+
+	constructor(public authHttp: AuthHttp, public toast: ToastrService, public router: Router, public dataService: DataService){}
 
 	ngOnInit(){
 		window.scrollTo(0,0);
+		if(localStorage.getItem('token')){
+			let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
+			this.authHttp.get(this.dataService.urlShowProfile+'/'+decode.id)
+				.subscribe(res => {
+					let data = res.json();
+					let profile = data.data[0];
+					if(profile.status_user == false){
+						this.router.navigate(['/user/editprofile']);
+						this.toast.info('Please, complete your profile info', 'Information');
+					}
+				});
+		}else{
+			this.router.navigate(['/auth/login']);
+		}
 	}
 
 	public submit(){
