@@ -20,7 +20,7 @@
       <button type="submit" >Upload</button>
     </form>
 
-   <div class="progress" *ngIf="inUpload">
+  <div class="progress" *ngIf="inUpload">
     <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(progress/100)*100 + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{progress}} %</div>
   </div>
 

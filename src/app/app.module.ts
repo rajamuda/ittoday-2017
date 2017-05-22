@@ -17,6 +17,8 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 import { DataService } from './providers/data.service';
+import { UploadService } from './providers/upload.service';
+
 import { HomeComponent } from './home';
 import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
@@ -29,7 +31,8 @@ import '../styles/styles.scss';
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState,
-  DataService
+  DataService,
+  UploadService
 ];
 
 type StoreType = {

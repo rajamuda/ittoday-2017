@@ -15,7 +15,7 @@
                   <div class="input-group-addon"><i class="material-icons">person</i></div>
                   <input type="text" [(ngModel)]="user.name" name="name" #name="ngModel" class="form-control" placeholder="Masukkan nama lengkap" required>
                 </div>
-                <p [hidden]="name.valid || name.pristine" style="color: #E30203">Name lengkap wajib diisi</p>
+                <p [hidden]="name.valid || name.pristine" style="color: #E20203">Name lengkap wajib diisi</p>
               </div>
               <div class="form-group">
                 <label>Gender</label>
@@ -26,7 +26,7 @@
                     {{gender.display}}
                   </label>
                 </div>
-                <!-- <p [hidden]="email || !submitted" style="color: #E30203">E-mail wajib diisi</p> -->
+                <!-- <p [hidden]="email || !submitted" style="color: #E20203">E-mail wajib diisi</p> -->
               </div>
               <div class="form-group">
                 <label>Nomor Handphone</label>
@@ -34,7 +34,7 @@
                   <div class="input-group-addon"><i class="material-icons">smartphone</i></div>
                   <input type="number" [(ngModel)]="user.phone" name="phone" #phone="ngModel" class="form-control" placeholder="Masukkan nomor handphone Anda" required>
                 </div>
-                <p [hidden]="phone.valid || phone.pristine" style="color: #E30203">Nomor handphone wajib diisi</p>
+                <p [hidden]="phone.valid || phone.pristine" style="color: #E20203">Nomor handphone wajib diisi</p>
               </div>
               <div class="form-group">
                 <label>Tingkatan</label>
@@ -44,7 +44,7 @@
                     <option *ngFor="let criteria of criterion" [ngValue]="criteria" [disabled]="criteria.disabled">{{criteria.display}}</option>
                   </select>
                 </div>
-                <!-- <p [hidden]="email || !submitted" style="color: #E30203">E-mail wajib diisi</p> -->
+                <!-- <p [hidden]="email || !submitted" style="color: #E20203">E-mail wajib diisi</p> -->
               </div>
               <div class="form-group">
                 <label>Institusi</label>
@@ -52,7 +52,7 @@
                   <div class="input-group-addon"><i class="material-icons">account_balance</i></div>
                   <input type="text" [(ngModel)]="user.institution" name="institution" #institution="ngModel" class="form-control" placeholder="Nama institusi pendidikan atau tempat Anda bekerja" required>
                 </div>
-                 <p [hidden]="institution.valid || institution.pristine" style="color: #E30203">Institusi wajib diisi</p>
+                 <p [hidden]="institution.valid || institution.pristine" style="color: #E20203">Institusi wajib diisi</p>
               </div>
               <div class="form-group">
                 <label>Alamat tinggal</label>
@@ -60,9 +60,22 @@
                   <div class="input-group-addon"><i class="material-icons">home</i></div>
                   <input type="text" [(ngModel)]="user.address" name="address" #address="ngModel" class="form-control" placeholder="Masukkan alamat Anda" required>
                 </div>
-                 <p [hidden]="address.valid || address.pristine" style="color: #E30203">Alamat tinggal wajib diisi</p>
+                 <p [hidden]="address.valid || address.pristine" style="color: #E20203">Alamat tinggal wajib diisi</p>
               </div>
-              <button type="submit" class="btn btn-custom" [disabled]="!user.name || !user.phone || !user.institution || !user.address || !user.criteria.value">Save</button>
+              <div class="form-group" *ngIf="user.criteria.value != ''">
+                <label>Identitas <span *ngIf="user.criteria.value == 'SMA'">(Kartu Pelajar)</span><span *ngIf="user.criteria.value == 'S1'">(Kartu Mahasiswa)</span><span *ngIf="user.criteria.value == 'Umum'">(Kartu Tanda Penduduk)</span>
+                </label>
+                <div class="input-group">
+                  <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload gambar..." accept="image/jpeg, image/png" />
+                </div>
+                <p [hidden]="filevalid" style="color: #E20203">Format gambar: hanya <b>jpg, jpeg, png</b> &amp; max size: <b>2 MiB</b></p>
+                <div class="progress" *ngIf="submitted && !hasUpload">
+                  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress/100)*100 + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{uploadProgress}} %</div>
+                </div>
+                <div style="text-align: center; margin-top: 20px; "><img *ngIf="hasUpload" src="http://localhost:4200/{{filelocation}}" style="max-width: 60%;"></div>
+              </div>
+
+              <button type="submit" class="btn btn-custom" [disabled]="!user.name || !user.phone || !user.institution || !user.address || !user.criteria.value || !filevalid">Save</button>
             </form>
           </div>
         </div>

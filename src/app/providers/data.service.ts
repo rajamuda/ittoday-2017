@@ -10,11 +10,13 @@ export class DataService{
 	public isLoggedIn = new Subject<boolean>();
 
 	public baseTitle = 'IT Today IPB 2017 - CreativITy';
-	public urlLogin = 'http://localhost:4200/api/user/login';
-	public urlRegister = 'http://localhost:4200/api/user/register';
-	public urlSession = 'http://localhost:4200/api/user/session';
-	public urlEditProfile = 'http://localhost:4200/api/user/editprofile';
-	public urlShowProfile = 'http://localhost:4200/api/user/showprofile';
+	public baseUrl = 'http://localhost:4200';
+	public urlLogin = this.baseUrl+'/api/user/login';
+	public urlRegister = this.baseUrl+'/api/user/register';
+	public urlSession = this.baseUrl+'/api/user/session';
+	public urlEditProfile = this.baseUrl+'/api/user/editprofile';
+	public urlShowProfile = this.baseUrl+'/api/user/showprofile';
+	public urlUploadID = this.baseUrl+'/api/user/uploadid';
 
 	loginAnnounced$ = this.isLoggedIn.asObservable();
 

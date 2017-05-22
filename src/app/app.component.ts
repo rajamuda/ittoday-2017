@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, HostListener, Inject } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener, Inject, ViewChild, ElementRef } from '@angular/core';
 import { AppState } from './app.service';
 import { DataService } from './providers/data.service';
 import { Subscription }   from 'rxjs/Subscription';
@@ -12,6 +12,8 @@ import { DOCUMENT } from '@angular/platform-browser';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
+  @ViewChild('navbarToggler') navbarToggler:ElementRef;
+
   public loggedin;
   public subscription: Subscription;
   public navIsFixed;
@@ -46,6 +48,13 @@ export class AppComponent implements OnInit {
   public logout() {
     localStorage.removeItem('token');
     this.dataService.loginState(false);
+  }
+
+  public collapseNav() {
+    // console.log(this.navbarToggler.nativeElement.offsetParent);
+    if (this.navbarToggler.nativeElement.offsetParent !== null) {
+      this.navbarToggler.nativeElement.click();
+    }
   }
 
   @HostListener("window:scroll", [])

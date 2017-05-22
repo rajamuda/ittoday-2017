@@ -1,5 +1,5 @@
 <nav [class.fixed-top]="navIsFixed" class="navbar navbar-toggleable-md navbar-light">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button #navbarToggler class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="container">
@@ -9,33 +9,33 @@
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+          <a (click)="collapseNav()" class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
         </li>
         <div class="navbar-text hidden-sm-down"> | </div>
         <li class="nav-item">
-          <a class="nav-link" href="#">News</a>
+          <a (click)="collapseNav()" class="nav-link" href="#">News</a>
         </li>
         <div class="navbar-text hidden-sm-down"> | </div>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a (click)="collapseNav()" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Event
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-            <a class="dropdown-item" routerLink="/event/appstoday" routerLinkActive="active">AppsToday</a>
-            <a class="dropdown-item" routerLink="/event/hacktoday" routerLinkActive="active">HackToday</a>
-            <a class="dropdown-item" routerLink="/event/seminar" routerLinkActive="active">Seminar</a>
+            <a (click)="collapseNav()" class="dropdown-item" routerLink="/event/appstoday" routerLinkActive="active">AppsToday</a>
+            <a (click)="collapseNav()" class="dropdown-item" routerLink="/event/hacktoday" routerLinkActive="active">HackToday</a>
+            <a (click)="collapseNav()" class="dropdown-item" routerLink="/event/seminar" routerLinkActive="active">Seminar</a>
           </div>
         </li>
       </ul>
       <div class="navbar-nav" *ngIf="!loggedin">
-        <a class="nav-item nav-link" routerLink="/auth/login" routerLinkActive="active">Login</a>
+        <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/auth/login" routerLinkActive="active">Login</a>
         <div class="navbar-text hidden-sm-down"> / </div>
-        <a class="nav-item nav-link" routerLink="/auth/register" routerLinkActive="active">Register</a>
+        <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/auth/register" routerLinkActive="active">Register</a>
       </div>
       <div class="navbar-nav" *ngIf="loggedin">
-        <a class="nav-item nav-link" routerLink="/user/dashboard">Dashboard</a>
+        <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/user/dashboard">Dashboard</a>
         <div class="navbar-text hidden-sm-down"> / </div>
-        <a class="nav-item nav-link" routerLink="/" (click)="logout()">Logout</a>
+        <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/" (click)="logout()">Logout</a>
       </div>
     </div>
   </div>

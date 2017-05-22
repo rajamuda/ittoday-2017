@@ -3,6 +3,7 @@ import { AuthHttp, JwtHelper } from 'angular2-jwt';
 import { Router } from '@angular/router';
 import { ToastrService } from 'toastr-ng2';
 import { DataService } from '../../providers/data.service';
+import { UploadService } from '../../providers/upload.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -30,12 +31,23 @@ export class EditProfileComponent{
 		phone: '',
 		gender: this.genders[0].value,
 		address: '',
+		identity: ''
 	}
 	private submitted: boolean = false;
+	private filevalid: boolean = false;
+	private filelocation: string;
+	private hasUpload: boolean = false;
+	private uploadProgress: number = 0;
+
+  private filesToUpload: Array<File>;
 
 	jwtHelper: JwtHelper = new JwtHelper();
 
-	constructor(public title: Title, public toast: ToastrService, public authHttp: AuthHttp, public router: Router, public dataService: DataService){}
+	constructor(public uploadService: UploadService, public title: Title, public toast: ToastrService, public authHttp: AuthHttp, public router: Router, public dataService: DataService){
+		this.uploadService.progress$.subscribe(status => {
+			this.uploadProgress = status;
+		})
+	}
 
 	ngOnInit(){
 		window.scrollTo(0,0);
@@ -53,9 +65,16 @@ export class EditProfileComponent{
 						this.user.phone = profile.telepon_user;
 						this.user.address = profile.alamat_user;
 						this.user.gender = profile.kelamin_user;
+
+						if(profile.identitas_user != null){
+							this.filevalid = true;
+							this.filelocation = profile.identitas_user;
+							this.hasUpload = true;
+						}
+
 						if(profile.tingkat_user == 'SMA'){
 							this.user.criteria = this.criterion[1];
-						}else if(profile.tingkat_user = 'S1'){
+						}else if(profile.tingkat_user == 'S1'){
 							this.user.criteria = this.criterion[2];
 						}else{
 							this.user.criteria = this.criterion[3];
@@ -69,22 +88,72 @@ export class EditProfileComponent{
 		}
 	}
 
+	fileChangeEvent(fileInput: any){
+		this.hasUpload = false;
+    this.filesToUpload = <Array<File>> fileInput.target.files;
+
+    /* Validasi tipe file */
+   	if(this.filesToUpload[0].type != "image/jpeg" || this.filesToUpload[0].type != "image/png"){
+   		this.filevalid = true;
+   	}else{
+   		this.filevalid = false;
+   	}
+
+   	/* Cek ukuran gambar */
+   	if(this.filesToUpload[0].size > 2097152){
+   		this.filevalid = false;
+   	}else{
+   		this.filevalid = true;
+   	}
+  }
+
+
 	public submit(){
 		this.submitted = true;
-		let creds = JSON.stringify({nama_user: this.user.name, institusi_user: this.user.institution, tingkat_user: this.user.criteria.value, kelamin_user: this.user.gender, telepon_user: this.user.phone, alamat_user: this.user.address});
-		this.authHttp.post(this.dataService.urlEditProfile, creds)
-			.subscribe(res => {
-				let data = res.json();
 
-				if(data.status){
-					this.toast.success(data.message, 'Success');
-				}else{
-					this.toast.warning(data.message, 'Failed');
-				}
-			}, err => {
-				this.toast.error('No internet connection', 'Failed');
-			})
+		if(!this.hasUpload){
+			let params = {authorization: localStorage.getItem('token'), name: 'idcard'}
+			this.uploadService.makeFileRequest(this.dataService.urlUploadID, params, this.filesToUpload).then((result: any) => {
+	      if(result.status){
+	      	this.toast.success(result.message, 'Success');
+	      	this.filelocation = result.filelocation;
+	      	this.hasUpload = true;
+	      	this.update();      
+	      }else{
+	      	if(result.message)
+	      		this.toast.warning(result.message, 'Failed');
+	      	else
+	      		this.toast.warning('Server error while uploading', 'Failed');
 
+	      	this.uploadProgress = 0;
+	      	this.submitted = false;
+	      }
+	    }, (error) => {
+	      console.error(error);
+	    });
+		}
+
+		if(this.hasUpload){
+			this.update();		
+		}
+	}
+
+	public update(){
+		let creds = JSON.stringify({nama_user: this.user.name, institusi_user: this.user.institution, tingkat_user: this.user.criteria.value, kelamin_user: this.user.gender, identitas_user: this.filelocation, telepon_user: this.user.phone, alamat_user: this.user.address});
+			this.authHttp.post(this.dataService.urlEditProfile, creds)
+				.subscribe(res => {
+					let data = res.json();
+
+					if(data.status){
+						this.toast.success(data.message, 'Success');
+					}else{
+						this.toast.warning(data.message, 'Failed');
+						this.submitted = false;
+					}
+				}, err => {
+					this.toast.error('No internet connection', 'Failed');
+					this.submitted = false;
+				})
 	}
 
 }

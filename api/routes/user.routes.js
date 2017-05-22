@@ -35,7 +35,7 @@ router.get('/showprofile/:id', function(req, res){
 });
 
 router.post('/uploadid', function(req, res){
-	user.uploadid(req, res);
+	user.uploadID(req, res);
 })
 
 module.exports = router;

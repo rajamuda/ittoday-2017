@@ -34,7 +34,6 @@ function UserControllers(){
 	}
 
 	this.login = function(data, res){
-	  	console.log(data);
 	  	var email_user = data.email_user;
 	  	var password_user = crypto.createHash('sha256').update(data.password_user).digest('hex');
 	  	var remember_me = data.remember_me;
@@ -53,7 +52,7 @@ function UserControllers(){
 		        	} else {
 		          		expired = signInTime + (2*60*60) // exp after 2 hours
 		        	}
-		        	var data = { id: user[0].id, nama_user: user[0].nama_user, email_user: user[0].email_user, tingkat_user: user[0].tingkat_user, iat: signInTime, exp: expired }
+		        	var data = { id: user[0].id, email_user: user[0].email_user, iat: signInTime, exp: expired }
 		        	var token = jwt.createToken(data);
 		        	res.json({status: true, message: "Login success!", token: token});
 		      	}
@@ -79,8 +78,9 @@ function UserControllers(){
 		    var tingkat_user = data.tingkat_user;
 		    var institusi_user = data.institusi_user;
 		    var alamat_user = data.alamat_user;
+		    var identitas_user = data.identitas_user;
 
-	    	if (!nama_user || !telepon_user || !kelamin_user || !tingkat_user || !institusi_user || !alamat_user) {
+	    	if (!nama_user || !telepon_user || !kelamin_user || !tingkat_user || !institusi_user || !identitas_user || !alamat_user) {
 	      		res.json({status: false, message: 'There is empty field!', err_code: 406});
 	    	} else {
 		      	User
@@ -90,6 +90,7 @@ function UserControllers(){
 		        		kelamin_user: kelamin_user,
 		        		tingkat_user: tingkat_user,
 		        		institusi_user: institusi_user,
+		        		identitas_user: identitas_user,
 		        		alamat_user: alamat_user,
 		        		status_user: true
 		        	}, {
@@ -117,7 +118,7 @@ function UserControllers(){
 		    	User
 		    		.findAll({
 		    			where: { id: id, email_user: auth.email_user },
-		    			attributes: ['nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'status_user']
+		    			attributes: ['nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'identitas_user', 'status_user']
 		    		})
 		    		.then(function(user){
 		    			res.json({status: true, message: "Retrieve data success", data: user});					
@@ -129,41 +130,54 @@ function UserControllers(){
 		}
 	}
 
-	this.uploadid = function(req, res){
+	this.uploadID = function(req, res){
+		var auth = jwt.validateToken(req.headers, res);
+		var destination = '/uploads/identitas/';
+		var filename;
+
 		var storage = multer.diskStorage({ //multers disk storage settings
 		  destination: function (req, file, cb) {
-		  		console.log(req.headers.authorization);
-		      cb(null, './views/uploads/')
+		      cb(null, './views'+destination)
 		  },
 		  filename: function (req, file, cb) {
-		      var datetimestamp = Date.now();
-		      cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+		      var date = new Date();
+
+					filename =  file.fieldname + auth.id + '-' + (date.getMonth()+1) + date.getDate() + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
+		      cb(null, filename)
 		  }
 		});
 
 		var upload = multer({ //multer settings
 		    storage: storage,
-		    fileFilter: function (req, file, callback) {
+		    fileFilter: function (req, file, cb) {
 		        var ext = path.extname(file.originalname);
-		        console.log(file.mimetype);
-		        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+
+		        if(file.mimetype != 'image/png' && file.mimetype != 'image/jpeg') {
 		        		req.fileValidateError = "Only images are allowed";
-		            return callback(new Error('Only images are allowed'))
+		            return cb(new Error('Only images are allowed'))
 		        }
-		        callback(null, true)
+		        cb(null, true)
 		    },
-		    limits: { fileSize: 1*1024*1024 } //10 MiB
-		}).single('profilepic');
-	
-		upload(req, res, function(err){
-			// console.log(req);
-			console.log(req.fileValidateError);
-			if(err){
-				res.send(err);
-			}else{
-				res.json({message: 'success'});
-			}
-		})
+		    limits: { fileSize: 2*1024*1024 } //2 MiB
+		}).single('idcard');
+		
+		if(auth == false){
+			res.json({status: false, message: "Authentication failed, please login again", err_code: 401});
+		}else{
+			upload(req, res, function(err){
+				// console.log(req.fileValidateError);
+				if(req.fileValidateError){
+					res.json({status: false, message: req.fileValidateError});
+				}else if(err){
+					if(err.code == 'LIMIT_FILE_SIZE')
+						res.json({status: false, message: 'File size limit exceeded'});
+					else
+						res.json({status: false, err: err});
+				}else{
+					res.json({status: true, message: 'Upload success', filelocation: destination+filename});
+				}
+			})
+		}
 	}
 }
 
