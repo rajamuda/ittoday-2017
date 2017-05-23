@@ -36,6 +36,7 @@ Thumbs.db
 npm-debug.log
 /npm-debug.log.*
 /api/node_modules/
+/api/views/
 
 # Coverage #
 /coverage/
