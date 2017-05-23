@@ -11,20 +11,5 @@
       </h3>
     </div>
 
-    
-    <form (ngSubmit)="f.form.valid && upload()" #f="ngForm">
-      <input type="text" placeholder="nama" [(ngModel)]="nama" name="nama"/>
-      <input type="text" placeholder="nim" [(ngModel)]="nim"  name="nim"/>
-
-      <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." accept="image/*" name="profilepic"/>
-      <button type="submit" >Upload</button>
-    </form>
-
-  <div class="progress" *ngIf="inUpload">
-    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(progress/100)*100 + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{progress}} %</div>
-  </div>
-
-  <h1>{{progress}}</h1>
-
   </div>
 </div>
