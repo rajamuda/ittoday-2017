@@ -42,7 +42,7 @@ function NewsControllers() {
 				.create({judul_news: judul_news, isi_news: isi_news})
 				.then(function() {
 					console.log('News built successfully!');
-					res.json({status: true, message: "Create news success!"})
+					res.json({status: true, message: "Create news success!"});
 				})
 				.catch(function(err) {
 					console.log(err);
@@ -50,6 +50,23 @@ function NewsControllers() {
 				});
 		}
 	}
+  
+  this.delete = function(id, res) {
+    News
+      .destroy({
+        where: {
+          id: id
+        }
+      })
+    .then(function() {
+      console.log('News deleted successfully!');
+      res.json({status: true, message: "Delete news success!"});
+    })
+    .catch(functiom(err) {
+      console.log(err);
+      res.json({status: false, message: "Delete news failed!", err_code: 400});
+    });
+  }
 
 	this.edit = function(id, data, res) {
 		var judul_news = data.judul_news;
