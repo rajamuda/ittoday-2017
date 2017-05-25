@@ -1,0 +1,130 @@
+.main-component {
+  margin: 40px 0;
+}
+
+.profile {
+  margin: 0;
+  padding: .25rem .25rem 20px;
+  text-align: center;
+  background: #E20302;
+  background: -webkit-linear-gradient(45deg, #E20302 92%, #EBDB01 8%);
+  background: -o-linear-gradient(45deg, #E20302 92%, #EBDB01 8%);
+  background: -moz-linear-gradient(45deg, #E20302 92%, #EBDB01 8%);
+  background: linear-gradient(45deg, #E20302 92%, #EBDB01 8%);
+  border-radius: 10px 10px 0 0;
+}
+
+.profile .edit-button {
+  position: relative;
+  float: right;
+}
+
+@media (min-width: 768px) {
+  .profile .edit-button i {
+    font-size: 36px;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+}
+
+.profile img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid #EBDB01;
+  margin-top: 20px;
+  margin-right: -30px;
+  margin-bottom: 10px;
+}
+
+.profile h1, h5 {
+  color: #fff;
+}
+
+.profile a {
+  color: #000;
+}
+
+.profile a:hover {
+  color: #E20302;
+}
+
+.event {
+  margin: 0;
+  background-color: #f7f7f0;
+}
+
+.event .nav-item {
+  border: 1px solid #E20302;
+}
+
+.event a {
+  font-weight: bold;
+}
+
+.event a:hover {
+  color: #E20302;
+}
+
+.event .nav-item {
+  line-height: 2.5;
+}
+
+.nav-pills .nav-item.show .nav-link, 
+.nav-pills .nav-link.active {
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #EBDB01;
+}
+
+.nav-pills .nav-item:hover {
+  background-color: #ddd;
+}
+
+.nav-pills .nav-link {
+  border-radius: 0;
+}
+
+.event .tab-content {
+  color: #fff;
+  padding: 20px .5rem;
+  background-color: #E20302;
+  border-radius: 0 0 10px 10px;
+}
+
+.event .create-team h5, .event .join-team h5 {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .event .create-team {
+    border-right: 2px solid #fff;
+  }
+}
+
+.tab-content h3 {
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.tab-content hr {
+  background-color: #fff;
+}
+
+.join-event {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-custom {
+  color: #000;
+  font-weight: bold;
+  background-color: #EBDB01;
+}
+
+.event .tab-content #seminar {
+  text-align: center;
+}

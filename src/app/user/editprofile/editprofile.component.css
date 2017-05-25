@@ -7,3 +7,7 @@
   color: #fff;
   float: right;
 }
+
+select.form-control {
+  padding: .75rem .75rem;
+}

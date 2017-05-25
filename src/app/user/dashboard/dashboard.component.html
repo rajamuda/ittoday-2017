@@ -1,6 +1,98 @@
 <div class="main-component">
   <div class="container">
-    <h1> Hello from Dashboard </h1>
-    <h2> <a routerLink="/user/editprofile">Edit your profile info</a> </h2> 
+    <div class="profile">
+      <div class="edit-button">
+        <a routerLink="/user/editprofile">
+          <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Ubah Profil">
+            mode_edit
+          </i>
+        </a>
+      </div>
+      <!-- Gambar berubah tergantung jenis kelamin dan tingkatan -->
+      <img src="assets/img/mahasiswa.png">
+      <h1>Wawan Setyadi</h1>
+      <h5>Mahasiswa - Institut Pertanian Bogor</h5>
+      <h5>Bogor - 081383126190</h5>
+      <h5>wawansetyadi33@gmail.com</h5>
+    </div>
+    <div class="event">
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="pill" href="#apps">AppsToday</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" href="#hack">HackToday</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" href="#seminar">Seminar</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="apps">
+          <h3>“Punya aplikasi keren dan bermanfaat? Tunjukkan aplikasimu disini"</h3><hr>
+          <div class="row">
+            <div class="col-12 col-md-6 create-team">
+              <h5>Belum punya tim?</h5> 
+              Silahkan buat tim Anda sendiri :
+              <form class="join-event">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Nama Tim">
+                  <span class="input-group-btn">
+                    <button class="btn btn-custom" type="button">Buat</button>
+                  </span>
+                </div>
+              </form>
+            </div>
+            <div class="col-12 col-md-6 join-team">
+              <h5>Sudah punya tim?</h5> 
+              Silahkan tulis token tim Anda :
+              <form class="join-event">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Token">
+                  <span class="input-group-btn">
+                    <button class="btn btn-custom" type="button">Gabung</button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="hack">
+        <h3>“Merasa jago hacking? Tunjukkan kehebatanmu disini"</h3><hr>
+          <div class="row">
+            <div class="col-12 col-md-6 create-team">
+              <h5>Belum punya tim?</h5> 
+              Silahkan buat tim Anda sendiri :
+              <form class="join-event">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Nama Tim">
+                  <span class="input-group-btn">
+                    <button class="btn btn-custom" type="button">Buat</button>
+                  </span>
+                </div>
+              </form>
+            </div>
+            <div class="col-12 col-md-6 join-team">
+              <h5>Sudah punya tim?</h5> 
+              Silahkan tulis token tim Anda :
+              <form class="join-event">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Token">
+                  <span class="input-group-btn">
+                    <button class="btn btn-custom" type="button">Gabung</button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="seminar">
+          <h3>“Ingin tau berbagai informasi menarik tentang kemajuan teknologi? Ayo ikut"</h3><hr>
+          <button class="btn btn-custom" type="button">Ikut</button>
+        </div>
+      </div>
+    </div>
+    <!-- <h1> Hello from Dashboard </h1>
+    <h2> <a routerLink="/user/editprofile">Edit your profile info</a> </h2> --> 
   </div>
 </div>

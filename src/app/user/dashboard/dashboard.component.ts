@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
 	selector: 'dashboard',
 	encapsulation: ViewEncapsulation.None,
+	styleUrls: [ './dashboard.component.css' ],
 	templateUrl: './dashboard.component.html'
 })
 
