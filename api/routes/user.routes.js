@@ -18,6 +18,11 @@ router.post('/login', function(req, res){
   user.login(req.body, res);
 });
 
+/*POST admin authentication */
+router.post('/loginadmin', function(req, res){
+  user.loginadmin(req.body, res);
+});
+
 /*POST user validation */
 router.post('/session', function(req, res){
   user.session(req, res);

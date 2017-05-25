@@ -6,9 +6,9 @@ module.exports = function(sequelize, DataTypes) {
     anggota2_team: { type: DataTypes.INTEGER, defaultValue: null },
     token_team: DataTypes.STRING,
     finalis_team: { type: DataTypes.BOOLEAN, defaultValue: false },
-    nama_app: DataTypes.INTEGER,
+    nama_app: DataTypes.STRING,
     kategori_app: DataTypes.STRING,
-    deskripsi_app: DataTypes.STRING,
+    deskripsi_app: DataTypes.TEXT,
     proposal_app: DataTypes.STRING,
     video_app: DataTypes.STRING,
     link_app: DataTypes.STRING

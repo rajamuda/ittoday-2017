@@ -33,6 +33,22 @@ function UserControllers(){
 	  	}
 	}
 
+	this.loginadmin = function(data, res){
+		var email_admin = data.email_admin;
+		var password_admin = data.password_admin;
+
+		if(email_admin == 'admin@ittoday' && password_admin == '@ithariinikreatif'){
+			var signInTime = Math.floor(Date.now()/1000); // iat
+    	var expired = signInTime + (1*60*60);
+
+    	var data = { id: '0', role: 'admin', iat: signInTime, exp: expired };
+    	var token = jwt.createToken(data);
+    	res.json({status: true, message: "Authenticated!", token: token});
+		}else{
+			res.json({status: false, message: "Wrong email or password"});
+		}
+	}
+
 	this.login = function(data, res){
 	  	var email_user = data.email_user;
 	  	var password_user = crypto.createHash('sha256').update(data.password_user).digest('hex');
@@ -52,7 +68,7 @@ function UserControllers(){
 		        	} else {
 		          		expired = signInTime + (2*60*60) // exp after 2 hours
 		        	}
-		        	var data = { id: user[0].id, email_user: user[0].email_user, iat: signInTime, exp: expired }
+		        	var data = { id: user[0].id, role: 'user', email_user: user[0].email_user, iat: signInTime, exp: expired };
 		        	var token = jwt.createToken(data);
 		        	res.json({status: true, message: "Login success!", token: token});
 		      	}

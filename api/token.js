@@ -1,8 +1,9 @@
 var jwt = require('jsonwebtoken');
+var key = 'ithariini2017';
 
 function Token(){
   this.createToken = function(data, res){
-    var token = jwt.sign(data, 'ithariini2017');
+    var token = jwt.sign(data, key);
     return token;
   }
 
@@ -15,7 +16,7 @@ function Token(){
     if(req.headers['authorization']){
       var token = req.headers['authorization'];
 
-      jwt.verify(token, 'ithariini2017', function(err, decode){
+      jwt.verify(token, key, function(err, decode){
         if(err){
           res.json({status: false, message: 'Token verification failed'});
         }else{
@@ -32,7 +33,7 @@ function Token(){
     var token = header['authorization'];
 
     try{
-      var decoded = jwt.verify(token, 'ithariini2017');
+      var decoded = jwt.verify(token, key);
       return decoded;
     }catch(err){
       return false;

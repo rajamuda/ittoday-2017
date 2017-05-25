@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('news', {
     judul_news: DataTypes.STRING,
-    isi_news: DataTypes.STRING
+    isi_news: DataTypes.TEXT
   }, {
     getterMethods: {
       getJudul: function() {
