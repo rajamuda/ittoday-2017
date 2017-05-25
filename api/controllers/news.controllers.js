@@ -110,7 +110,9 @@ function NewsControllers() {
 		}else if(auth.role == 'admin'){
 			News
 				.destroy({
-					where: {id: id}
+					where: {
+						id: id
+					}
 				})
 				.then(function(){
 					res.json({status: true, message: 'Delete success'});
