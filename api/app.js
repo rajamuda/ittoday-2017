@@ -36,6 +36,9 @@ app.use('/api/news/*', news);
 
 /* frontend routes handler */
 app.use(express.static(path.join(__dirname, 'views')));
+app.get('/admin', function(req, res, next){
+  res.sendFile(path.join(__dirname, 'views/admin/index.html'))
+});
 app.get('*', function(req, res, next){
   res.sendFile(path.join(__dirname, 'views/index.html'))
 });
