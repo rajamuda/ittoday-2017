@@ -9,9 +9,11 @@ import { Title } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit {
   // Set our default values
-  public localState = { value: '' };
+  // public localState = { value: '' };
   // TypeScript public modifiers
-  constructor(public title: Title, public dataService: DataService) {}
+  constructor(public title: Title, 
+              public dataService: DataService)
+  {}
 
   ngOnInit() {
      window.scrollTo(0,0);

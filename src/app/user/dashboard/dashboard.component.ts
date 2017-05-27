@@ -15,18 +15,35 @@ import { Title } from '@angular/platform-browser';
 export class DashboardComponent{
 
 	jwtHelper: JwtHelper = new JwtHelper();
+	public user: any = {
+		nama_user: '',
+		tingkat_user: '',
+		institusi_user: '',
+		alamat_user: '',
+		telepon_user: '',
+		kelamin_user: ''
+	}
 
-	constructor(public title: Title, public authHttp: AuthHttp, public toast: ToastrService, public router: Router, public dataService: DataService){}
-
-	ngOnInit(){
-		window.scrollTo(0,0);
-		this.title.setTitle('Dashboard | '+this.dataService.baseTitle);
+	constructor(public title: Title, 
+							public authHttp: AuthHttp, 
+							public toast: ToastrService, 
+							public router: Router, 
+							public dataService: DataService)
+	{
 		if(localStorage.getItem('token')){
 			let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
 			this.authHttp.get(this.dataService.urlShowProfile+'/'+decode.id)
 				.subscribe(res => {
 					let data = res.json();
 					let profile = data.data[0];
+
+					this.user.nama_user = profile.nama_user;
+					this.user.tingkat_user = profile.tingkat_user;
+					this.user.institusi_user = profile.institusi_user;
+					this.user.alamat_user = profile.alamat_user;
+					this.user.telepon_user = profile.telepon_user;
+					this.user.kelamin_user = profile.kelamin_user;
+
 					if(profile.status_user == false){
 						this.router.navigate(['/user/editprofile']);
 						this.toast.info('Please, complete your profile info', 'Information');
@@ -35,6 +52,11 @@ export class DashboardComponent{
 		}else{
 			this.router.navigate(['/auth/login']);
 		}
+	}
+
+	ngOnInit(){
+		window.scrollTo(0,0);
+		this.title.setTitle('Dashboard | '+this.dataService.baseTitle);
 	}
 
 	public submit(){

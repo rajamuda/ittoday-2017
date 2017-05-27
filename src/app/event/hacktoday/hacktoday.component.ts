@@ -12,8 +12,12 @@ import { Title } from '@angular/platform-browser';
 
 export class HackTodayComponent{
 
-	constructor(public title: Title, public http: Http, public router: Router, public dataService: DataService){}
-
+	constructor(public title: Title, 
+							public http: Http, 
+							public router: Router, 
+							public dataService: DataService)
+	{}
+	
 	ngOnInit(){
 		window.scrollTo(0,0);
 		this.title.setTitle('HackToday | '+this.dataService.baseTitle);

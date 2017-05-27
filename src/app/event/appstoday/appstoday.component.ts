@@ -12,7 +12,11 @@ import { Title } from '@angular/platform-browser';
 
 export class AppsTodayComponent{
 
-	constructor(public title: Title, public http: Http, public router: Router, public dataService: DataService){}
+	constructor(public title: Title, 
+							public http: Http, 
+							public router: Router, 
+							public dataService: DataService)
+	{}
 
 	ngOnInit(){
 		window.scrollTo(0,0);

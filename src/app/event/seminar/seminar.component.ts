@@ -12,8 +12,12 @@ import { Title } from '@angular/platform-browser';
 
 export class SeminarComponent{
 
-	constructor(public title: Title, public http: Http, public router: Router, public dataService: DataService){}
-
+	constructor(public title: Title, 
+							public http: Http, 
+							public router: Router, 
+							public dataService: DataService)
+	{}
+	
 	ngOnInit(){
 		window.scrollTo(0,0);
 		this.title.setTitle('Seminar IT | '+this.dataService.baseTitle);

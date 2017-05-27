@@ -9,11 +9,20 @@
         </a>
       </div>
       <!-- Gambar berubah tergantung jenis kelamin dan tingkatan -->
-      <img src="assets/img/mahasiswa.png">
-      <h1>Wawan Setyadi</h1>
-      <h5>Mahasiswa - Institut Pertanian Bogor</h5>
-      <h5>Bogor - 081383126190</h5>
-      <h5>wawansetyadi33@gmail.com</h5>
+      <div *ngIf="user.kelamin_user == 'L'">
+        <img *ngIf="user.tingkat_user == 'SMA'" src="assets/img/siswa.png">
+        <img *ngIf="user.tingkat_user == 'S1'" src="assets/img/mahasiswa.png">
+        <img *ngIf="user.tingkat_user == 'Umum'" src="assets/img/pria.png">
+      </div>
+      <div *ngIf="user.kelamin_user == 'P'">
+        <img *ngIf="user.tingkat_user == 'SMA'" src="assets/img/siswi.png">
+        <img *ngIf="user.tingkat_user == 'S1'" src="assets/img/mahasiswi.png">
+        <img *ngIf="user.tingkat_user == 'Umum'" src="assets/img/wanita.png">
+      </div>
+      <h1>{{user.nama_user}}</h1>
+      <h5>{{user.tingkat_user}} - {{user.institusi_user}}</h5>
+      <h5>{{user.alamat_user}} - {{user.telepon_user}}</h5>
+      <!-- <h5>{{user.email_user}}</h5> -->
     </div>
     <div class="event">
       <ul class="nav nav-pills nav-fill">

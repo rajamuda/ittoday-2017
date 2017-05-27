@@ -43,7 +43,13 @@ export class EditProfileComponent{
 
 	jwtHelper: JwtHelper = new JwtHelper();
 
-	constructor(public uploadService: UploadService, public title: Title, public toast: ToastrService, public authHttp: AuthHttp, public router: Router, public dataService: DataService){
+	constructor(public uploadService: UploadService, 
+							public title: Title, 
+							public toast: ToastrService, 
+							public authHttp: AuthHttp, 
+							public router: Router, 
+							public dataService: DataService)
+	{
 		this.uploadService.progress$.subscribe(status => {
 			this.uploadProgress = status;
 		})

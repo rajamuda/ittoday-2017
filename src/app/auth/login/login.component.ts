@@ -16,14 +16,20 @@ export class LoginComponent{
 	private email: string;
 	private password: string;
 
-	constructor(public title: Title, public toast: ToastrService, public http: Http, public router: Router, public dataService: DataService){}
+	constructor(public title: Title, 
+							public toast: ToastrService, 
+							public http: Http, 
+							public router: Router, 
+							public dataService: DataService)
+	{
+		if(localStorage.getItem('token')){
+			this.router.navigate(['/']);
+		}
+	}
 	
 	ngOnInit(){
 		window.scrollTo(0,0);
 		this.title.setTitle('Login | '+this.dataService.baseTitle);
-		if(localStorage.getItem('token')){
-			this.router.navigate(['/']);
-		}
 	}
 
 	public submit(){
