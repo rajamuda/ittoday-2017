@@ -60,46 +60,57 @@ a {
   font-size: 16px;
 }
 
+/*============================================*/
+
 .footer-content {
-  background-color: #E20302;
+  background-color: #7E0DF1;
 }
+
+.article-list {
+  border-right: 3px solid #FFF;
+  margin: 20px 0px;
+  padding: 10px 20px;
+}
+
+.article-list h3 {
+  font-weight: 900;
+}
+
+.contact-list {
+  margin: 20px 0px;
+  padding: 10px 20px;
+}
+
+.contact-list h3 {
+  font-weight: 900;
+}
+
+.btn-custom {
+  background-color: #EBDB01;
+  border-radius: 25px;
+}
+
+.contact-button img {
+  border: 2px solid #FFF;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.copyright {
+  background-color: #fff;
+  text-align: center;
+  color: #000;
+}
+
 
 @media (min-width: 768px) {
   .footer {
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 100px;
     z-index: 999;
   }
-
-  .footer-content {
-    margin-top: 80px;
-  }
-}
-
-.footer-sub {
-  background-color: #E20302;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 40px 40px 0 0;
-  border-bottom: 3px solid #EBDB01;
-}
-
-@media (min-width: 768px) {
-  .footer-sub {
-    margin-top: -40px;
-  }
-}
-
-.footer-text {
-  margin-bottom: 40px;
-  color: #fff;
-}
-
-.copyright {
-  background-color: #EBDB01;
-  text-align: center;
-  color: #000;
 }

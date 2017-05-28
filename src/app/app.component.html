@@ -1,5 +1,5 @@
 <nav [class.fixed-top]="navIsFixed" class="navbar navbar-toggleable-md navbar-light">
-  <button #navbarToggler class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button #navbarToggler class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"> 
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="container">
@@ -44,25 +44,34 @@
   <router-outlet></router-outlet>
 
 <footer class="footer">
-  <div class="footer-content py-2">
+  <div class="footer-content">
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-4">
-          <h3 class="footer-sub">Sub Menu</h3>
-          <p class="footer-text">Lorem Ipsum</p>
+        <div class="col-sm-12 col-md-6 article-list">
+          <h3>BERITA & ARTIKEL</h3>
+          <button class="btn btn-custom">S E L E N G K A P N Y A</button>
         </div>
-        <div class="col-12 col-md-4">
-          <h3 class="footer-sub">Sub Menu</h3>
-          <p class="footer-text">Lorem Ipsum</p>
-        </div>
-        <div class="col-12 col-md-4">
-          <h3 class="footer-sub">Sub Menu</h3>
-          <p class="footer-text">Lorem Ipsum</p>
+        <div class="col-sm-12 col-md-6 contact-list">
+          <h3>KONTAK KAMI</h3>
+          <div class="contact-button">
+            <a href="#">
+              <img src="assets/img/facebook.png" height="40">
+            </a>
+            <a href="#">
+              <img src="assets/img/line.png" height="40">
+            </a>
+            <a href="#">
+              <img src="assets/img/instagram.png" height="40">
+            </a>
+            <a href="#">
+              <img src="assets/img/twitter.png" height="40">
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="copyright">
-    <span>&copy; IT Today IPB 2017</span>
+    <span>&copy; IT Today, 2017.</span>
   </div>
 </footer>

@@ -1,4 +1,114 @@
-.carousel {
+.intersect-1 {
+  height: 100px;
+  text-align: center;
+  background: #7E0DF1;
+  background: -webkit-linear-gradient(3deg, #7E0DF1 50%, #EBDB01 50%);
+  background: -o-linear-gradient(3deg, #7E0DF1 50%, #EBDB01 50%);
+  background: -moz-linear-gradient(3deg, #7E0DF1 50%, #EBDB01 50%);
+  background: linear-gradient(3deg, #7E0DF1 50%, #EBDB01 50%);
+}
+
+.intersect-2 {
+  height: 100px;
+  text-align: center;
+  background: #EBDB01;
+  background: -webkit-linear-gradient(3deg, #EBDB01 50%, #7E0DF1 50%);
+  background: -o-linear-gradient(3deg, #EBDB01 50%, #7E0DF1 50%);
+  background: -moz-linear-gradient(3deg, #EBDB01 50%, #7E0DF1 50%);
+  background: linear-gradient(3deg, #EBDB01 50%, #7E0DF1 50%);
+}
+
+.about-section {
+  background: #EBDB01;
+}
+
+.about-image img {
+  width: 100%;
+  margin-top: 60px;
+}
+
+.about-line {
+  width: 80%;
+  background-color: #FE0037;
+  border: 2px solid #FE0037;
+}
+
+.about-content {
+  text-align: justify;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.title-section {
+  padding: 20px 0px;
+}
+
+.title-section h1 {
+  display: table;
+  background: #FE0037;
+  margin: auto;
+  padding: .5rem 1rem;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.event-section {
+  background: #7E0DF1;
+}
+
+.event-title {
+  margin: 30px 0px;
+  color: #EBDB01;
+  text-shadow: 3px 3px #FE0037;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.event-title h1.thick {
+  font-weight: 900;
+  margin: 0px 0px 0px 40px;
+}
+
+.event-title h1.thin {
+  margin: 0px 0px 0px 80px;
+}
+
+.event-desc {
+  color: #FFF;
+  font-family: 'Montserrat', sans-serif;
+  text-align: justify;
+  margin: 30px 0px;
+}
+
+.timeline-section {
+  background: #EBDB01;
+  min-height: 500px;
+}
+
+
+@media (max-width: 767px) {
+  .about-image img {
+    margin-top: 0px;
+  }
+
+  .about-line {
+    margin-left: 10%;
+  }
+
+  .title-section h1 {
+    font-size: 24px;
+  }
+
+  .event-title {
+    text-align: center;
+  }
+
+  .event-title h1.thick {
+    margin: 0px;
+  }
+}
+
+
+
+/*.carousel {
   background-color: #000;
   margin: 40px auto;
   width: 80%;
@@ -76,4 +186,4 @@
 
 .page-link, .page-link:focus, .page-link:hover {
   color: #E20302;
-}
+}*/
