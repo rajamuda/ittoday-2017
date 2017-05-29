@@ -43,11 +43,11 @@
             <div class="col-12 col-md-6 create-team">
               <h5>Belum punya tim?</h5> 
               Silahkan buat tim Anda sendiri :
-              <form class="join-event">
+              <form (ngSubmit)="registAppsSubmit()" class="join-event" #registAppsForm="ngForm">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Nama Tim">
+                  <input type="text" [(ngModel)]="registApps.team_name" name="apps_team_name" class="form-control" placeholder="Nama Tim">
                   <span class="input-group-btn">
-                    <button class="btn btn-custom" type="button">Buat</button>
+                    <button class="btn btn-custom-yellow" type="submit">Buat</button>
                   </span>
                 </div>
               </form>
@@ -57,9 +57,9 @@
               Silahkan tulis token tim Anda :
               <form class="join-event">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Token">
+                  <input type="text" [(ngModel)]="registApps.token" name="apps_token" class="form-control" placeholder="Token">
                   <span class="input-group-btn">
-                    <button class="btn btn-custom" type="button">Gabung</button>
+                    <button class="btn btn-custom-yellow" type="submit">Gabung</button>
                   </span>
                 </div>
               </form>
@@ -72,11 +72,11 @@
             <div class="col-12 col-md-6 create-team">
               <h5>Belum punya tim?</h5> 
               Silahkan buat tim Anda sendiri :
-              <form class="join-event">
+              <form (ngSubmit)="registHackSubmit()" class="join-event" #registHackForm="ngForm">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Nama Tim">
+                  <input type="text" [(ngModel)]="registHack.team_name" name="hack_team_name" class="form-control" placeholder="Nama Tim">
                   <span class="input-group-btn">
-                    <button class="btn btn-custom" type="button">Buat</button>
+                    <button class="btn btn-custom-yellow" type="submit">Buat</button>
                   </span>
                 </div>
               </form>
@@ -86,9 +86,9 @@
               Silahkan tulis token tim Anda :
               <form class="join-event">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Token">
+                  <input type="text" [(ngModel)]="registHack.token" name="hack_token" class="form-control" placeholder="Token">
                   <span class="input-group-btn">
-                    <button class="btn btn-custom" type="button">Gabung</button>
+                    <button class="btn btn-custom-yellow" type="submit">Gabung</button>
                   </span>
                 </div>
               </form>
@@ -97,7 +97,7 @@
         </div>
         <div class="tab-pane" id="seminar">
           <h3>“Ingin tau berbagai informasi menarik tentang kemajuan teknologi? Ayo ikut"</h3><hr>
-          <button class="btn btn-custom" type="button">Ikut</button>
+          <button class="btn btn-custom-yellow" type="buitton" (click)="registSeminarSubmit()">Ikut</button>
         </div>
       </div>
     </div>

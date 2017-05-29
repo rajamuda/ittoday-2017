@@ -22,7 +22,27 @@ export class DashboardComponent{
 		alamat_user: '',
 		telepon_user: '',
 		kelamin_user: ''
-	}
+	};
+
+	public registHack: any = {
+		has_regist: 'false',
+		token: '',
+		team_name: '',
+		finalist: 'false'
+	};
+
+	public registApps: any = {
+		has_regist: 'false',
+		token: '',
+		team_name: '',
+		proposal: '',
+		video: '',
+		finalist: 'false'
+	};
+
+	public registSeminar: any = {
+		has_regist: 'false'
+	};
 
 	constructor(public title: Title, 
 							public authHttp: AuthHttp, 
@@ -59,7 +79,15 @@ export class DashboardComponent{
 		this.title.setTitle('Dashboard | '+this.dataService.baseTitle);
 	}
 
-	public submit(){
+	public registHackSubmit(){
+		console.log(this.registHack);
+	}
+
+	public registAppsSubmit(){
+		console.log(this.registApps);
+	}
+
+	public registSeminarSubmit(){
 		
 	}
 
