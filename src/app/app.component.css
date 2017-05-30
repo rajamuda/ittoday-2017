@@ -97,9 +97,9 @@ a {
 }
 
 .copyright {
-  background-color: #fff;
+  background-color: #E20302;
   text-align: center;
-  color: #000;
+  color: #fff;
 }
 
 
@@ -112,5 +112,16 @@ a {
     width: 100%;
     height: 100px;
     z-index: 999;
+  }
+}
+
+@media (max-width: 767px) {
+  .article-list {
+    border-right: none;
+    text-align: center;
+  }
+
+  .contact-list {
+    text-align: center;
   }
 }
