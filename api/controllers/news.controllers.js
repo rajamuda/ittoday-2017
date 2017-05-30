@@ -10,11 +10,9 @@ function NewsControllers() {
 		News
 			.findAll({order: [['createdAt', 'DESC']]})
 			.then(function(result) {
-				// console.log('Get all news successful!');
 				res.json({status: true, message: 'Get all news success', data: result});
 			})
 			.catch(function(err) {
-				// console.log('Failed to get all news!');
 				res.json({status: false, message: "Get all news failed!", err_code: 400, err: err});
 			});
 	}
@@ -24,14 +22,12 @@ function NewsControllers() {
 		News
 			.findById(id)
 			.then(function(result) {
-				// console.log('Get all news successful!');
 				if(result == null)
 					res.json({status: false, message: 'No news with this ID'});
 				else
 					res.json({status: true, message: 'Get all news success', data: result});
 			})
 			.catch(function(err) {
-				// console.log('Failed to get all news!');
 				res.json({status: false, message: "Get all news failed!", err_code: 400});
 			});
 	}
@@ -42,9 +38,9 @@ function NewsControllers() {
 		var judul_news = req.body.judul_news;
 		var isi_news = req.body.isi_news;
 
-		if(auth == false){
+		if(auth == false) {
 			res.json({status: false, message: 'Authentication failed', err_code: 401});
-		}else if(auth.role == 'admin'){
+		} else if (auth.role == 'admin') {
 			if (!judul_news || !isi_news) {
 				res.json({status: false, message: "There is empty field!", err_code: 406});
 			} else {
@@ -59,7 +55,7 @@ function NewsControllers() {
 						res.json({status: false, message: "Create news failed!", err_code: 400});
 					});
 			}
-		}else{
+		} else {
 			res.json({status: false, message: "Access Denied", err_code: 403});
 		}
 	}
@@ -71,9 +67,9 @@ function NewsControllers() {
 		var isi_news = req.body.isi_news;
 		var id = req.body.id;	
 
-		if(auth == false){
+		if (auth == false){
 			res.json({status: false, message: 'Authentication failed', err_code: 401});
-		}else if(auth.role == 'admin'){
+		} else if (auth.role == 'admin'){
 			if (!judul_news || !isi_news) {
 				res.json({status: false, message: "There is empty field!", err_code: 406});
 			} else {
@@ -104,10 +100,9 @@ function NewsControllers() {
 		var auth = jwt.validateToken(req.headers, res);
 		var id = req.body.id;
 
-		// console.log(auth);
-		if(auth == false){
+		if(auth == false) {
 			res.json({status: false, message: 'Authentication failed', err_code: 401});
-		}else if(auth.role == 'admin'){
+		} else if (auth.role == 'admin') {
 			News
 				.destroy({
 					where: {
@@ -115,13 +110,13 @@ function NewsControllers() {
 					}
 				})
 				.then(function(){
-					res.json({status: true, message: 'Delete success'});
+					res.json({status: true, message: 'Delete news success'});
 				})
 				.catch(function(){
 					res.json({status: false, message: "Delete news failed!", err_code: 400});
 				})
 
-		}else{
+		} else {
 			res.json({status: false, message: "Access Denied", err_code: 403});
 		}
 	}

@@ -37,14 +37,13 @@ function UserControllers(){
 		var email_admin = data.email_admin;
 		var password_admin = data.password_admin;
 
-		if(email_admin == 'admin@ittoday' && password_admin == '@ithariinikreatif'){
+		if (email_admin == 'admin@ittoday' && password_admin == '@ithariinikreatif') {
 			var signInTime = Math.floor(Date.now()/1000); // iat
-    	var expired = signInTime + (1*60*60);
-
-    	var data = { id: '0', role: 'admin', iat: signInTime, exp: expired };
-    	var token = jwt.createToken(data);
-    	res.json({status: true, message: "Authenticated!", token: token});
-		}else{
+    		var expired = signInTime + (1*60*60);
+    		var data = { id: '0', role: 'admin', iat: signInTime, exp: expired };
+    		var token = jwt.createToken(data);
+    		res.json({status: true, message: "Authenticated!", token: token});
+		} else {
 			res.json({status: false, message: "Wrong email or password"});
 		}
 	}
