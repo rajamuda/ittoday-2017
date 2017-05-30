@@ -20,6 +20,8 @@ AppTeam.sync();
 var index = require('./routes/index');
 var user = require('./routes/user.routes');
 var news = require('./routes/news.routes');
+var appteam = require('./routes/appteam.routes');
+var hackteam = require('./routes/hackteam.routes');
 
 var app = express();
 
@@ -33,6 +35,10 @@ app.use('/api/user', user);
 app.use('/api/user/*', user);
 app.use('/api/news', news);
 app.use('/api/news/*', news);
+app.use('/api/appteam', appteam);
+app.use('/api/appteam/*', appteam);
+app.use('/api/hackteam', hackteam);
+app.use('/api/hackteam/*', hackteam);
 
 /* frontend routes handler */
 app.use(express.static(path.join(__dirname, 'views')));

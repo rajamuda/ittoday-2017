@@ -61,6 +61,35 @@ function AppTeamControllers() {
 		}
 	}
 
+	this.getById = function(req, res) {
+		var auth = jwt.validateToken(req.headers, res);
+
+		if (auth == false) {
+			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
+		} else {
+			AppTeam
+				.findOne({
+					where: {
+						id: id
+					}
+				})
+				.then(function(result) {
+					// console.log('Get all news successful!');
+					if(result == null) {
+						res.json({status: false, message: 'No appteam with this ID'});
+					}
+					else {
+						res.json({status: true, message: 'Get appteam success', data: result});
+					}
+				})
+				.catch(function(err) {
+					// console.log('Failed to get all news!');
+					res.json({status: false, message: "Get appteam failed!", err_code: 400});
+				});
+		}
+	}
+
+
 	this.getByToken = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 

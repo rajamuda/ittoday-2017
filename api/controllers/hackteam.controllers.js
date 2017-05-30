@@ -61,6 +61,34 @@ function HackTeamControllers() {
 		}
 	}
 
+	this.getById = function(req, res) {
+		var auth = jwt.validateToken(req.headers, res);
+
+		if (auth == false) {
+			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
+		} else {
+			HackTeam
+				.findOne({
+					where: {
+						id: id
+					}
+				})
+				.then(function(result) {
+					// console.log('Get hackteam successful!');
+					if(result == null) {
+						res.json({status: false, message: 'No hackteam with this ID'});
+					}
+					else {
+						res.json({status: true, message: 'Get hackteam success', data: result});
+					}
+				})
+				.catch(function(err) {
+					// console.log('Failed to get hackteam!');
+					res.json({status: false, message: "Get hackteam failed!", err_code: 400});
+				});
+		}
+	}
+
 	this.getByToken = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 
