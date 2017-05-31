@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-import { EventComponent } from './event.component';
+import { NewsComponent } from './news.component';
 
-import { Routing } from './event.router';
+import { Routing } from './news.router';
 
 @NgModule({
-	imports: [ Routing, CommonModule ],
-	declarations: [ EventComponent ]
+  imports: [ Routing, CommonModule, FormsModule ],
+  declarations: [ NewsComponent ]
 })
 
-export class EventModule{
-	
+export class NewsModule{
+  
 }

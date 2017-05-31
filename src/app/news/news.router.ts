@@ -1,12 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
+import { NewsComponent } from './news.component';
 
 const appRoutes: Routes = [
-	{ path: '', children: [
-		{ path: '', redirectTo: 'appstoday' },
-		{ path: 'appstoday', loadChildren: './appstoday/appstoday.module#AppsTodayModule' },
-		{ path: 'hacktoday', loadChildren: './hacktoday/hacktoday.module#HackTodayModule' },	
-		{ path: 'seminar', loadChildren: './seminar/seminar.module#SeminarModule' }
-]}
+  { path: '', component: NewsComponent, pathMatch: 'full' }
 ]
 
 export const Routing = RouterModule.forChild(appRoutes);

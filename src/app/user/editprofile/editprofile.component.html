@@ -1,7 +1,7 @@
 <div class="main-component">
   <div class="container">
     <div class="row editprofile-form">
-      <div class="col col-md-6 offset-md-3">
+      <div class="col-sm-12 col-md-8 offset-md-2">
         <a routerLink="/user/dashboard">&lt;&lt; Back to Dashboard</a>
         <div class="card">
           <div class="card-header">
@@ -75,7 +75,7 @@
                 <div style="text-align: center; margin-top: 20px; "><img *ngIf="hasUpload" src="http://localhost:4200/{{filelocation}}" style="max-width: 60%;"></div>
               </div>
 
-              <button type="submit" class="btn btn-custom" [disabled]="!user.name || !user.phone || !user.institution || !user.address || !user.criteria.value || !filevalid">Save</button>
+              <button type="submit" class="btn btn-custom-form" [disabled]="!user.name || !user.phone || !user.institution || !user.address || !user.criteria.value || !filevalid">Save</button>
             </form>
           </div>
         </div>

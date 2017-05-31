@@ -7,6 +7,7 @@ a {
   -moz-box-shadow:0 3px 5px rgba(182, 182, 182, 0.75);
   -webkit-box-shadow: 0 3px 5px rgba(182, 182, 182, 0.75);
   box-shadow: 0 3px 5px rgba(182, 182, 182, 0.75);
+  min-height: 60px;
 }
 
 @media (max-width: 767px) {
@@ -58,6 +59,37 @@ a {
 .navbar-text {
   margin-top: 3px;
   font-size: 16px;
+}
+
+.navbar-brand {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  text-align: center;
+  margin: auto;
+  padding: 0px;
+}
+
+.navbar-nav {
+  z-index: 999;
+}
+
+@media (max-width: 991px) {
+  .navbar-brand {
+    position: relative;
+  }
+}
+
+@media (min-width: 991px) {
+  .logo {
+    width: 100px;
+    height: 100px;
+    margin: -20px auto 0px;
+    padding: 30px 0px;
+    background-color: #FE0037;
+    border-radius: 50%;
+  }
 }
 
 /*============================================*/

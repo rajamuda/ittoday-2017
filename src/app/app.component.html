@@ -4,22 +4,24 @@
   </button>
   <div class="container">
     <a class="navbar-brand" routerLink="/">
-      <img src="assets/img/it-white.png" height="40">
+      <div class="logo">
+        <img src="assets/img/it-white.png" height="40">
+      </div>
     </a>
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a (click)="collapseNav()" class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
         </li>
-        <div class="navbar-text hidden-sm-down"> | </div>
+        <div class="navbar-text hidden-md-down"> | </div>
         <li class="nav-item">
-          <a (click)="collapseNav()" class="nav-link" href="#">News</a>
+          <a (click)="collapseNav()" class="nav-link" routerLink="/news" routerLinkActive="active">News</a>
         </li>
-        <div class="navbar-text hidden-sm-down"> | </div>
+        <div class="navbar-text hidden-md-down"> | </div>
         <li class="nav-item">
           <a (click)="collapseNav()" class="nav-link" routerLink="/sponsorship" routerLinkActive="active">Sponsorship</a>
         </li>
-        <div class="navbar-text hidden-sm-down"> | </div>
+        <div class="navbar-text hidden-md-down"> | </div>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Event
@@ -33,12 +35,12 @@
       </ul>
       <div class="navbar-nav" *ngIf="!loggedin">
         <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/auth/login" routerLinkActive="active">Login</a>
-        <div class="navbar-text hidden-sm-down"> / </div>
+        <div class="navbar-text hidden-md-down"> / </div>
         <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/auth/register" routerLinkActive="active">Register</a>
       </div>
       <div class="navbar-nav" *ngIf="loggedin">
         <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/user/dashboard">Dashboard</a>
-        <div class="navbar-text hidden-sm-down"> / </div>
+        <div class="navbar-text hidden-md-down"> / </div>
         <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/" (click)="logout()">Logout</a>
       </div>
     </div>
