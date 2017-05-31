@@ -15,6 +15,8 @@ var HackTeam = sequelize.import(__dirname + "/models/hackteam.models");
 HackTeam.sync();
 var AppTeam = sequelize.import(__dirname + "/models/appteam.models");
 AppTeam.sync();
+var Seminar = sequelize.import(__dirname + "/models/seminar.models");
+Seminar.sync();
 
 /* ROUTING */
 var index = require('./routes/index');
@@ -22,6 +24,7 @@ var user = require('./routes/user.routes');
 var news = require('./routes/news.routes');
 var appteam = require('./routes/appteam.routes');
 var hackteam = require('./routes/hackteam.routes');
+var seminar = require('./routes/seminar.routes');
 
 var app = express();
 
@@ -39,6 +42,8 @@ app.use('/api/appteam', appteam);
 app.use('/api/appteam/*', appteam);
 app.use('/api/hackteam', hackteam);
 app.use('/api/hackteam/*', hackteam);
+app.use('/api/seminar', hackteam);
+app.use('/api/seminar/*', hackteam);
 
 /* frontend routes handler */
 app.use(express.static(path.join(__dirname, 'views')));

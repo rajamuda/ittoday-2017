@@ -4,7 +4,6 @@ var router = express.Router();
 var appteam = require('../controllers/appteam.controllers');
 
 router.get('/', function(req, res) {
-  // appteam.get(req, res);
   res.json({status: false, message: 'None API Implemented'});
 });
 
