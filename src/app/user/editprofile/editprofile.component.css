@@ -1,8 +1,12 @@
 .editprofile-form {
-  margin: 40px auto;
+  margin-top: 40px;
 }
 
-.btn-custom {
+.card {
+  margin-bottom: 40px;
+}
+
+.btn-custom-form {
   background-color: #E20302;
   color: #fff;
   float: right;

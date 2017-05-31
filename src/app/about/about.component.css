@@ -20,6 +20,7 @@
 
 .about-section {
   background: #EBDB01;
+  padding-top: 40px;
 }
 
 .about-image img {
@@ -53,7 +54,49 @@
 
 .gallery-section {
   background: #7E0DF1;
-  min-height: 500px;
+  padding: 40px 0px;
+}
+
+.gallery-button {
+  text-align: center;
+  margin: 20px auto;
+}
+
+.gallery_product {
+  margin-bottom: 5px;
+}
+
+@media (max-width: 767px) {
+  .gallery_product img {
+    width: 100%;
+  }
+}
+
+.filter-button {
+  font-size: 18px;
+  border: 1px solid #42B32F;
+  border-radius: 5px;
+  text-align: center;
+  color: #42B32F;
+  margin-bottom: 30px;
+}
+
+.filter-button:hover {
+  font-size: 18px;
+  border: 1px solid #42B32F;
+  border-radius: 5px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #42B32F;
+}
+
+.btn-default:active .filter-button:active {
+  background-color: #42B32F;
+  color: white;
+}
+
+.port-image {
+  width: 100%;
 }
 
 .address-section {

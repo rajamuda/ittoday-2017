@@ -60,6 +60,29 @@
     </div>
   </app>
 
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(".filter-button").click(function(){
+        var value = $(this).attr('data-filter');
+        if(value == "all")
+        {
+          //$('.filter').removeClass('hidden');
+          $('.filter').show('1000');
+        }else
+        {
+  //      $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+  //      $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+          $(".filter").not('.'+value).hide('3000');
+          $('.filter').filter('.'+value).show('3000');  
+        }
+      });
+      if ($(".filter-button").removeClass("active")) {
+        $(this).removeClass("active");
+      }
+      $(this).addClass("active");
+    });
+  </script>
+
   <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->
   <script>
     (function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=r;A[l]=A[l]||function(){
