@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('appTeam', {
-    nama_team: DataTypes.STRING,
+    nama_team: { type: DataTypes.STRING, unique: true },
     ketua_team: DataTypes.INTEGER,
     anggota1_team: { type: DataTypes.INTEGER, defaultValue: null },
     anggota2_team: { type: DataTypes.INTEGER, defaultValue: null },

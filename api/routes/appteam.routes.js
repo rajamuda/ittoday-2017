@@ -3,7 +3,12 @@ var router = express.Router();
 
 var appteam = require('../controllers/appteam.controllers');
 
-router.post('/', function(req, res) {
+router.get('/', function(req, res) {
+  // appteam.get(req, res);
+  res.json({status: false, message: 'None API Implemented'});
+});
+
+router.get('/:id', function(req, res) {
   appteam.get(req, res);
 });
 
@@ -11,7 +16,7 @@ router.post('/all', function(req, res) {
   appteam.getAll(req, res);
 });
 
-router.post('/id', function(req, res) {
+router.get('/team/:id', function(req, res) {
   appteam.getById(req, res);
 });
 

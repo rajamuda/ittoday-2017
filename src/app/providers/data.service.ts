@@ -17,6 +17,13 @@ export class DataService{
 	public urlEditProfile = this.baseUrl+'/api/user/editprofile';
 	public urlShowProfile = this.baseUrl+'/api/user/showprofile';
 	public urlUploadID = this.baseUrl+'/api/user/uploadid';
+	public urlHasRegistApps = this.baseUrl+'/api/appteam';
+	public urlRegistApps = this.baseUrl+'/api/appteam/create';
+	public urlRegistAppsMember = this.baseUrl+'/api/appteam/registermember';
+	public urlHasRegistHack = this.baseUrl+'/api/hackteam';
+	public urlRegistHack = this.baseUrl+'/api/hackteam/create';
+	public urlRegistHackMember = this.baseUrl+'/api/hackteam/registermember';
+
 
 	loginAnnounced$ = this.isLoggedIn.asObservable();
 

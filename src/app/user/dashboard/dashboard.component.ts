@@ -16,6 +16,7 @@ export class DashboardComponent{
 
 	jwtHelper: JwtHelper = new JwtHelper();
 	public user: any = {
+		id_user: '',
 		nama_user: '',
 		tingkat_user: '',
 		institusi_user: '',
@@ -25,23 +26,32 @@ export class DashboardComponent{
 	};
 
 	public registHack: any = {
-		has_regist: 'false',
+		id: '',
+		has_regist: false,
 		token: '',
 		team_name: '',
-		finalist: 'false'
+		finalist: false,
+		leader: '',
+		member1: '-',
+		member2: '-'
 	};
 
 	public registApps: any = {
-		has_regist: 'false',
+		id: '',
+		has_regist: false,
 		token: '',
 		team_name: '',
 		proposal: '',
 		video: '',
-		finalist: 'false'
+		finalist: false,
+		semifinalist: false,
+		leader: '',
+		member1: '-',
+		member2: '-'
 	};
 
 	public registSeminar: any = {
-		has_regist: 'false'
+		has_regist: false
 	};
 
 	constructor(public title: Title, 
@@ -52,11 +62,11 @@ export class DashboardComponent{
 	{
 		if(localStorage.getItem('token')){
 			let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
-			this.authHttp.get(this.dataService.urlShowProfile+'/'+decode.id)
+			this.user.id_user = decode.id;
+			this.authHttp.get(this.dataService.urlShowProfile+'/'+this.user.id_user)
 				.subscribe(res => {
 					let data = res.json();
 					let profile = data.data[0];
-
 					this.user.nama_user = profile.nama_user;
 					this.user.tingkat_user = profile.tingkat_user;
 					this.user.institusi_user = profile.institusi_user;
@@ -69,6 +79,7 @@ export class DashboardComponent{
 						this.toast.info('Please, complete your profile info', 'Information');
 					}
 				});
+			this.infoRegister(this.user.id_user);
 		}else{
 			this.router.navigate(['/auth/login']);
 		}
@@ -79,16 +90,133 @@ export class DashboardComponent{
 		this.title.setTitle('Dashboard | '+this.dataService.baseTitle);
 	}
 
-	public registHackSubmit(){
-		console.log(this.registHack);
+	public registHackSubmit(asnew: number){
+		if(asnew == 1){
+			let creds = {nama_team: this.registHack.team_name};
+			this.authHttp.post(this.dataService.urlRegistHack, creds)
+				.subscribe(res =>{
+					let data = res.json();
+
+					if(data.status){
+						this.toast.success(data.message, 'Success');
+						this.registHack.has_regist = true;
+						this.infoRegister(this.user.id_user);
+					}else{
+						this.toast.warning(data.message, 'Oops');
+					}
+				});
+		}else if(asnew == 0){
+			let creds = {token_team: this.registHack.token};
+			this.authHttp.post(this.dataService.urlRegistHackMember, creds)
+				.subscribe(res =>{
+					let data = res.json();
+
+					if(data.status){
+						this.toast.success(data.message, 'Success');
+						this.registHack.has_regist = true;
+						this.infoRegister(this.user.id_user);
+					}else{
+						this.toast.warning(data.message, 'Oops');
+					}
+				});
+		}
 	}
 
-	public registAppsSubmit(){
-		console.log(this.registApps);
+	public registAppsSubmit(asnew: number){
+		if(asnew == 1){
+			let creds = {nama_team: this.registApps.team_name};
+			this.authHttp.post(this.dataService.urlRegistApps, creds)
+				.subscribe(res =>{
+					let data = res.json();
+
+					if(data.status){
+						this.toast.success(data.message, 'Success');
+						this.registApps.has_regist = true;
+						this.infoRegister(this.user.id_user);
+					}else{
+						this.toast.warning(data.message, 'Oops');
+					}
+				});
+		}else if(asnew == 0){
+			let creds = {token_team: this.registApps.token};
+			this.authHttp.post(this.dataService.urlRegistAppsMember, creds)
+				.subscribe(res =>{
+					let data = res.json();
+
+					if(data.status){
+						this.toast.success(data.message, 'Success');
+						this.registApps.has_regist = true;
+						this.infoRegister(this.user.id_user);
+					}else{
+						this.toast.warning(data.message, 'Oops');
+					}
+				});
+		}
 	}
 
 	public registSeminarSubmit(){
 		
+	}
+
+	public infoRegister(id: number){
+		this.authHttp.get(this.dataService.urlHasRegistApps+'/'+id)
+				.subscribe(res => {
+					let data = res.json();
+
+					if(data.status){
+						this.registApps.has_regist = true;
+						let info = data.data;
+
+						this.registApps.id = info.id;
+						this.registApps.token = info.token_team;
+						this.registApps.team_name = info.nama_team;
+						this.getInfoMemberApp(this.registApps.id);
+					}
+				});
+			this.authHttp.get(this.dataService.urlHasRegistHack+'/'+id)
+				.subscribe(res => {
+					let data = res.json();
+
+					if(data.status){
+						this.registHack.has_regist = true;
+						let info = data.data;
+
+						this.registHack.id = info.id;
+						this.registHack.token = info.token_team;
+						this.registHack.team_name = info.nama_team;
+						this.getInfoMemberHack(this.registHack.id);
+					}
+				});
+	}
+
+	public getInfoMemberApp(id){
+		this.authHttp.get(this.dataService.urlHasRegistApps+'/team/'+id)
+			.subscribe(res => {
+				let data = res.json();
+
+				this.registApps.leader = data.member[0].nama_user;
+				if(data.member[1]){
+					this.registApps.member1 = data.member[1].nama_user;
+				}
+				if(data.member[2]){
+					this.registApps.member2 = data.member[2].nama_user;
+				}
+			})
+	}
+
+	public getInfoMemberHack(id){
+		this.authHttp.get(this.dataService.urlHasRegistHack+'/team/'+id)
+			.subscribe(res => {
+				let data = res.json();
+
+				this.registHack.leader = data.member[0].nama_user;
+				if(data.member[1]){
+					this.registHack.member1 = data.member[1].nama_user;
+				}
+				if(data.member[2]){
+					this.registHack.member2 = data.member[2].nama_user;
+				}
+			})
 	}
 
 }

@@ -52,12 +52,7 @@ export class EditProfileComponent{
 	{
 		this.uploadService.progress$.subscribe(status => {
 			this.uploadProgress = status;
-		})
-	}
-
-	ngOnInit(){
-		window.scrollTo(0,0);
-		this.title.setTitle('Profile Information | '+this.dataService.baseTitle);
+		});
 		if(localStorage.getItem('token')){
 			let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
 			this.authHttp.get(this.dataService.urlShowProfile+'/'+decode.id)
@@ -90,8 +85,13 @@ export class EditProfileComponent{
 					}
 				});
 		}else{
-			this.router.navigate['/auth/login'];
+			this.router.navigate(['/auth/login']);
 		}
+	}
+
+	ngOnInit(){
+		window.scrollTo(0,0);
+		this.title.setTitle('Profile Information | '+this.dataService.baseTitle);
 	}
 
 	fileChangeEvent(fileInput: any){

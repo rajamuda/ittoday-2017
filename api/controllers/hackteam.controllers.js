@@ -5,6 +5,7 @@ var sequelize = require('../connection');
 var jwt = require('../token');
 
 var HackTeam = sequelize.import(__dirname + "/../models/hackteam.models");
+var User = sequelize.import(__dirname + "/../models/user.models");
 
 function HackTeamControllers() {
 	// hanya admin yang bisa dapat list
@@ -31,8 +32,9 @@ function HackTeamControllers() {
 
 	this.get = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
+		var id = req.params.id;
 
-		if (auth == false) {
+		if (auth == false || auth.id != id) {
 			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
 		} else {
 			HackTeam
@@ -56,13 +58,14 @@ function HackTeamControllers() {
 				})
 				.catch(function(err) {
 					// console.log('Failed to get all news!');
-					res.json({status: false, message: "Get hackteam failed!", err_code: 400});
+					res.json({status: false, message: "Not yet registered", err_code: 400});
 				});
 		}
 	}
 
 	this.getById = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
+		var id = req.params.id;
 
 		if (auth == false) {
 			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
@@ -77,14 +80,26 @@ function HackTeamControllers() {
 					// console.log('Get hackteam successful!');
 					if(result == null) {
 						res.json({status: false, message: 'No hackteam with this ID'});
-					}
-					else {
-						res.json({status: true, message: 'Get hackteam success', data: result});
+					} else {
+						User
+							.findAll({
+								where: {
+									$or: [
+										{id: result.ketua_team},
+										{id: result.anggota1_team},
+										{id: result.anggota2_team}
+									]
+								},
+								attributes: ['id', 'nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'identitas_user', 'status_user']
+							})
+							.then(function(info) {
+								res.json({status: true, message: 'Get hackteam success', data: result, member: info});
+							})
 					}
 				})
 				.catch(function(err) {
 					// console.log('Failed to get hackteam!');
-					res.json({status: false, message: "Get hackteam failed!", err_code: 400});
+					res.json({status: false, message: "Not yet registered", err_code: 400});
 				});
 		}
 	}
@@ -128,7 +143,7 @@ function HackTeamControllers() {
 				})
 				.then(function(hackteam) {
 					if (hackteam.anggota1_team == null) {
-						AppTeam
+						HackTeam
 							.update({
 								anggota1_team: auth.id
 							},{
@@ -143,7 +158,7 @@ function HackTeamControllers() {
 								res.json({status: false, message: "Member registration to hackteam failed!", err_code: 400});	
 							});
 					} else if (hackteam.anggota2_team == null) {
-						AppTeam
+						HackTeam
 							.update({
 								anggota2_team: auth.id
 							},{
@@ -177,22 +192,18 @@ function HackTeamControllers() {
 			res.json({status: false, message: 'Authentication failed', err_code: 401});
 		} else {
 			HackTeam
-				.findOrCreate({
-					where: {
+				.create({
 						ketua_team: ketua_team,
-						defaults: {
-							nama_team: nama_team,
-							token_team: token_team
-						}
-					}
+						nama_team: nama_team,
+						token_team: token_team
 				})
 				.then(function() {
 					// console.log("Create hackteam success");
-					res.json({status: true, message: "Create hackteam success!"});
+					res.json({status: true, message: "Register HackToday success!", token_team: token_team});
 				})
 				.catch(function(err) {
 					// console.log('Failed to create hackteam!');
-					res.json({status: false, message: "Create hackteam failed!", err_code: 400});
+					res.json({status: false, message: "Register HackToday failed!", err_code: 400});
 				})
 		}
 		
@@ -218,5 +229,6 @@ function HackTeamControllers() {
 				})
 		}
 	}
+}
 
 module.exports = new HackTeamControllers();

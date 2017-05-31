@@ -5,6 +5,7 @@ var sequelize = require('../connection');
 var jwt = require('../token');
 
 var AppTeam = sequelize.import(__dirname + "/../models/appteam.models");
+var User = sequelize.import(__dirname + "/../models/user.models");
 
 function AppTeamControllers() {
 	// hanya admin yang bisa dapat list
@@ -31,8 +32,9 @@ function AppTeamControllers() {
 
 	this.get = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
+		var id = req.params.id;
 
-		if (auth == false) {
+		if (auth == false || auth.id != id) {
 			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
 		} else {
 			AppTeam
@@ -49,20 +51,20 @@ function AppTeamControllers() {
 					// console.log('Get all news successful!');
 					if(result == null) {
 						res.json({status: false, message: 'No appteam with this ID'});
-					}
-					else {
+					} else {
 						res.json({status: true, message: 'Get appteam success', data: result});
 					}
 				})
 				.catch(function(err) {
 					// console.log('Failed to get all news!');
-					res.json({status: false, message: "Get appteam failed!", err_code: 400});
+					res.json({status: false, message: "Not yet registered", err_code: 400});
 				});
 		}
 	}
 
 	this.getById = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
+		var id = req.params.id;
 
 		if (auth == false) {
 			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
@@ -79,12 +81,26 @@ function AppTeamControllers() {
 						res.json({status: false, message: 'No appteam with this ID'});
 					}
 					else {
-						res.json({status: true, message: 'Get appteam success', data: result});
+						User
+							.findAll({
+								where: {
+									$or: [
+										{id: result.ketua_team},
+										{id: result.anggota1_team},
+										{id: result.anggota2_team}
+									]
+								},
+								attributes: ['id', 'nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'identitas_user', 'status_user']
+							})
+							.then(function(info) {
+							if(result.id == info[0].id) { /* do nothing */}
+								res.json({status: true, message: 'Get hackteam success', data: result, member: info});
+							})
 					}
 				})
 				.catch(function(err) {
 					// console.log('Failed to get all news!');
-					res.json({status: false, message: "Get appteam failed!", err_code: 400});
+					res.json({status: false, message: "Not yet registered", err_code: 400});
 				});
 		}
 	}
@@ -178,22 +194,18 @@ function AppTeamControllers() {
 			res.json({status: false, message: 'Authentication failed', err_code: 401});
 		} else {
 			AppTeam
-				.findOrCreate({
-					where: {
+				.create({
 						ketua_team: ketua_team,
-						defaults: {
-							nama_team: nama_team,
-							token_team: token_team
-						}
-					}
+						nama_team: nama_team,
+						token_team: token_team
 				})
 				.then(function() {
 					// console.log("Create appteam success");
-					res.json({status: true, message: "Create appteam success!"});
+					res.json({status: true, message: "Register AppToday success!", token_team: token_team});
 				})
 				.catch(function(err) {
 					// console.log('Failed to create appteam!');
-					res.json({status: false, message: "Create appteam failed!", err_code: 400});
+					res.json({status: false, message: "Register AppToday failed!", err_code: 400});
 				})
 		}
 		
@@ -219,9 +231,9 @@ function AppTeamControllers() {
 				}, {
 					where: {
 						$or: [
-							{ketua_team: auth.id}
+							{ketua_team: auth.id},
 							{anggota1_team: auth.id},
-							{anggota2_team: auth.id},
+							{anggota2_team: auth.id}
 						]
 					}
 				})
@@ -248,5 +260,7 @@ function AppTeamControllers() {
 				})
 		}
 	}
+
+}
 
 module.exports = new AppTeamControllers();
