@@ -15,6 +15,7 @@ import { Title } from '@angular/platform-browser';
 export class LoginComponent{
 	private email: string;
 	private password: string;
+	private remember_me: boolean = false;
 
 	constructor(public title: Title, 
 							public toast: ToastrService, 
@@ -33,7 +34,7 @@ export class LoginComponent{
 	}
 
 	public submit(){
-		 let creds = JSON.stringify({email_user: this.email, password_user: this.password, remember_me: false});
+		 let creds = JSON.stringify({email_user: this.email, password_user: this.password, remember_me: this.remember_me});
 
 		 var headers = new Headers();
 		 headers.append('Content-Type', 'application/json');
