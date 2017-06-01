@@ -25,20 +25,24 @@
       <!-- <h5>{{user.email_user}}</h5> -->
     </div>
     <div class="event">
-      <ul class="nav nav-pills nav-fill">
+      <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" *ngIf="user.tingkat_user == 'SMA' || user.tingkat_user == 'S1'">
-          <a class="nav-link" data-toggle="pill" href="#apps">AppsToday <span *ngIf="registApps.has_regist == true">(Terdaftar)</span></a>
+          <a class="nav-link active" data-toggle="pill" href="#apps">AppsToday</a>
         </li>
         <li class="nav-item" *ngIf="user.tingkat_user == 'S1'">
-          <a class="nav-link" data-toggle="pill" href="#hack">HackToday <span *ngIf="registHack.has_regist == true">(Terdaftar)</span></a>
+          <a class="nav-link" data-toggle="pill" href="#hack">HackToday</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="pill" href="#seminar">Seminar <span *ngIf="registSeminar.has_regist == true">(Terdaftar)</span></a>
+          <a class="nav-link" data-toggle="pill" href="#seminar">Seminar</a>
         </li>
       </ul>
+
       <div class="tab-content">
-        <div class="tab-pane" id="apps">
-          <h3>“Punya aplikasi keren dan bermanfaat? Tunjukkan aplikasimu disini"</h3><hr>
+        <div class="tab-pane active" id="apps">
+          <h3 *ngIf="registApps.has_regist == false">
+            “Punya aplikasi keren dan bermanfaat? Tunjukkan aplikasimu disini"
+          </h3>
+          <hr *ngIf="registApps.has_regist == false">
           <div class="row" *ngIf="registApps.has_regist == false">
             <div class="col-12 col-md-6 create-team">
               <h5>Belum punya tim?</h5> 
@@ -65,22 +69,50 @@
               </form>
             </div>
           </div>
-          <div class="row justify-content-center" *ngIf="registApps.has_regist == true">
-            <div class="col-12 col-md-6">
-              <h5>Team: {{registApps.team_name}}</h5>
-              <h5>Token: {{registApps.token}}</h5>
-              <h5>Anggota: 
-                  <ol>
-                    <li>{{registApps.leader}} (Ketua)</li>
-                    <li>{{registApps.member1}}</li>
-                    <li>{{registApps.member2}}</li>
-                  </ol>
-              </h5>
+          <div class="event-data" *ngIf="registApps.has_regist == true">
+            <h1>Tim {{registApps.team_name}}</h1><hr>
+            <h6>
+              Token: 
+              <br class="hidden-md-up">
+              <span id="apps-token">{{registApps.token}}</span>
+              <br class="hidden-md-up">
+              <button class="btn btn-secondary copy-apps" data-clipboard-target="#apps-token">
+                Copy
+              </button>
+            </h6>
+            <h5>
+              Anggota:<br> 
+              <span class="badge">{{registApps.leader}} (Ketua)</span>
+              <span class="badge" *ngIf="registApps.member1 !== '-'">{{registApps.member1}}</span>
+              <span class="badge" *ngIf="registApps.member2 !== '-'">{{registApps.member2}}</span>
+            </h5><hr>
+            <div class="task">
+              <form>
+                <div class="form-group">
+                  <label><h4>Nama Aplikasi</h4></label>
+                  <small class="form-text text-muted">Tuliskan nama aplikasi yang tim Anda buat</small>
+                  <input type="text" class="form-control" placeholder="Nama Aplikasi">
+                </div>
+                <div class="form-group">
+                  <label><h4>Video Aplikasi</h4></label>
+                  <small class="form-text text-muted">Tuliskan link video yang menggambarkan aplikasi tim Anda</small>
+                  <input type="text" class="form-control" placeholder="Link Video">
+                </div>
+                <div class="form-group">
+                  <label><h4>Proposal Aplikasi</h4></label>
+                  <input type="file" class="form-control-file" placeholder="Upload proposal...">
+                  <small class="form-text text-muted">Lampirkan proposal aplikasi tim Anda dalam format pdf</small>
+                </div>
+                <button type="submit" class="btn btn-custom-task">Save</button>
+              </form>
             </div>
           </div>
         </div>
         <div class="tab-pane" id="hack">
-        <h3>“Merasa jago hacking? Tunjukkan kehebatanmu disini"</h3><hr>
+          <h3 *ngIf="registHack.has_regist == false">
+            “Merasa jago hacking? Tunjukkan kehebatanmu disini"
+          </h3>
+          <hr *ngIf="registHack.has_regist == false">
           <div class="row" *ngIf="registHack.has_regist == false">
             <div class="col-12 col-md-6 create-team">
               <h5>Belum punya tim?</h5> 
@@ -107,27 +139,50 @@
               </form>
             </div>
           </div>
-          <div class="row justify-content-center" *ngIf="registHack.has_regist == true">
-            <div class="col-12 col-md-6">
-              <h5>Team: {{registHack.team_name}}</h5>
-              <h5>Token: {{registHack.token}}</h5>
-              <h5>Anggota: 
-                  <ol>
-                    <li>{{registHack.leader}} (Ketua)</li>
-                    <li>{{registHack.member1}}</li>
-                    <li>{{registHack.member2}}</li>
-                  </ol>
-              </h5>
+          <div class="event-data" *ngIf="registHack.has_regist == true">
+            <h1>Tim {{registHack.team_name}}</h1><hr>
+            <h6>
+              Token: 
+              <br class="hidden-md-up">
+              <span id="hack-token">{{registHack.token}}</span>
+              <br class="hidden-md-up">
+              <button class="btn btn-secondary copy-hack" data-clipboard-target="#hack-token">
+                Copy
+              </button>
+            </h6>
+            <h5>
+              Anggota:<br> 
+              <span class="badge">{{registHack.leader}} (Ketua)</span>
+              <span class="badge" *ngIf="registHack.member1 !== '-'">{{registHack.member1}}</span>
+              <span class="badge" *ngIf="registHack.member2 !== '-'">{{registHack.member2}}</span>
+            </h5><hr>
+            <div class="task">
+              <form>
+                <div class="form-group-file">
+                  <label><h4>Write-Up</h4></label>
+                  <input type="file" class="form-control-file" placeholder="Upload Write-Up...">
+                  <small class="form-text text-muted">Lampirkan Write-Up tim Anda dalam format pdf</small>
+                </div>
+                <button type="submit" class="btn btn-custom-task">Save</button>
+              </form>
             </div>
           </div>
         </div>
         <div class="tab-pane" id="seminar">
-          <h3>“Ingin tau berbagai informasi menarik tentang kemajuan teknologi? Ayo ikut"</h3><hr>
+          <h3 *ngIf="registSeminar.has_regist == false">
+            “Ingin tau berbagai informasi menarik tentang kemajuan teknologi? Ayo ikut"
+          </h3>
+          <hr *ngIf="registSeminar.has_regist == false">
           <button class="btn btn-custom-yellow" type="button" (click)="registSeminarSubmit()" *ngIf="registSeminar.has_regist == false">Ikut</button>
           <div *ngIf="registSeminar.has_regist == true">
-            <h5>Anda sudah terdaftar</h5>
-            <button class="btn btn-custom-yellow" type="button" (click)="confirmAttendSeminar(true)">Saya Bisa Hadir</button> | 
-            <button class="btn btn-custom-yellow" type="button" (click)="confirmAttendSeminar(false)">Saya Berhalangan Hadir</button>
+            <h5>Anda sudah terdaftar,</h5>
+            <h6>Silahkan konfirmasi kehadiran Anda</h6><hr>
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-default btn-on active" (click)="confirmAttendSeminar(true)">
+              <input type="radio" name="attendance" checked="checked">Saya bisa hadir</label>
+              <label class="btn btn-default btn-off" (click)="confirmAttendSeminar(false)">
+              <input type="radio" name="attendance">Saya berhalangan hadir</label>
+            </div>
           </div>
         </div>
       </div>

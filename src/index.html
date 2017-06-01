@@ -21,6 +21,7 @@
   <script src="assets/js/jquery-3.2.1.min.js"></script>
   <script src="assets/js/tether.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/clipboard.min.js"></script>
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/toastr.css" />
@@ -81,6 +82,12 @@
       }
       $(this).addClass("active");
     });
+  </script>
+
+  <script type="text/javascript">
+    var clip_apps = new Clipboard('.copy-apps');
+    var clip_hack = new Clipboard('.copy-hack');
+    var clip_seminar = new Clipboard('.copy-seminar');
   </script>
 
   <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->

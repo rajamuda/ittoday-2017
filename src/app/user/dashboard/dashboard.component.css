@@ -3,28 +3,20 @@
 }
 
 .profile {
-  margin: 0;
+  margin-bottom: 40px;
   padding: .25rem .25rem 20px;
   text-align: center;
-  background: #E20302;
-  background: -webkit-linear-gradient(45deg, #E20302 92%, #EBDB01 8%);
-  background: -o-linear-gradient(45deg, #E20302 92%, #EBDB01 8%);
-  background: -moz-linear-gradient(45deg, #E20302 92%, #EBDB01 8%);
-  background: linear-gradient(45deg, #E20302 92%, #EBDB01 8%);
-  border-radius: 10px 10px 0 0;
+  background: #7E0DF1;
+  background: -webkit-linear-gradient(45deg, #7E0DF1 92%, #EBDB01 8%);
+  background: -o-linear-gradient(45deg, #7E0DF1 92%, #EBDB01 8%);
+  background: -moz-linear-gradient(45deg, #7E0DF1 92%, #EBDB01 8%);
+  background: linear-gradient(45deg, #7E0DF1 92%, #EBDB01 8%);
+  border-radius: 10px;
 }
 
 .profile .edit-button {
   position: relative;
   float: right;
-}
-
-@media (min-width: 768px) {
-  .profile .edit-button i {
-    font-size: 36px;
-    margin-top: 10px;
-    margin-right: 10px;
-  }
 }
 
 .profile img {
@@ -37,7 +29,7 @@
   margin-bottom: 10px;
 }
 
-.profile h1, h5 {
+.profile h1, .profile h5 {
   color: #fff;
 }
 
@@ -46,85 +38,150 @@
 }
 
 .profile a:hover {
-  color: #E20302;
+  color: #7E0DF1;
 }
 
-.event {
-  margin: 0;
-  background-color: #f7f7f0;
-}
-
-.event .nav-item {
-  border: 1px solid #E20302;
-}
-
-.event a {
-  font-weight: bold;
-}
-
-.event a:hover {
-  color: #E20302;
-}
-
-.event .nav-item {
-  line-height: 2.5;
-}
-
-.nav-pills .nav-item.show .nav-link, 
-.nav-pills .nav-link.active {
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
-  background-color: #EBDB01;
-}
-
-.nav-pills .nav-item:hover {
+.nav-tabs .nav-item {
+  color: #7E0DF1;
+  text-align: center;
   background-color: #ddd;
 }
 
-.nav-pills .nav-link {
-  border-radius: 0;
+.nav-tabs .nav-item.show .nav-link, 
+.nav-tabs .nav-link.active {
+  color: #000;
+  background-color: #EBDB01;
+  border: 1px solid #EBDB01;
+}
+
+.event a {
+  color: #7E0DF1;
+}
+
+.event a:hover {
+  background-color: #EBDB01;
+  color: #000;
 }
 
 .event .tab-content {
-  color: #fff;
-  padding: 20px .5rem;
-  background-color: #E20302;
-  border-radius: 0 0 10px 10px;
+  color: #000;
+  padding: .5rem;
+  background-color: #fff;
+  border: 3px solid #EBDB01;
+  border-radius: 0px 0px 10px 10px;
 }
 
-.event .create-team h5, .event .join-team h5 {
+.event .create-team h5, 
+.event .join-team h5 {
   text-align: center;
-}
+} 
 
-@media (min-width: 768px) {
-  .event .create-team {
-    border-right: 2px solid #fff;
-  }
-}
-
-.tab-content h3 {
-  font-style: italic;
+.event-data h1 {
+  text-align: center;
   font-weight: bold;
+}
+
+.event-data h6 {
   text-align: center;
+  font-weight: bold;
+  line-height: 2;
+}
+
+.event-data h6 span {
+  background-color: #EBDB01;
+  padding: .25rem .5rem;
+  word-wrap: break-word;
+}
+
+.event-data h5 {
+  text-align: center;
+  font-weight: bold;
   margin-top: 20px;
 }
 
-.tab-content hr {
-  background-color: #fff;
+.event-data .badge {
+  background-color: #7E0DF1;
+  margin: 5px;
 }
 
-.join-event {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.task {
+  background-color: #ddd;
+  padding: 10px 0px;
+  padding-bottom: 20px;
 }
 
-.btn-custom-yellow {
+.task .text-muted {
   color: #000;
+}
+
+.task .form-group {
+  margin-top: 30px;
+}
+
+.task label, .task h4 {
+  margin: 0px;
   font-weight: bold;
+}
+
+.task small {
+  margin: 0px 0px 10px 0px;
+}
+
+.btn-custom-task {
+  display: block;
+  background-color: #EBDB01;
+  margin: auto;
+}
+
+.btn-default.btn-on, .btn-default.btn-off {
+  background-color: #ddd;
+  border: 1px solid #000;
+}
+
+.btn-default.btn-on.active{
   background-color: #EBDB01;
 }
 
-.event .tab-content #seminar {
-  text-align: center;
+.btn-default.btn-off.active{
+  background-color: #EBDB01;
+}
+
+@media (min-width: 768px) {
+  .profile .edit-button i {
+    font-size: 36px;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+
+  .nav-tabs .nav-link {
+    font-weight: bold;
+  }
+  
+  .tab-content h3 {
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .join-event {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .btn-custom-yellow {
+    color: #000;
+    font-weight: bold;
+    background-color: #EBDB01;
+  }
+  
+  .event .tab-content #seminar {
+    text-align: center;
+  }
+
+  .task {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
