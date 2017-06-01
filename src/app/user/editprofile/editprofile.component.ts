@@ -31,7 +31,8 @@ export class EditProfileComponent{
 		phone: '',
 		gender: this.genders[0].value,
 		address: '',
-		identity: ''
+		identity: '',
+		status: false
 	}
 	private submitted: boolean = false;
 	private filevalid: boolean = false;
@@ -66,6 +67,7 @@ export class EditProfileComponent{
 						this.user.phone = profile.telepon_user;
 						this.user.address = profile.alamat_user;
 						this.user.gender = profile.kelamin_user;
+						this.user.status = profile.status_user;
 
 						if(profile.identitas_user != null){
 							this.filevalid = true;
