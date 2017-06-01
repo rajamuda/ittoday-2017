@@ -56,7 +56,10 @@ export class RegisterComponent{
 							this.router.navigate(['/user/dashboard']);
 						})
 				}else{
-					this.toast.warning(data.message, 'Failed');
+					if(data.err_code == 1062)
+						this.toast.warning("Email has been registered", 'Oops');
+					else
+						this.toast.warning(data.message, 'Failed');
 				}
 
 			}, err => {

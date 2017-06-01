@@ -27,13 +27,13 @@
     <div class="event">
       <ul class="nav nav-pills nav-fill">
         <li class="nav-item" *ngIf="user.tingkat_user == 'SMA' || user.tingkat_user == 'S1'">
-          <a class="nav-link" data-toggle="pill" href="#apps">AppsToday</a>
+          <a class="nav-link" data-toggle="pill" href="#apps">AppsToday <span *ngIf="registApps.has_regist == true">(Terdaftar)</span></a>
         </li>
         <li class="nav-item" *ngIf="user.tingkat_user == 'S1'">
-          <a class="nav-link" data-toggle="pill" href="#hack">HackToday</a>
+          <a class="nav-link" data-toggle="pill" href="#hack">HackToday <span *ngIf="registHack.has_regist == true">(Terdaftar)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="pill" href="#seminar">Seminar</a>
+          <a class="nav-link" data-toggle="pill" href="#seminar">Seminar <span *ngIf="registSeminar.has_regist == true">(Terdaftar)</span></a>
         </li>
       </ul>
       <div class="tab-content">
@@ -71,7 +71,7 @@
               <h5>Token: {{registApps.token}}</h5>
               <h5>Anggota: 
                   <ol>
-                    <li>{{registApps.leader}}</li>
+                    <li>{{registApps.leader}} (Ketua)</li>
                     <li>{{registApps.member1}}</li>
                     <li>{{registApps.member2}}</li>
                   </ol>
@@ -113,7 +113,7 @@
               <h5>Token: {{registHack.token}}</h5>
               <h5>Anggota: 
                   <ol>
-                    <li>{{registHack.leader}}</li>
+                    <li>{{registHack.leader}} (Ketua)</li>
                     <li>{{registHack.member1}}</li>
                     <li>{{registHack.member2}}</li>
                   </ol>
@@ -123,7 +123,12 @@
         </div>
         <div class="tab-pane" id="seminar">
           <h3>“Ingin tau berbagai informasi menarik tentang kemajuan teknologi? Ayo ikut"</h3><hr>
-          <button class="btn btn-custom-yellow" type="buitton" (click)="registSeminarSubmit()" *ngIf="registSeminar.has_regist == false">Ikut</button>
+          <button class="btn btn-custom-yellow" type="button" (click)="registSeminarSubmit()" *ngIf="registSeminar.has_regist == false">Ikut</button>
+          <div *ngIf="registSeminar.has_regist == true">
+            <h5>Anda sudah terdaftar</h5>
+            <button class="btn btn-custom-yellow" type="button" (click)="confirmAttendSeminar(true)">Saya Bisa Hadir</button> | 
+            <button class="btn btn-custom-yellow" type="button" (click)="confirmAttendSeminar(false)">Saya Berhalangan Hadir</button>
+          </div>
         </div>
       </div>
     </div>

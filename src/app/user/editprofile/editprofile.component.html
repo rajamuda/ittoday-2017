@@ -40,7 +40,7 @@
                 <label>Tingkatan</label>
                 <div class="input-group">
                   <div class="input-group-addon"><i class="material-icons">school</i></div>
-                  <select name="criteria" class="form-control" [(ngModel)]="user.criteria">
+                  <select name="criteria" class="form-control" [(ngModel)]="user.criteria" [disabled]="user.criteria.value != ''">
                     <option *ngFor="let criteria of criterion" [ngValue]="criteria" [disabled]="criteria.disabled">{{criteria.display}}</option>
                   </select>
                 </div>

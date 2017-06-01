@@ -42,8 +42,8 @@ app.use('/api/appteam', appteam);
 app.use('/api/appteam/*', appteam);
 app.use('/api/hackteam', hackteam);
 app.use('/api/hackteam/*', hackteam);
-app.use('/api/seminar', hackteam);
-app.use('/api/seminar/*', hackteam);
+app.use('/api/seminar', seminar);
+app.use('/api/seminar/*', seminar);
 
 /* frontend routes handler */
 app.use(express.static(path.join(__dirname, 'views')));

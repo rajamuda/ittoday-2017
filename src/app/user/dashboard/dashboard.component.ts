@@ -78,8 +78,12 @@ export class DashboardComponent{
 						this.router.navigate(['/user/editprofile']);
 						this.toast.info('Please, complete your profile info', 'Information');
 					}
+				}, err => {
+					this.toast.error('No internet connection', 'Failed');
 				});
-			this.infoRegister(this.user.id_user);
+			this.infoRegisterApps(this.user.id_user);
+			this.infoRegisterHack(this.user.id_user);
+			this.infoRegisterSeminar(this.user.id_user);
 		}else{
 			this.router.navigate(['/auth/login']);
 		}
@@ -100,10 +104,15 @@ export class DashboardComponent{
 					if(data.status){
 						this.toast.success(data.message, 'Success');
 						this.registHack.has_regist = true;
-						this.infoRegister(this.user.id_user);
+						this.infoRegisterHack(this.user.id_user);
 					}else{
-						this.toast.warning(data.message, 'Oops');
+						if(data.err_code == 1062)
+							this.toast.warning("Team name already exist", "Oops");
+						else
+							this.toast.warning(data.message, 'Oops');
 					}
+				}, err => {
+					this.toast.error('No internet connection', 'Failed');
 				});
 		}else if(asnew == 0){
 			let creds = {token_team: this.registHack.token};
@@ -114,10 +123,12 @@ export class DashboardComponent{
 					if(data.status){
 						this.toast.success(data.message, 'Success');
 						this.registHack.has_regist = true;
-						this.infoRegister(this.user.id_user);
+						this.infoRegisterHack(this.user.id_user);
 					}else{
 						this.toast.warning(data.message, 'Oops');
 					}
+				}, err => {
+					this.toast.error('No internet connection', 'Failed');
 				});
 		}
 	}
@@ -132,10 +143,15 @@ export class DashboardComponent{
 					if(data.status){
 						this.toast.success(data.message, 'Success');
 						this.registApps.has_regist = true;
-						this.infoRegister(this.user.id_user);
+						this.infoRegisterApps(this.user.id_user);
 					}else{
-						this.toast.warning(data.message, 'Oops');
+						if(data.err_code == 1062)
+							this.toast.warning("Team name already exist", "Oops");
+						else
+							this.toast.warning(data.message, 'Oops');
 					}
+				}, err => {
+					this.toast.error('No internet connection', 'Failed');
 				});
 		}else if(asnew == 0){
 			let creds = {token_team: this.registApps.token};
@@ -146,19 +162,38 @@ export class DashboardComponent{
 					if(data.status){
 						this.toast.success(data.message, 'Success');
 						this.registApps.has_regist = true;
-						this.infoRegister(this.user.id_user);
+						this.infoRegisterApps(this.user.id_user);
 					}else{
 						this.toast.warning(data.message, 'Oops');
 					}
+				}, err => {
+					this.toast.error('No internet connection', 'Failed');
 				});
 		}
 	}
 
 	public registSeminarSubmit(){
-		
+		this.authHttp.post(this.dataService.urlRegistSeminar, {})
+			.subscribe(res => {
+				let data = res.json();
+
+				if(data.status){
+					this.toast.success(data.message, 'success');
+					this.registSeminar.has_regist = true;
+				}else{
+					this.toast.warning(data.message, 'Oops');
+				}
+
+			}, err => {
+				this.toast.error('No internet connection', 'Failed');
+			});
 	}
 
-	public infoRegister(id: number){
+	public confirmAttendSeminar(status: boolean){
+		console.log(status);
+	}
+
+	public infoRegisterApps(id: number){
 		this.authHttp.get(this.dataService.urlHasRegistApps+'/'+id)
 				.subscribe(res => {
 					let data = res.json();
@@ -166,57 +201,96 @@ export class DashboardComponent{
 					if(data.status){
 						this.registApps.has_regist = true;
 						let info = data.data;
-
+						
 						this.registApps.id = info.id;
 						this.registApps.token = info.token_team;
 						this.registApps.team_name = info.nama_team;
-						this.getInfoMemberApp(this.registApps.id);
+						// this.getInfoMemberApp(this.registApps.id);
+						this.registApps.leader = data.leader[0].nama_user;
+						if(data.member[0]){
+							this.registApps.member1 = data.member[0].nama_user;
+						}
+						if(data.member[1]){
+							this.registApps.member2 = data.member[1].nama_user;
+						}
 					}
-				});
-			this.authHttp.get(this.dataService.urlHasRegistHack+'/'+id)
-				.subscribe(res => {
-					let data = res.json();
-
-					if(data.status){
-						this.registHack.has_regist = true;
-						let info = data.data;
-
-						this.registHack.id = info.id;
-						this.registHack.token = info.token_team;
-						this.registHack.team_name = info.nama_team;
-						this.getInfoMemberHack(this.registHack.id);
-					}
+				}, err => {
+					this.toast.error('No internet connection', 'Failed');
 				});
 	}
 
-	public getInfoMemberApp(id){
-		this.authHttp.get(this.dataService.urlHasRegistApps+'/team/'+id)
+	public infoRegisterHack(id: number){
+		this.authHttp.get(this.dataService.urlHasRegistHack+'/'+id)
 			.subscribe(res => {
 				let data = res.json();
 
-				this.registApps.leader = data.member[0].nama_user;
-				if(data.member[1]){
-					this.registApps.member1 = data.member[1].nama_user;
+				if(data.status){
+					this.registHack.has_regist = true;
+					let info = data.data;
+
+					this.registHack.id = info.id;
+					this.registHack.token = info.token_team;
+					this.registHack.team_name = info.nama_team;
+					// this.getInfoMemberHack(this.registHack.id);
+					this.registHack.leader = data.leader[0].nama_user;
+					if(data.member[0]){
+						this.registHack.member1 = data.member[0].nama_user;
+					}
+					if(data.member[1]){
+						this.registHack.member2 = data.member[1].nama_user;
+					}
 				}
-				if(data.member[2]){
-					this.registApps.member2 = data.member[2].nama_user;
-				}
-			})
+			}, err => {
+				this.toast.error('No internet connection', 'Failed');
+			});
 	}
 
-	public getInfoMemberHack(id){
-		this.authHttp.get(this.dataService.urlHasRegistHack+'/team/'+id)
+	public infoRegisterSeminar(id: number){
+		this.authHttp.get(this.dataService.urlHasRegistSeminar+'/'+id)
 			.subscribe(res => {
 				let data = res.json();
 
-				this.registHack.leader = data.member[0].nama_user;
-				if(data.member[1]){
-					this.registHack.member1 = data.member[1].nama_user;
+				if(data.status){
+					this.registSeminar.has_regist = true;
 				}
-				if(data.member[2]){
-					this.registHack.member2 = data.member[2].nama_user;
-				}
-			})
+			}, err => {
+				this.toast.error('No internet connection', 'Failed');
+			}); 
 	}
+
+	/* Not Safe!! */
+	// public getInfoMemberApp(id){
+	// 	this.authHttp.get(this.dataService.urlHasRegistApps+'/team/'+id)
+	// 		.subscribe(res => {
+	// 			let data = res.json();
+
+	// 			this.registApps.leader = data.leader[0].nama_user;
+	// 			if(data.member[0]){
+	// 				this.registApps.member1 = data.member[0].nama_user;
+	// 			}
+	// 			if(data.member[1]){
+	// 				this.registApps.member2 = data.member[1].nama_user;
+	// 			}
+	// 		}, err => {
+	// 			this.toast.error('No internet connection', 'Failed');
+	// 		});
+	// }
+
+	// public getInfoMemberHack(id){
+	// 	this.authHttp.get(this.dataService.urlHasRegistHack+'/team/'+id)
+	// 		.subscribe(res => {
+	// 			let data = res.json();
+
+	// 			this.registHack.leader = data.leader[0].nama_user;
+	// 			if(data.member[0]){
+	// 				this.registHack.member1 = data.member[0].nama_user;
+	// 			}
+	// 			if(data.member[1]){
+	// 				this.registHack.member2 = data.member[1].nama_user;
+	// 			}
+	// 		}, err => {
+	// 			this.toast.error('No internet connection', 'Failed');
+	// 		});
+	// }
 
 }

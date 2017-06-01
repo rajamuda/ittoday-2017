@@ -27,7 +27,7 @@ function UserControllers(){
 	        		res.json({status: true, message: "Register Success!"});
 	    		})
 	    		.catch(function(err) {
-	        		res.json({status: false, message: "Register failed", err_code: 400});
+	        		res.json({status: false, message: "Register failed", err_code: err.parent.errno});
 	    			console.log(err);
 	    		})
 	  	}

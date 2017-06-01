@@ -30,9 +30,10 @@ function HackTeamControllers() {
 		}
 	}
 
+	/* Get Team Info */
 	this.get = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
-		var id = req.params.id;
+		var id = req.params.id; //id user
 
 		if (auth == false || auth.id != id) {
 			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
@@ -51,9 +52,23 @@ function HackTeamControllers() {
 					// console.log('Get all news successful!');
 					if(result == null) {
 						res.json({status: false, message: 'No hackteam with this ID'});
-					}
-					else {
-						res.json({status: true, message: 'Get hackteam success', data: result});
+					} else {
+						User
+							.findAll({
+								where: {
+									$or: [
+										{id: result.ketua_team},
+										{id: result.anggota1_team},
+										{id: result.anggota2_team}
+									]
+								},
+								attributes: ['id', 'nama_user']
+							})
+							.then(function(info) {
+								var ketuaIndex = info.findIndex(x => x.id == result.ketua_team);
+								var infoKetua = info.splice(ketuaIndex);
+								res.json({status: true, message: 'Get hackteam success', data: result, leader: infoKetua, member: info});
+							})
 					}
 				})
 				.catch(function(err) {
@@ -63,13 +78,14 @@ function HackTeamControllers() {
 		}
 	}
 
+	/* Get Full Team Info (admin only) */
 	this.getById = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
-		var id = req.params.id;
+		var id = req.params.id; //id team
 
 		if (auth == false) {
 			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
-		} else {
+		} else if (auth.role == 'admin') {
 			HackTeam
 				.findOne({
 					where: {
@@ -93,7 +109,9 @@ function HackTeamControllers() {
 								attributes: ['id', 'nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'identitas_user', 'status_user']
 							})
 							.then(function(info) {
-								res.json({status: true, message: 'Get hackteam success', data: result, member: info});
+								var ketuaIndex = info.findIndex(x => x.id == result.ketua_team);
+								var infoKetua = info.splice(ketuaIndex);
+								res.json({status: true, message: 'Get hackteam success', data: result, leader: infoKetua, member: info});
 							})
 					}
 				})
@@ -101,9 +119,12 @@ function HackTeamControllers() {
 					// console.log('Failed to get hackteam!');
 					res.json({status: false, message: "Not yet registered", err_code: 400});
 				});
+		} else {
+			res.json({status: false, message: "Access Denied", err_code: 403});
 		}
 	}
 
+	/* Get Team Info by Token */
 	this.getByToken = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 
@@ -127,6 +148,7 @@ function HackTeamControllers() {
 		}
 	}
 
+	/* Register User into existed team */
 	this.registerMember = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 
@@ -142,43 +164,48 @@ function HackTeamControllers() {
 					}
 				})
 				.then(function(hackteam) {
-					if (hackteam.anggota1_team == null) {
-						HackTeam
-							.update({
-								anggota1_team: auth.id
-							},{
-								where: {
-									token_team: token_team
-								}
-							})
-							.then(function() {
-								res.json({status: true, message: "Member registration to hackteam success!"});
-							})
-							.catch(function(err) {
-								res.json({status: false, message: "Member registration to hackteam failed!", err_code: 400});	
-							});
-					} else if (hackteam.anggota2_team == null) {
-						HackTeam
-							.update({
-								anggota2_team: auth.id
-							},{
-								where: {
-									token_team: token_team
-								}
-							})
-							.then(function() {
-								res.json({status: true, message: "Member registration to hackteam success!"});
-							})
-							.catch(function(err) {
-								res.json({status: false, message: "Member registration to hackteam failed!", err_code: 400});	
-							});
+					if (!hackteam) {
+						res.json({status: false, message: "Wrong Team Token or Team Token does not exist"});
 					} else {
-						res.json({status: false, message: 'Hackteam member full!', err_code: 400})
-					} 
+						if (hackteam.anggota1_team == null) {
+							HackTeam
+								.update({
+									anggota1_team: auth.id
+								},{
+									where: {
+										token_team: token_team
+									}
+								})
+								.then(function() {
+									res.json({status: true, message: "Member registration to hackteam success!"});
+								})
+								.catch(function(err) {
+									res.json({status: false, message: "Member registration to hackteam failed!", err_code: 400});	
+								});
+						} else if (hackteam.anggota2_team == null) {
+							HackTeam
+								.update({
+									anggota2_team: auth.id
+								},{
+									where: {
+										token_team: token_team
+									}
+								})
+								.then(function() {
+									res.json({status: true, message: "Member registration to hackteam success!"});
+								})
+								.catch(function(err) {
+									res.json({status: false, message: "Member registration to hackteam failed!", err_code: 400});	
+								});
+						} else {
+							res.json({status: false, message: 'Hackteam member full!', err_code: 400})
+						} 
+					}
 				})
 		}
 	}
 
+	/* Register new team */
 	this.create = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 
@@ -203,18 +230,20 @@ function HackTeamControllers() {
 				})
 				.catch(function(err) {
 					// console.log('Failed to create hackteam!');
-					res.json({status: false, message: "Register HackToday failed!", err_code: 400});
+					console.log(err);
+					res.json({status: false, message: "Register HackToday failed!", err_code: err.parent.errno});
 				})
 		}
 		
 	}
 
+	/* HackToday delete team (admin only) */
 	this.delete = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 		var id = req.body.id;
 		if (auth == false) {
 			res.json({status: false, message: 'Authentication failed', err_code: 401});
-		} else {
+		} else if (auth.role == 'admin') {
 			HackTeam
 				.destroy({
 					where: {
@@ -227,6 +256,8 @@ function HackTeamControllers() {
 				.catch(function(){
 					res.json({status: false, message: "Delete hackteam failed!", err_code: 400});
 				})
+		}  else {
+			res.json({status: false, message: "Access Denied", err_code: 403});
 		}
 	}
 }

@@ -8,11 +8,11 @@ router.get('/', function(req, res) {
   res.json({status: false, message: 'None API Implemented'});
 });
 
-router.get('/:id', function(req, res) {
+router.get('/user/:id', function(req, res) {
   hackteam.get(req, res);
 });
 
-router.post('/all', function(req, res) {
+router.get('/all', function(req, res) {
   hackteam.getAll(req, res);
 });
 
@@ -32,7 +32,7 @@ router.post('/registermember', function(req, res) {
   hackteam.registerMember(req, res);
 });
 
-router.post('/delete', function(req, res) {
+router.delete('/delete', function(req, res) {
   hackteam.delete(req, res);
 });
 

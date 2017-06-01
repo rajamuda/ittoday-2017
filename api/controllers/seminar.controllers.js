@@ -16,10 +16,10 @@ function SeminarControllers() {
 			Seminar
 				.findAll({order: [['createdAt', 'DESC']]})
 				.then(function(result) {
-					res.json({status: true, message: 'Get all news success', data: result});
+					res.json({status: true, message: 'Get all seminar success', data: result});
 				})
 				.catch(function(err) {
-					res.json({status: false, message: "Get all news failed!", err_code: 400, err: err});
+					res.json({status: false, message: "Get all seminar failed!", err_code: 400, err: err});
 				});
 		} else {
 			res.json({status: false, message: "Access Denied", err_code: 403});
@@ -50,6 +50,32 @@ function SeminarControllers() {
 		}
 	}
 
+	this.get = function(req, res) {
+		var auth = jwt.validateToken(req.headers, res);
+		var id = req.params.id; //id user
+
+		if (auth == false || auth.id != id) {
+			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
+		} else {
+			Seminar
+				.findOne({
+					where: { pendaftar_seminar: auth.id }
+				})
+				.then(function(result) {
+					// console.log('Get all news successful!');
+					if(result == null) {
+						res.json({status: false, message: 'No seminar registrant with this ID'});
+					} else {
+						res.json({status: true, message: 'User has been registered'});
+					}
+				})
+				.catch(function(err) {
+					// console.log('Failed to get all news!');
+					res.json({status: false, message: "Not yet registered", err_code: 400});
+				});
+		}
+	}
+
 	this.register = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 		var pendaftar_seminar = auth.id;
@@ -68,7 +94,7 @@ function SeminarControllers() {
 		}
 	}
 
-	this.register = function(req, res) {
+	this.delete = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 		var pendaftar_seminar = auth.id;
 

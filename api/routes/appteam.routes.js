@@ -7,11 +7,11 @@ router.get('/', function(req, res) {
   res.json({status: false, message: 'None API Implemented'});
 });
 
-router.get('/:id', function(req, res) {
+router.get('/user/:id', function(req, res) {
   appteam.get(req, res);
 });
 
-router.post('/all', function(req, res) {
+router.get('/all', function(req, res) {
   appteam.getAll(req, res);
 });
 
@@ -35,7 +35,7 @@ router.post('/submission', function(req, res) {
   appteam.submission(req, res);
 });
 
-router.post('/delete', function(req, res) {
+router.delete('/delete', function(req, res) {
   appteam.delete(req, res);
 });
 
