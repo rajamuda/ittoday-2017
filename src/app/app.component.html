@@ -14,14 +14,6 @@
           <a (click)="collapseNav()" class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
         </li>
         <div class="navbar-text hidden-md-down"> | </div>
-        <li class="nav-item">
-          <a (click)="collapseNav()" class="nav-link" routerLink="/news" routerLinkActive="active">News</a>
-        </li>
-        <div class="navbar-text hidden-md-down"> | </div>
-        <li class="nav-item">
-          <a (click)="collapseNav()" class="nav-link" routerLink="/sponsorship" routerLinkActive="active">Sponsorship</a>
-        </li>
-        <div class="navbar-text hidden-md-down"> | </div>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Event
@@ -31,6 +23,14 @@
             <a (click)="collapseNav()" class="dropdown-item" routerLink="/event/hacktoday" routerLinkActive="active">HackToday</a>
             <a (click)="collapseNav()" class="dropdown-item" routerLink="/event/seminar" routerLinkActive="active">Seminar</a>
           </div>
+        </li>
+        <div class="navbar-text hidden-md-down"> | </div>
+        <li class="nav-item">
+          <a (click)="collapseNav()" class="nav-link" routerLink="/news" routerLinkActive="active">News</a>
+        </li>
+        <div class="navbar-text hidden-md-down"> | </div>
+        <li class="nav-item">
+          <a (click)="collapseNav()" class="nav-link" routerLink="/sponsorship" routerLinkActive="active">Sponsorship</a>
         </li>
       </ul>
       <div class="navbar-nav" *ngIf="!loggedin">
@@ -51,25 +51,27 @@
 
 <footer class="footer">
   <div class="footer-content">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-6 article-list">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 article-list">
+        <div class="article-footer">
           <h3>BERITA & ARTIKEL</h3>
           <button class="btn btn-custom">S E L E N G K A P N Y A</button>
         </div>
-        <div class="col-sm-12 col-md-6 contact-list">
+      </div>
+      <div class="col-sm-12 col-md-6 contact-list">
+        <div class="contact-footer">
           <h3>KONTAK KAMI</h3>
           <div class="contact-button">
-            <a href="#">
+            <a href="https://web.facebook.com/ipbittoday/">
               <img src="assets/img/facebook.png" height="40">
             </a>
-            <a href="#">
+            <a href="https://line.me/ti/p/~@ittoday_ipb">
               <img src="assets/img/line.png" height="40">
             </a>
-            <a href="#">
+            <a href="https://www.instagram.com/ittoday_ipb/">
               <img src="assets/img/instagram.png" height="40">
             </a>
-            <a href="#">
+            <a href="https://twitter.com/ittoday_ipb">
               <img src="assets/img/twitter.png" height="40">
             </a>
           </div>

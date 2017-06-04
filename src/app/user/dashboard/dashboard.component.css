@@ -106,7 +106,7 @@
 
 .task {
   background-color: #ddd;
-  padding: 10px 0px;
+  padding: 10px;
   padding-bottom: 20px;
 }
 
@@ -135,7 +135,7 @@
 
 .btn-default.btn-on, .btn-default.btn-off {
   background-color: #ddd;
-  border: 1px solid #000;
+  border: 1px solid #EBDB01;
 }
 
 .btn-default.btn-on.active{
@@ -144,6 +144,14 @@
 
 .btn-default.btn-off.active{
   background-color: #EBDB01;
+}
+
+.event .tab-content #seminar {
+  text-align: center;
+}
+
+.form-control-file {
+  width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -172,16 +180,5 @@
     color: #000;
     font-weight: bold;
     background-color: #EBDB01;
-  }
-  
-  .event .tab-content #seminar {
-    text-align: center;
-  }
-
-  .task {
-    margin-left: 20px;
-    margin-right: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
   }
 }

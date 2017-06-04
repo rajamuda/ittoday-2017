@@ -1,15 +1,22 @@
-.editprofile-form {
-  margin-top: 40px;
+.card {
+  margin: 40px auto;
+  border: 1px solid #EBDB01;
 }
 
-.card {
-  margin: 0px 0px 40px;
+.card-header {
+  background-color: #EBDB01;
+  font-weight: bold;
+}
+
+.btn-custom-back {
+  margin-top: 40px;
 }
 
 .btn-custom-form {
   background-color: #E20302;
   color: #fff;
   float: right;
+  margin-top: 40px;
 }
 
 select.form-control {

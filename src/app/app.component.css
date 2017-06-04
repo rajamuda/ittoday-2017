@@ -98,19 +98,12 @@ a {
   background-color: #7E0DF1;
 }
 
-.article-list {
+.article-footer {
   border-right: 3px solid #FFF;
-  margin: 20px 0px;
-  padding: 10px 20px;
 }
 
 .article-list h3 {
   font-weight: 900;
-}
-
-.contact-list {
-  margin: 20px 0px;
-  padding: 10px 20px;
 }
 
 .contact-list h3 {
@@ -145,15 +138,40 @@ a {
     height: 100px;
     z-index: 999;
   }
-}
 
-@media (max-width: 767px) {
   .article-list {
-    border-right: none;
-    text-align: center;
+    background: url("../assets/img/sberitaartikel.png") no-repeat left;
+    height: 200px;
+  }
+
+  .article-footer {
+    margin-left: 120px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    min-height: 140px;
   }
 
   .contact-list {
+    background: url("../assets/img/skontakkami.png") no-repeat right;
+    height: 200px;
+  }
+  
+  .contact-footer {
+    margin-right: 120px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .article-footer {
+    border-right: none;
     text-align: center;
+    margin: 20px auto;
+  }
+
+  .contact-footer {
+    text-align: center;
+    margin: 20px auto;
   }
 }

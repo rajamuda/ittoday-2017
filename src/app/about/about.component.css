@@ -19,13 +19,12 @@
 }
 
 .about-section {
-  background: #FFF;
+  background: #EBDB01;
   padding-top: 40px;
 }
 
 .about-image img {
   width: 100%;
-  margin-top: 60px;
 }
 
 .about-line {
@@ -54,7 +53,7 @@
 
 .gallery-section {
   background: #7E0DF1;
-  padding: 40px 0px;
+  padding: 20px 0px;
 }
 
 .gallery-button {
@@ -63,35 +62,35 @@
 }
 
 .gallery_product {
-  margin-bottom: 5px;
+  padding: 5px;
 }
 
-@media (max-width: 767px) {
-  .gallery_product img {
-    width: 100%;
-  }
+.gallery_product img {
+  width: 100%;
 }
 
 .filter-button {
   font-size: 18px;
-  border: 1px solid #42B32F;
+  font-weight: bold;
+  border: 2px solid #EBDB01;
   border-radius: 5px;
   text-align: center;
-  color: #42B32F;
+  color: #EBDB01;
   margin-bottom: 30px;
+  background-color: transparent;
 }
 
 .filter-button:hover {
   font-size: 18px;
-  border: 1px solid #42B32F;
+  border: 1px solid #EBDB01;
   border-radius: 5px;
   text-align: center;
-  color: #ffffff;
-  background-color: #42B32F;
+  color: #000;
+  background-color: #EBDB01;
 }
 
 .btn-default:active .filter-button:active {
-  background-color: #42B32F;
+  background-color: #EBDB01;
   color: white;
 }
 
@@ -99,8 +98,8 @@
   width: 100%;
 }
 
-.address-section {
-  background: #FFF;
+.past-section {
+  background: #EBDB01;
   min-height: 500px;
 }
 
@@ -116,5 +115,14 @@
 
   .title-section h1 {
     font-size: 24px;
+  }
+
+  .gallery_product img {
+    width: 100%;
+  }
+
+  .filter-button {
+    width: 100%;
+    margin-bottom: 10px;
   }
 }

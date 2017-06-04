@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
 	selector: 'appstoday',
 	encapsulation: ViewEncapsulation.None,
+	styleUrls: [ './appstoday.component.css' ],
 	templateUrl: './appstoday.component.html'
 })
 

@@ -2,7 +2,6 @@
   <div class="container">
     <div class="row editprofile-form">
       <div class="col-sm-12 col-md-8 offset-md-2">
-        <a routerLink="/user/dashboard">&lt;&lt; Back to Dashboard</a>
         <div class="card">
           <div class="card-header">
             Edit your profile info
@@ -74,7 +73,8 @@
                 </div>
                 <div style="text-align: center; margin-top: 20px; "><img *ngIf="hasUpload" src="{{dataService.baseUrl}}{{filelocation}}" style="max-width: 60%;"></div>
               </div>
-
+              
+              <a routerLink="/user/dashboard"><button class="btn btn-default btn-custom-back">Back to Dashboard</button></a>
               <button type="submit" class="btn btn-custom-form" [disabled]="!user.name || !user.phone || !user.institution || !user.address || !user.criteria.value || !filevalid">Save</button>
             </form>
           </div>

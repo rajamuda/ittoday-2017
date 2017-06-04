@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
 	selector: 'hacktoday',
 	encapsulation: ViewEncapsulation.None,
+	styleUrls: [ './hacktoday.component.css' ],
 	templateUrl: './hacktoday.component.html'
 })
 

@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
 	selector: 'seminar',
 	encapsulation: ViewEncapsulation.None,
+	styleUrls: [ './seminar.component.css' ],
 	templateUrl: './seminar.component.html'
 })
 

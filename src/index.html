@@ -62,17 +62,20 @@
   </app>
 
   <script type="text/javascript">
+    var clip_apps = new Clipboard('.copy-apps');
+    var clip_hack = new Clipboard('.copy-hack');
+    var clip_seminar = new Clipboard('.copy-seminar');
+  </script>
+
+  <script type="text/javascript">
     $(document).ready(function(){
       $(".filter-button").click(function(){
         var value = $(this).attr('data-filter');
         if(value == "all")
         {
-          //$('.filter').removeClass('hidden');
           $('.filter').show('1000');
         }else
         {
-  //      $('.filter[filter-item="'+value+'"]').removeClass('hidden');
-  //      $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
           $(".filter").not('.'+value).hide('3000');
           $('.filter').filter('.'+value).show('3000');  
         }
@@ -82,12 +85,6 @@
       }
       $(this).addClass("active");
     });
-  </script>
-
-  <script type="text/javascript">
-    var clip_apps = new Clipboard('.copy-apps');
-    var clip_hack = new Clipboard('.copy-hack');
-    var clip_seminar = new Clipboard('.copy-seminar');
   </script>
 
   <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->

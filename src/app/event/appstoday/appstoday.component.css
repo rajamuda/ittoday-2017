@@ -1,0 +1,137 @@
+.intersect-1 {
+  height: 100px;
+  text-align: center;
+  background: #7E0DF1;
+  background: -webkit-linear-gradient(3deg, #7E0DF1 50%, #EBDB01 50%);
+  background: -o-linear-gradient(3deg, #7E0DF1 50%, #EBDB01 50%);
+  background: -moz-linear-gradient(3deg, #7E0DF1 50%, #EBDB01 50%);
+  background: linear-gradient(3deg, #7E0DF1 50%, #EBDB01 50%);
+}
+
+.intersect-2 {
+  height: 100px;
+  text-align: center;
+  background: #EBDB01;
+  background: -webkit-linear-gradient(3deg, #EBDB01 50%, #7E0DF1 50%);
+  background: -o-linear-gradient(3deg, #EBDB01 50%, #7E0DF1 50%);
+  background: -moz-linear-gradient(3deg, #EBDB01 50%, #7E0DF1 50%);
+  background: linear-gradient(3deg, #EBDB01 50%, #7E0DF1 50%);
+}
+
+.apps-section {
+  background: #EBDB01;
+  padding-top: 40px;
+}
+
+.apps-image img {
+  width: 100%;
+}
+
+.apps-line {
+  width: 80%;
+  background-color: #FE0037;
+  border: 2px solid #FE0037;
+}
+
+.apps-content {
+  text-align: justify;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.title-section {
+  padding: 20px 0px;
+}
+
+.title-section h1 {
+  display: table;
+  background: #FE0037;
+  margin: 10px auto;
+  padding: .5rem 1rem;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.prize-section {
+  background: #7E0DF1;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+.prize-section img {
+  display: block;
+  margin: auto;
+}
+
+.prize-section h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 56px;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 100px;
+  color: #EBDB01;
+  text-shadow: 5px 5px #FE0037;
+}
+
+.timeline-section {
+  background: #EBDB01;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.time {
+  width: 128px;
+  height: 128px;
+  background-color: #7E0DF1;
+  border-radius: 100%;
+  padding: 20px 14px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 3px 3px #FE0037;
+  margin: 40px auto 20px;
+}
+
+.time span {
+  font-size: 30px;
+}
+
+.time-desc {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 767px) {
+  .apps-image img {
+    margin-top: 0px;
+  }
+
+  .apps-line {
+    margin-left: 10%;
+  }
+
+  .title-section h1 {
+    font-size: 24px;
+  }
+
+  .apps-section, .prize-section {
+    padding-top: 20px;
+  }
+
+  .prize-section img {
+    width: 100%;
+  } 
+
+  .prize-section h1 {
+    font-size: 36px;
+    margin-top: 20px;
+    text-shadow: 2px 2px #FE0037;
+    text-align: center;
+  }
+
+  .time {
+    margin: 10px auto;
+  }
+}

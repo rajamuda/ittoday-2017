@@ -1,3 +1,12 @@
+body {
+  overflow-x: hidden;
+}
+
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 @media (min-width: 768px) {
   html {
     position: relative;
