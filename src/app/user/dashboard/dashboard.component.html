@@ -76,7 +76,7 @@
               <br class="hidden-md-up">
               <span id="apps-token">{{registApps.token}}</span>
               <br class="hidden-md-up">
-              <button class="btn btn-secondary copy-apps" data-clipboard-target="#apps-token">
+              <button class="btn btn-secondary copy-apps" data-clipboard-target="#apps-token" (click)="showCopied()">
                 Copy
               </button>
             </h6>
@@ -86,17 +86,12 @@
               <span class="badge" *ngIf="registApps.member1 !== '-'">{{registApps.member1}}</span>
               <span class="badge" *ngIf="registApps.member2 !== '-'">{{registApps.member2}}</span>
             </h5><hr>
-            <div class="task">
+            <div class="task" *ngIf="registApps.first_submission == true">
               <form>
                 <div class="form-group">
                   <label><h4>Nama Aplikasi</h4></label>
                   <small class="form-text text-muted">Tuliskan nama aplikasi yang tim Anda buat</small>
                   <input type="text" class="form-control" placeholder="Nama Aplikasi">
-                </div>
-                <div class="form-group">
-                  <label><h4>Video Aplikasi</h4></label>
-                  <small class="form-text text-muted">Tuliskan link video yang menggambarkan aplikasi tim Anda</small>
-                  <input type="text" class="form-control" placeholder="Link Video">
                 </div>
                 <div class="form-group">
                   <label><h4>Proposal Aplikasi</h4></label>
@@ -105,6 +100,20 @@
                 </div>
                 <button type="submit" class="btn btn-custom-task">Save</button>
               </form>
+            </div>
+            <div class="task" *ngIf="registApps.second_submission == true && registApps.semifinalist == true">
+              <h5>"Selamat, proposal Anda dinyakan lolos ke tahap berikutnya!"</h5>
+              <form>
+                <div class="form-group">
+                  <label><h4>Video Aplikasi</h4></label>
+                  <small class="form-text text-muted">Tuliskan link video yang menggambarkan aplikasi tim Anda</small>
+                  <input type="text" class="form-control" placeholder="Link Video">
+                </div>
+                <button type="submit" class="btn btn-custom-task">Save</button>
+              </form>
+            </div>
+            <div class="task" *ngIf="registApps.finalist == true">
+              <h5>"Selamat, tim Anda dinyatakan lolos ke babak Final!"</h5>
             </div>
           </div>
         </div>
@@ -146,7 +155,7 @@
               <br class="hidden-md-up">
               <span id="hack-token">{{registHack.token}}</span>
               <br class="hidden-md-up">
-              <button class="btn btn-secondary copy-hack" data-clipboard-target="#hack-token">
+              <button class="btn btn-secondary copy-hack" data-clipboard-target="#hack-token" (click)="showCopied()">
                 Copy
               </button>
             </h6>
@@ -156,7 +165,7 @@
               <span class="badge" *ngIf="registHack.member1 !== '-'">{{registHack.member1}}</span>
               <span class="badge" *ngIf="registHack.member2 !== '-'">{{registHack.member2}}</span>
             </h5><hr>
-            <div class="task">
+            <div class="task" *ngIf="registHack.writeup_submission == true">
               <form>
                 <div class="form-group-file">
                   <label><h4>Write-Up</h4></label>
@@ -165,6 +174,9 @@
                 </div>
                 <button type="submit" class="btn btn-custom-task">Save</button>
               </form>
+            </div>
+            <div class="task" *ngIf="registHack.finalist == true">
+              <h5>"Selamat, tim Anda dinyatakan lolos ke babak Final!"</h5>
             </div>
           </div>
         </div>
