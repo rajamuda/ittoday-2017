@@ -46,7 +46,7 @@ app.use('/api/seminar', seminar);
 app.use('/api/seminar/*', seminar);
 
 /* frontend routes handler */
-app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'views/')));
 app.get('/admin', function(req, res, next){
   res.sendFile(path.join(__dirname, 'views/admin/index.html'))
 });

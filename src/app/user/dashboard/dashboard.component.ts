@@ -13,7 +13,6 @@ import { Title } from '@angular/platform-browser';
 })
 
 export class DashboardComponent{
-
 	jwtHelper: JwtHelper = new JwtHelper();
 	public user: any = {
 		id_user: '',
@@ -33,7 +32,8 @@ export class DashboardComponent{
 		finalist: false,
 		leader: '',
 		member1: '-',
-		member2: '-'
+		member2: '-',
+		writeup_submission: this.dataService.writeUpSubmission
 	};
 
 	public registApps: any = {
@@ -47,7 +47,9 @@ export class DashboardComponent{
 		semifinalist: false,
 		leader: '',
 		member1: '-',
-		member2: '-'
+		member2: '-',
+		first_submission: this.dataService.firstAppsSubmission,
+		second_submission: this.dataService.secondAppsSubmission
 	};
 
 	public registSeminar: any = {
@@ -205,6 +207,8 @@ export class DashboardComponent{
 						this.registApps.id = info.id;
 						this.registApps.token = info.token_team;
 						this.registApps.team_name = info.nama_team;
+						this.registApps.semifinalist = info.semifinalis_team;
+						this.registApps.finalist = info.finalis_team;
 						// this.getInfoMemberApp(this.registApps.id);
 						this.registApps.leader = data.leader[0].nama_user;
 						if(data.member[0]){
@@ -231,6 +235,7 @@ export class DashboardComponent{
 					this.registHack.id = info.id;
 					this.registHack.token = info.token_team;
 					this.registHack.team_name = info.nama_team;
+					this.registHack.finalist = info.finalis_team;
 					// this.getInfoMemberHack(this.registHack.id);
 					this.registHack.leader = data.leader[0].nama_user;
 					if(data.member[0]){
@@ -258,6 +263,9 @@ export class DashboardComponent{
 			}); 
 	}
 
+	public showCopied(){
+		this.toast.success('Token copied to clipboard', 'Copied');
+	}
 	/* Not Safe!! */
 	// public getInfoMemberApp(id){
 	// 	this.authHttp.get(this.dataService.urlHasRegistApps+'/team/'+id)
