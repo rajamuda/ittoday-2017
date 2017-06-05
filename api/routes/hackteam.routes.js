@@ -32,6 +32,10 @@ router.post('/registermember', function(req, res) {
   hackteam.registerMember(req, res);
 });
 
+router.post('/uploadwriteup', function(req, res) {
+  hackteam.uploadWriteUp(req, res);
+});
+
 router.delete('/delete', function(req, res) {
   hackteam.delete(req, res);
 });

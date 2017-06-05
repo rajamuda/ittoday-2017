@@ -243,7 +243,7 @@ function AppTeamControllers() {
 
 		var nama_app = req.body.nama_app;
 		var proposal_app = req.body.proposal_app;
-		// var video_app = req.body.video_app;
+		var video_app = req.body.video_app;
 		// var link_app = req.body.link_app;
 
 		if (auth == false) {
@@ -252,7 +252,8 @@ function AppTeamControllers() {
 			AppTeam
 				.update({
 					nama_app: nama_app,
-					proposal_app: proposal_app
+					proposal_app: proposal_app,
+					video_app: video_app
 				}, {
 					where: {
 						$or: [

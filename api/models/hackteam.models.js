@@ -6,6 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     anggota2_team: { type: DataTypes.INTEGER, defaultValue: null },
     token_team: DataTypes.STRING,
     finalis_team: { type: DataTypes.BOOLEAN, defaultValue: false },
-    skor_team: { type: DataTypes.INTEGER, defaultValue: 0 }
+    skor_team: { type: DataTypes.INTEGER, defaultValue: 0 },
+    writeup_hack: { type: DataTypes.STRING, defaultValue: null }
   });
 };

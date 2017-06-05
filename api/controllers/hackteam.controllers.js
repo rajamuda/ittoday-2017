@@ -1,5 +1,6 @@
 var express = require('express');
-
+var multer = require('multer');
+var path = require('path');
 var crypto = require('crypto');
 var sequelize = require('../connection');
 var jwt = require('../token');
@@ -235,6 +236,72 @@ function HackTeamControllers() {
 				})
 		}
 		
+	}
+
+	this.uploadWriteUp = function(req, res) {
+		var auth = jwt.validateToken(req.headers, res);
+		var destination = '/uploads/writeup/';
+		var filename;
+		var team = req.headers.team;
+
+		var storage = multer.diskStorage({ //multers disk storage settings
+		  destination: function (req, file, cb) {
+		      cb(null, './views'+destination)
+		  },
+		  filename: function (req, file, cb) {
+		      var date = new Date();
+
+					filename =  file.fieldname + '_' + team + '-' + date.getTime() + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
+		      cb(null, filename)
+		  }
+		});
+
+		var upload = multer({ //multer settings
+		    storage: storage,
+		    fileFilter: function (req, file, cb) {
+		        var ext = path.extname(file.originalname);
+
+		        if(file.mimetype != 'application/pdf') {
+		        		req.fileValidateError = "Only PDF is allowed";
+		            return cb(new Error('Only PDF is allowed'))
+		        }
+		        cb(null, true)
+		    },
+		    limits: { fileSize: 5*1024*1024 } //5 MiB
+		}).single('writeup');
+		
+		if(auth == false){
+			res.json({status: false, message: "Authentication failed, please login again", err_code: 401});
+		}else{
+			upload(req, res, function(err){
+				// console.log(req.fileValidateError);
+				if(req.fileValidateError){
+					res.json({status: false, message: req.fileValidateError});
+				}else if(err){
+					if(err.code == 'LIMIT_FILE_SIZE')
+						res.json({status: false, message: 'File size limit exceeded'});
+					else
+						res.json({status: false, err: err});
+				}else{
+					HackTeam
+						.update({
+							writeup_hack: destination+filename,
+						}, {
+							where: {
+								$or: [
+									{ketua_team: auth.id},
+									{anggota1_team: auth.id},
+									{anggota2_team: auth.id}
+								]
+							}
+						}).then(function(){
+							res.json({status: true, message: 'WriteUp upload success', filelocation: destination+filename});
+						}).catch(err => {
+							res.json({status: false, message: "WriteUp upload failed!", err_code: err});
+						});
+				}
+			})
+		}
 	}
 
 	/* HackToday delete team (admin only) */

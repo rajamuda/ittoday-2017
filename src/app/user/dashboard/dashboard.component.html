@@ -97,23 +97,23 @@
                   <label><h4>Proposal Aplikasi</h4></label>
                   <input type="file" (change)="appsProposalChange($event)" name="proposal" accept="application/pdf" class="form-control-file" placeholder="Upload proposal...">
                   <small class="form-text text-muted">Lampirkan proposal aplikasi tim Anda dalam format pdf (maks: 5 MB)</small>
-                  <div class="progress" *ngIf="proposalsubmit && !registApps.proposal">
+                  <div class="progress" *ngIf="proposalSubmit && !registApps.proposal">
                     <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress/100)*100 + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{uploadProgress}} %</div>
                   </div>
                   <div *ngIf="registApps.proposal">
                     Proposal: <a href="{{registApps.proposal}}"><img src="assets/img/pdf.png" style="width:50px; height:50px"></a>
                   </div>
                 </div>
-                <button [disabled]="!filevalid || !registApps.app_name" type="submit" class="btn btn-custom-task">Save</button>
+                <button [disabled]="!proposalValid || !registApps.app_name" type="submit" class="btn btn-custom-task">Save</button>
               </form>
             </div>
             <div class="task" *ngIf="registApps.second_submission == true && registApps.semifinalist == true">
               <h5>"Selamat, proposal Anda dinyakan lolos ke tahap berikutnya!"</h5>
-              <form>
+              <form (submit)="updateAppsSubmission()">
                 <div class="form-group">
                   <label><h4>Video Aplikasi</h4></label>
                   <small class="form-text text-muted">Tuliskan link video yang menggambarkan aplikasi tim Anda</small>
-                  <input type="text" class="form-control" placeholder="Link Video">
+                  <input type="text" [(ngModel)]="registApps.video" name="video_app" class="form-control" placeholder="Link Video">
                 </div>
                 <button type="submit" class="btn btn-custom-task">Save</button>
               </form>
@@ -172,13 +172,19 @@
               <span class="badge" *ngIf="registHack.member2 !== '-'">{{registHack.member2}}</span>
             </h5><hr>
             <div class="task" *ngIf="registHack.writeup_submission == true">
-              <form>
+              <form (submit)="writeupSubmission()">
                 <div class="form-group-file">
                   <label><h4>Write-Up</h4></label>
-                  <input type="file" class="form-control-file" placeholder="Upload Write-Up...">
-                  <small class="form-text text-muted">Lampirkan Write-Up tim Anda dalam format pdf</small>
+                  <input type="file" (change)="hackWriteUpChange($event)" class="form-control-file" placeholder="Upload Write-Up...">
+                  <small class="form-text text-muted">Lampirkan Write-Up tim Anda dalam format pdf (maks 5 MB)</small>
+                  <div class="progress" *ngIf="writeupSubmit && !registHack.writeup">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress/100)*100 + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{uploadProgress}} %</div>
+                  </div>
+                  <div *ngIf="registHack.writeup">
+                    WriteUp: <a href="{{registHack.writeup}}"><img src="assets/img/pdf.png" style="width:50px; height:50px"></a>
+                  </div>
                 </div>
-                <button type="submit" class="btn btn-custom-task">Save</button>
+                <button [disabled]="!writeupValid" type="submit" class="btn btn-custom-task">Save</button>
               </form>
             </div>
             <div class="task" *ngIf="registHack.finalist == true">
@@ -195,12 +201,13 @@
           <div *ngIf="registSeminar.has_regist == true">
             <h5>Anda sudah terdaftar,</h5>
             <h6>Silahkan konfirmasi kehadiran Anda</h6><hr>
-            <div class="btn-group" data-toggle="buttons">
+            <h6><i>Formulir konfirmasi kehadiran akan dibuka H-7 seminar</i></h6>
+            <!-- <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-default btn-on active" (click)="confirmAttendSeminar(true)">
               <input type="radio" name="attendance" checked="checked">Saya bisa hadir</label>
               <label class="btn btn-default btn-off" (click)="confirmAttendSeminar(false)">
               <input type="radio" name="attendance">Saya berhalangan <br class="hidden-md-up">hadir</label>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

@@ -24,8 +24,8 @@
             <a (click)="collapseNav()" class="dropdown-item" routerLink="/event/seminar" routerLinkActive="active">Seminar</a>
           </div>
         </li>
-        <div class="navbar-text hidden-md-down"> | </div>
-        <!-- <li class="nav-item">
+        <!-- <div class="navbar-text hidden-md-down"> | </div>
+         <li class="nav-item">
           <a (click)="collapseNav()" class="nav-link" routerLink="/news" routerLinkActive="active">News</a>
         </li>
         <div class="navbar-text hidden-md-down"> | </div>
@@ -39,7 +39,7 @@
         <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/auth/register" routerLinkActive="active">Register</a>
       </div>
       <div class="navbar-nav" *ngIf="loggedin">
-        <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/user/dashboard">Dashboard</a>
+        <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/user/dashboard" routerLinkActive="active">Dashboard</a>
         <div class="navbar-text hidden-md-down"> / </div>
         <a (click)="collapseNav()" class="nav-item nav-link" routerLink="/" (click)="logout()">Logout</a>
       </div>

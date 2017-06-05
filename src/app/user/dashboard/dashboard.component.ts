@@ -30,6 +30,7 @@ export class DashboardComponent{
 		has_regist: false,
 		token: '',
 		team_name: '',
+		writeup: '',
 		finalist: false,
 		leader: '',
 		member1: '-',
@@ -58,10 +59,15 @@ export class DashboardComponent{
 		has_regist: false
 	};
 
-	private filesToUpload: Array<File>;
-	private filevalid;
+	private proposalFile: Array<File>;
+	private proposalValid;
+	private proposalSubmit = false;
+
+	private writeupFile: Array<File>;
+	private writeupValid;
+	private writeupSubmit = false
+
 	private uploadProgress = 0;
-	private proposalsubmit = false;
 
 	constructor(public title: Title, 
 							public authHttp: AuthHttp, 
@@ -70,6 +76,9 @@ export class DashboardComponent{
 							public dataService: DataService,
 							public uploadService: UploadService)
 	{
+		this.uploadService.progress$.subscribe(status => {
+			this.uploadProgress = status;
+		});
 		if(localStorage.getItem('token')){
 			let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
 			this.user.id_user = decode.id;
@@ -203,56 +212,102 @@ export class DashboardComponent{
 		console.log(status);
 	}
 
-	appsProposalChange(fileInput: any){
-		this.registApps.proposal = '';
-    this.filesToUpload = <Array<File>> fileInput.target.files;
+	hackWriteUpChange(fileInput: any){
+		this.registHack.writeup = '';
+    this.writeupFile = <Array<File>> fileInput.target.files;
+
+    if(!this.writeupFile.length){
+    	this.writeupValid = false;
+    }
 
     /* Validasi tipe file */
-   	if(this.filesToUpload[0].type != "application/pdf"){
-   		this.filevalid = true;
+   	if(this.writeupFile[0].type != "application/pdf"){
+   		this.writeupValid = true;
    	}else{
-   		this.filevalid = false;
+   		this.writeupValid = false;
    	}
 
-   	/* Cek ukuran gambar */
-   	if(this.filesToUpload[0].size > 5*1024*1024){
-   		this.filevalid = false;
+   	/* Cek ukuran PDF */
+   	if(this.writeupFile[0].size > 5*1024*1024){
+   		this.writeupValid = false;
    	}else{
-   		this.filevalid = true;
-   	}
-  }
+   		this.writeupValid = true;
+   	}		
+	}
 
-	public appsFirstSubmission(){
-		this.proposalsubmit = true;
-		if(!this.registApps.proposal){
-			let params = {authorization: localStorage.getItem('token'), name: 'proposal', team: this.registApps.team_name};
-			this.uploadService.makeFileRequest(this.dataService.urlUploadProposal, params, this.filesToUpload).then((result: any) => {
+	public writeupSubmission(){
+		this.writeupSubmit = true;
+		if(!this.registHack.writeup){
+			let params = {authorization: localStorage.getItem('token'), name: 'writeup', team: this.registHack.team_name};
+			this.uploadService.makeFileRequest(this.dataService.urlUploadWriteUp, params, this.writeupFile).then((result: any) => {
 	      if(result.status){
 	      	this.toast.success(result.message, 'Success');
-	      	this.registApps.proposal = result.filelocation;
-	      	this.updateAppsFirstSubmission();      
+	      	this.registHack.writeup = result.filelocation;    
 	      }else{
 	      	if(result.message)
 	      		this.toast.warning(result.message, 'Failed');
 	      	else
 	      		this.toast.warning('Server error while uploading', 'Failed');
-	      	this.proposalsubmit = false;
+	      	this.writeupSubmit = false;
 	      	this.uploadProgress = 0;
 	      }
 	    }, (error) => {
 	      console.error(error);
-	      this.proposalsubmit = false;
+	      this.writeupSubmit = false;
+	    });
+		}
+	}
+
+	appsProposalChange(fileInput: any){
+		this.registApps.proposal = '';
+    this.proposalFile = <Array<File>> fileInput.target.files;
+
+    /* Validasi tipe file */
+   	if(this.proposalFile[0].type != "application/pdf"){
+   		this.proposalValid = true;
+   	}else{
+   		this.proposalValid = false;
+   	}
+
+   	/* Cek ukuran PDF */
+   	if(this.proposalFile[0].size > 5*1024*1024){
+   		this.proposalValid = false;
+   	}else{
+   		this.proposalValid = true;
+   	}
+  }
+
+	public appsFirstSubmission(){
+		this.proposalSubmit = true;
+		if(!this.registApps.proposal){
+			let params = {authorization: localStorage.getItem('token'), name: 'proposal', team: this.registApps.team_name};
+			this.uploadService.makeFileRequest(this.dataService.urlUploadProposal, params, this.proposalFile).then((result: any) => {
+	      if(result.status){
+	      	this.toast.success(result.message, 'Success');
+	      	this.registApps.proposal = result.filelocation;
+	      	this.updateAppsSubmission();      
+	      }else{
+	      	if(result.message)
+	      		this.toast.warning(result.message, 'Failed');
+	      	else
+	      		this.toast.warning('Server error while uploading', 'Failed');
+	      	this.proposalSubmit = false;
+	      	this.uploadProgress = 0;
+	      }
+	    }, (error) => {
+	      console.error(error);
+	      this.proposalSubmit = false;
 	    });
 		}
 
 		if(this.registApps.proposal){
-			this.updateAppsFirstSubmission();		
+			this.updateAppsSubmission();		
 		}
 	}
 
-	public updateAppsFirstSubmission(){
-		let creds = {nama_app: this.registApps.app_name, proposal_app: this.registApps.proposal};
-		console.log(creds);
+	public updateAppsSubmission(){
+		let creds = {nama_app: this.registApps.app_name, proposal_app: this.registApps.proposal, video_app: this.registApps.video};
+
 		this.authHttp.post(this.dataService.urlAppsSubmission, creds)
 			.subscribe(res => {
 				let data = res.json();
@@ -260,11 +315,11 @@ export class DashboardComponent{
 					this.toast.success(data.message, 'Success');
 				}else{
 					this.toast.warning(data.message, 'Failed');
-					this.proposalsubmit = false;
+					this.proposalSubmit = false;
 				}
 			}, err => {
 				this.toast.error('No internet connection', 'Failed');
-				this.proposalsubmit = false;
+				this.proposalSubmit = false;
 			});
 	}
 
@@ -284,12 +339,12 @@ export class DashboardComponent{
 						this.registApps.finalist = info.finalis_team;
 						this.registApps.app_name = info.nama_app;
 						this.registApps.proposal = info.proposal_app;
+						this.registApps.video = info.video_app;
 
 						if(this.registApps.proposal){
-							this.filevalid = true;
+							this.proposalValid = true;
 						}
 
-						// this.getInfoMemberApp(this.registApps.id);
 						this.registApps.leader = data.leader[0].nama_user;
 						if(data.member[0]){
 							this.registApps.member1 = data.member[0].nama_user;
@@ -316,7 +371,8 @@ export class DashboardComponent{
 					this.registHack.token = info.token_team;
 					this.registHack.team_name = info.nama_team;
 					this.registHack.finalist = info.finalis_team;
-					// this.getInfoMemberHack(this.registHack.id);
+					this.registHack.writeup = info.writeup_hack;
+
 					this.registHack.leader = data.leader[0].nama_user;
 					if(data.member[0]){
 						this.registHack.member1 = data.member[0].nama_user;
@@ -346,39 +402,4 @@ export class DashboardComponent{
 	public showCopied(){
 		this.toast.success('Token copied to clipboard', 'Copied');
 	}
-	/* Not Safe!! */
-	// public getInfoMemberApp(id){
-	// 	this.authHttp.get(this.dataService.urlHasRegistApps+'/team/'+id)
-	// 		.subscribe(res => {
-	// 			let data = res.json();
-
-	// 			this.registApps.leader = data.leader[0].nama_user;
-	// 			if(data.member[0]){
-	// 				this.registApps.member1 = data.member[0].nama_user;
-	// 			}
-	// 			if(data.member[1]){
-	// 				this.registApps.member2 = data.member[1].nama_user;
-	// 			}
-	// 		}, err => {
-	// 			this.toast.error('No internet connection', 'Failed');
-	// 		});
-	// }
-
-	// public getInfoMemberHack(id){
-	// 	this.authHttp.get(this.dataService.urlHasRegistHack+'/team/'+id)
-	// 		.subscribe(res => {
-	// 			let data = res.json();
-
-	// 			this.registHack.leader = data.leader[0].nama_user;
-	// 			if(data.member[0]){
-	// 				this.registHack.member1 = data.member[0].nama_user;
-	// 			}
-	// 			if(data.member[1]){
-	// 				this.registHack.member2 = data.member[1].nama_user;
-	// 			}
-	// 		}, err => {
-	// 			this.toast.error('No internet connection', 'Failed');
-	// 		});
-	// }
-
 }

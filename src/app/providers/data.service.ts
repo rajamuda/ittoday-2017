@@ -31,6 +31,7 @@ export class DataService{
 	public urlHasRegistHack = this.baseUrl+'/api/hackteam/user';
 	public urlRegistHack = this.baseUrl+'/api/hackteam/create';
 	public urlRegistHackMember = this.baseUrl+'/api/hackteam/registermember';
+	public urlUploadWriteUp = this.baseUrl+'/api/hackteam/uploadwriteup';
 
 	/* Seminar */
 	public urlHasRegistSeminar = this.baseUrl+'/api/seminar/user';
