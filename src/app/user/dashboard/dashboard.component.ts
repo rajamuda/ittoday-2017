@@ -3,6 +3,7 @@ import { AuthHttp, JwtHelper } from 'angular2-jwt';
 import { Router } from '@angular/router';
 import { ToastrService } from 'toastr-ng2';
 import { DataService } from '../../providers/data.service';
+import { UploadService } from '../../providers/upload.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -41,6 +42,7 @@ export class DashboardComponent{
 		has_regist: false,
 		token: '',
 		team_name: '',
+		app_name: '',
 		proposal: '',
 		video: '',
 		finalist: false,
@@ -56,11 +58,17 @@ export class DashboardComponent{
 		has_regist: false
 	};
 
+	private filesToUpload: Array<File>;
+	private filevalid;
+	private uploadProgress = 0;
+	private proposalsubmit = false;
+
 	constructor(public title: Title, 
 							public authHttp: AuthHttp, 
 							public toast: ToastrService, 
 							public router: Router, 
-							public dataService: DataService)
+							public dataService: DataService,
+							public uploadService: UploadService)
 	{
 		if(localStorage.getItem('token')){
 			let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
@@ -195,6 +203,71 @@ export class DashboardComponent{
 		console.log(status);
 	}
 
+	appsProposalChange(fileInput: any){
+		this.registApps.proposal = '';
+    this.filesToUpload = <Array<File>> fileInput.target.files;
+
+    /* Validasi tipe file */
+   	if(this.filesToUpload[0].type != "application/pdf"){
+   		this.filevalid = true;
+   	}else{
+   		this.filevalid = false;
+   	}
+
+   	/* Cek ukuran gambar */
+   	if(this.filesToUpload[0].size > 5*1024*1024){
+   		this.filevalid = false;
+   	}else{
+   		this.filevalid = true;
+   	}
+  }
+
+	public appsFirstSubmission(){
+		this.proposalsubmit = true;
+		if(!this.registApps.proposal){
+			let params = {authorization: localStorage.getItem('token'), name: 'proposal', team: this.registApps.team_name};
+			this.uploadService.makeFileRequest(this.dataService.urlUploadProposal, params, this.filesToUpload).then((result: any) => {
+	      if(result.status){
+	      	this.toast.success(result.message, 'Success');
+	      	this.registApps.proposal = result.filelocation;
+	      	this.updateAppsFirstSubmission();      
+	      }else{
+	      	if(result.message)
+	      		this.toast.warning(result.message, 'Failed');
+	      	else
+	      		this.toast.warning('Server error while uploading', 'Failed');
+	      	this.proposalsubmit = false;
+	      	this.uploadProgress = 0;
+	      }
+	    }, (error) => {
+	      console.error(error);
+	      this.proposalsubmit = false;
+	    });
+		}
+
+		if(this.registApps.proposal){
+			this.updateAppsFirstSubmission();		
+		}
+	}
+
+	public updateAppsFirstSubmission(){
+		let creds = {nama_app: this.registApps.app_name, proposal_app: this.registApps.proposal};
+		console.log(creds);
+		this.authHttp.post(this.dataService.urlAppsSubmission, creds)
+			.subscribe(res => {
+				let data = res.json();
+				if(data.status){
+					this.toast.success(data.message, 'Success');
+				}else{
+					this.toast.warning(data.message, 'Failed');
+					this.proposalsubmit = false;
+				}
+			}, err => {
+				this.toast.error('No internet connection', 'Failed');
+				this.proposalsubmit = false;
+			});
+	}
+
 	public infoRegisterApps(id: number){
 		this.authHttp.get(this.dataService.urlHasRegistApps+'/'+id)
 				.subscribe(res => {
@@ -209,6 +282,13 @@ export class DashboardComponent{
 						this.registApps.team_name = info.nama_team;
 						this.registApps.semifinalist = info.semifinalis_team;
 						this.registApps.finalist = info.finalis_team;
+						this.registApps.app_name = info.nama_app;
+						this.registApps.proposal = info.proposal_app;
+
+						if(this.registApps.proposal){
+							this.filevalid = true;
+						}
+
 						// this.getInfoMemberApp(this.registApps.id);
 						this.registApps.leader = data.leader[0].nama_user;
 						if(data.member[0]){

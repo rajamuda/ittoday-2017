@@ -138,6 +138,7 @@ export class EditProfileComponent{
 	      }
 	    }, (error) => {
 	      console.error(error);
+	      this.submitted = false;
 	    });
 		}
 

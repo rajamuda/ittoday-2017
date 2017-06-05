@@ -1,9 +1,9 @@
 a {
-  color: #E20302;
+  color: #FE0037;
 }
 
 .navbar {
-  background-color: #E20302;
+  background-color: #FE0037;
   -moz-box-shadow:0 3px 5px rgba(182, 182, 182, 0.75);
   -webkit-box-shadow: 0 3px 5px rgba(182, 182, 182, 0.75);
   box-shadow: 0 3px 5px rgba(182, 182, 182, 0.75);
@@ -39,7 +39,7 @@ a {
 
 @media (min-width: 768px) {
   .navbar-light .navbar-nav .nav-link {
-    border: 2px solid #E20302;
+    border: 2px solid #FE0037;
   }
 
   .navbar-light .navbar-nav .nav-link:hover {
@@ -122,7 +122,7 @@ a {
 }
 
 .copyright {
-  background-color: #E20302;
+  background-color: #FE0037;
   text-align: center;
   color: #fff;
 }

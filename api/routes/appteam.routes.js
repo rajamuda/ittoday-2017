@@ -31,6 +31,10 @@ router.post('/registermember', function(req, res) {
   appteam.registerMember(req, res);
 });
 
+router.post('/uploadproposal', function(req, res) {
+  appteam.uploadProposal(req, res);
+});
+
 router.post('/submission', function(req, res) {
   appteam.submission(req, res);
 });

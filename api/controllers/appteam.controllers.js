@@ -1,5 +1,6 @@
 var express = require('express');
-
+var multer = require('multer');
+var path = require('path');
 var crypto = require('crypto');
 var sequelize = require('../connection');
 var jwt = require('../token');
@@ -241,9 +242,9 @@ function AppTeamControllers() {
 		var auth = jwt.validateToken(req.headers, res);
 
 		var nama_app = req.body.nama_app;
-		var proposal_app = req.proposal_app;
-		var video_app = req.body.video_app;
-		var link_app = req.body.link_app;
+		var proposal_app = req.body.proposal_app;
+		// var video_app = req.body.video_app;
+		// var link_app = req.body.link_app;
 
 		if (auth == false) {
 			res.json({status: false, message: 'Authentication failed', err_code: 401});
@@ -251,9 +252,7 @@ function AppTeamControllers() {
 			AppTeam
 				.update({
 					nama_app: nama_app,
-					proposal_app: proposal_app,
-					video_app: video_app,
-					link_app: link_app
+					proposal_app: proposal_app
 				}, {
 					where: {
 						$or: [
@@ -262,7 +261,64 @@ function AppTeamControllers() {
 							{anggota2_team: auth.id}
 						]
 					}
+				}).then(function() {
+					// console.log("Create appteam success");
+					res.json({status: true, message: "Submission success!"});
+				}).catch(err => {
+					// console.log('Failed to create appteam!');
+					res.json({status: false, message: "Submission failed!", err_code: err});
 				})
+		}
+	}
+
+	this.uploadProposal = function(req, res){
+		var auth = jwt.validateToken(req.headers, res);
+		var destination = '/uploads/proposal/';
+		var filename;
+		var team = req.headers.team;
+
+		var storage = multer.diskStorage({ //multers disk storage settings
+		  destination: function (req, file, cb) {
+		      cb(null, './views'+destination)
+		  },
+		  filename: function (req, file, cb) {
+		      var date = new Date();
+
+					filename =  file.fieldname + '_' + team + '-' + date.getTime() + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
+		      cb(null, filename)
+		  }
+		});
+
+		var upload = multer({ //multer settings
+		    storage: storage,
+		    fileFilter: function (req, file, cb) {
+		        var ext = path.extname(file.originalname);
+
+		        if(file.mimetype != 'application/pdf') {
+		        		req.fileValidateError = "Only PDF is allowed";
+		            return cb(new Error('Only PDF is allowed'))
+		        }
+		        cb(null, true)
+		    },
+		    limits: { fileSize: 5*1024*1024 } //5 MiB
+		}).single('proposal');
+		
+		if(auth == false){
+			res.json({status: false, message: "Authentication failed, please login again", err_code: 401});
+		}else{
+			upload(req, res, function(err){
+				// console.log(req.fileValidateError);
+				if(req.fileValidateError){
+					res.json({status: false, message: req.fileValidateError});
+				}else if(err){
+					if(err.code == 'LIMIT_FILE_SIZE')
+						res.json({status: false, message: 'File size limit exceeded'});
+					else
+						res.json({status: false, err: err});
+				}else{
+					res.json({status: true, message: 'Upload success', filelocation: destination+filename});
+				}
+			})
 		}
 	}
 

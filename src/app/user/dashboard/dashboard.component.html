@@ -87,18 +87,24 @@
               <span class="badge" *ngIf="registApps.member2 !== '-'">{{registApps.member2}}</span>
             </h5><hr>
             <div class="task" *ngIf="registApps.first_submission == true">
-              <form>
+              <form (ngSubmit)="appsFirstSubmission()">
                 <div class="form-group">
                   <label><h4>Nama Aplikasi</h4></label>
                   <small class="form-text text-muted">Tuliskan nama aplikasi yang tim Anda buat</small>
-                  <input type="text" class="form-control" placeholder="Nama Aplikasi">
+                  <input type="text" [(ngModel)]="registApps.app_name" name="app_name" class="form-control" placeholder="Nama Aplikasi">
                 </div>
                 <div class="form-group">
                   <label><h4>Proposal Aplikasi</h4></label>
-                  <input type="file" class="form-control-file" placeholder="Upload proposal...">
-                  <small class="form-text text-muted">Lampirkan proposal aplikasi tim Anda dalam format pdf</small>
+                  <input type="file" (change)="appsProposalChange($event)" name="proposal" accept="application/pdf" class="form-control-file" placeholder="Upload proposal...">
+                  <small class="form-text text-muted">Lampirkan proposal aplikasi tim Anda dalam format pdf (maks: 5 MB)</small>
+                  <div class="progress" *ngIf="proposalsubmit && !registApps.proposal">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress/100)*100 + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{uploadProgress}} %</div>
+                  </div>
+                  <div *ngIf="registApps.proposal">
+                    Proposal: <a href="{{registApps.proposal}}"><img src="assets/img/pdf.png" style="width:50px; height:50px"></a>
+                  </div>
                 </div>
-                <button type="submit" class="btn btn-custom-task">Save</button>
+                <button [disabled]="!filevalid || !registApps.app_name" type="submit" class="btn btn-custom-task">Save</button>
               </form>
             </div>
             <div class="task" *ngIf="registApps.second_submission == true && registApps.semifinalist == true">

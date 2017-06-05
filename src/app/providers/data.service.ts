@@ -10,7 +10,7 @@ export class DataService{
 	public isLoggedIn = new Subject<boolean>();
 
 	public baseTitle = 'IT Today IPB 2017 - CreativITy';
-	public baseUrl = 'https://localhost:4201';
+	public baseUrl = 'http://localhost:4200';
 
 	/* User */
 	public urlLogin = this.baseUrl+'/api/user/login';
@@ -24,6 +24,8 @@ export class DataService{
 	public urlHasRegistApps = this.baseUrl+'/api/appteam/user';
 	public urlRegistApps = this.baseUrl+'/api/appteam/create';
 	public urlRegistAppsMember = this.baseUrl+'/api/appteam/registermember';
+	public urlUploadProposal = this.baseUrl+'/api/appteam/uploadproposal';
+	public urlAppsSubmission = this.baseUrl+'/api/appteam/submission';
 
 	/* HackToday */
 	public urlHasRegistHack = this.baseUrl+'/api/hackteam/user';
@@ -36,7 +38,7 @@ export class DataService{
 
 	/* custom VAR */
 	public writeUpSubmission = false;
-	public firstAppsSubmission = false;
+	public firstAppsSubmission = true;
 	public secondAppsSubmission = false;
 
 	loginAnnounced$ = this.isLoggedIn.asObservable();

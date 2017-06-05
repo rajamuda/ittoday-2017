@@ -28,20 +28,20 @@ var option = {
   cert: fs.readFileSync('bin/cert.pem')
 }
 
-// var httpserver = http.createServer(app);
-var httpsserver = https.createServer(option, app);
+var httpserver = http.createServer(app);
+// var httpsserver = https.createServer(option, app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-// httpserver.listen(httpport);
-// httpserver.on('error', onError);
-// httpserver.on('listening', onListening);
+httpserver.listen(httpport);
+httpserver.on('error', onError);
+httpserver.on('listening', onListening);
 
-httpsserver.listen(httpsport);
-httpsserver.on('error', onError);
-httpsserver.on('listening', onListening);
+// httpsserver.listen(httpsport);
+// httpsserver.on('error', onError);
+// httpsserver.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -96,7 +96,7 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = httpsserver.address();
+  var addr = httpserver.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;

@@ -46,6 +46,9 @@ export class UploadService {
       xhr.open("POST", url, true);
 
       xhr.setRequestHeader('Authorization', params.authorization);
+      if(params.team){
+        xhr.setRequestHeader('Team', params.team);
+      }
       xhr.send(formData);
     });
   }
