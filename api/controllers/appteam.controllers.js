@@ -67,7 +67,7 @@ function AppTeamControllers() {
 							})
 							.then(function(info) {
 								var ketuaIndex = info.findIndex(x => x.id == result.ketua_team);
-								var infoKetua = info.splice(ketuaIndex);
+								var infoKetua = info.splice(ketuaIndex,1);
 								res.json({status: true, message: 'Get appteam success', data: result, leader: infoKetua, member: info});
 							})
 					}
@@ -111,7 +111,8 @@ function AppTeamControllers() {
 							})
 							.then(function(info) {
 								var ketuaIndex = info.findIndex(x => x.id == result.ketua_team);
-								var infoKetua = info.splice(ketuaIndex);
+								var infoKetua = info.splice(ketuaIndex,1);
+
 								res.json({status: true, message: 'Get appteam success', data: result, leader: infoKetua, member: info});
 							})
 					}
