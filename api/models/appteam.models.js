@@ -1,9 +1,9 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('appTeam', {
     nama_team: { type: DataTypes.STRING, unique: true },
-    ketua_team: DataTypes.INTEGER,
-    anggota1_team: { type: DataTypes.INTEGER, defaultValue: null },
-    anggota2_team: { type: DataTypes.INTEGER, defaultValue: null },
+    ketua_team: { type: DataTypes.INTEGER, unique: true },
+    anggota1_team: { type: DataTypes.INTEGER, defaultValue: null, unique: true },
+    anggota2_team: { type: DataTypes.INTEGER, defaultValue: null, unique: true },
     token_team: DataTypes.STRING,
     finalis_team: { type: DataTypes.BOOLEAN, defaultValue: false },
     semifinalis_team: { type: DataTypes.BOOLEAN, defaultValue: false },
