@@ -276,12 +276,13 @@ function AppTeamControllers() {
 	this.uploadProposal = function(req, res){
 		var auth = jwt.validateToken(req.headers, res);
 		var destination = '/uploads/proposal/';
+		var dir = '/../views';
 		var filename;
 		var team = req.headers.team;
 
 		var storage = multer.diskStorage({ //multers disk storage settings
 		  destination: function (req, file, cb) {
-		      cb(null, './views'+destination)
+		      cb(null, __dirname+dir+destination)
 		  },
 		  filename: function (req, file, cb) {
 		      var date = new Date();

@@ -8,6 +8,11 @@ var jwt = require('../token');
 
 var User = sequelize.import(__dirname + "/../models/user.models");
 
+var validateEmail = function(mail){
+	var regexMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	return mail.match(regexMail);
+}
+
 function UserControllers(){
 	this.register = function(data, res){
 	  	var nama_user = data.nama_user;
@@ -19,11 +24,15 @@ function UserControllers(){
 	    	res.json({status: false, message: "There is empty field!", err_code: 406});
 	  	} else if (password_user != password_confirm) {
 	  		res.json({status: false, message: "Confirmation password does not match", err_code: 406});
-	  	} else {
+	  	} else if(!validateEmail(email_user)) {
+  			res.json({status: false, message: 'Not valid e-mail syntax', err_code: 406});
+  		} else if(password_user.length < 6) {
+  			res.json({status: false, message: 'Password must have at least 6 characters', err_code: 406});
+  		} else {
 	    	User
 	    		.create({nama_user: nama_user, email_user: email_user, password_user: crypto.createHash('sha256').update(password_user).digest('hex')})
 	    		.then(function() {
-	    			console.log('User built successfully');
+	    			console.log('User '+nama_user+' successfully registered');
 	        		res.json({status: true, message: "Register Success!"});
 	    		})
 	    		.catch(function(err) {
@@ -49,9 +58,13 @@ function UserControllers(){
 	}
 
 	this.login = function(data, res){
-	  	var email_user = data.email_user;
-	  	var password_user = crypto.createHash('sha256').update(data.password_user).digest('hex');
-	  	var remember_me = data.remember_me;
+  	var email_user = data.email_user;
+  	var password_user = crypto.createHash('sha256').update(data.password_user).digest('hex');
+  	var remember_me = data.remember_me;
+
+  	if(!validateEmail(email_user)) {
+  		res.json({status: false, message: 'Not valid e-mail syntax', err_code: 406});
+  	} else {
 	  	User
 	    	.findAll({
 	      		where: { email_user: email_user, password_user: password_user }
@@ -75,10 +88,11 @@ function UserControllers(){
 	    	.catch(function(err) {
 	      		res.json({status: false, message: "Login failed!", err: err});
 	    	})
+	  }
 	}
 
 	this.session = function(data, res){
-  	  	jwt.checkToken(data, res);
+		jwt.checkToken(data, res);
 	}
 
 	this.editprofile = function(data, header, res) {
@@ -94,10 +108,13 @@ function UserControllers(){
 		    var institusi_user = data.institusi_user;
 		    var alamat_user = data.alamat_user;
 		    var identitas_user = data.identitas_user;
+		    var check_telepon = parseInt(telepon_user);
 
 	    	if (!nama_user || !telepon_user || !kelamin_user || !tingkat_user || !institusi_user || !identitas_user || !alamat_user) {
-	      		res.json({status: false, message: 'There is empty field!', err_code: 406});
-	    	} else {
+      		res.json({status: false, message: 'There is empty field!', err_code: 406});
+	    	} else if(check_telepon < 0 || check_telepon.length < 11){
+		    	res.json({status: false, message: 'Not valid mobile phone number', err_code: 406});
+		    } else {
 		      	User
 		        	.update({
 		        		nama_user: nama_user,
@@ -148,11 +165,12 @@ function UserControllers(){
 	this.uploadID = function(req, res){
 		var auth = jwt.validateToken(req.headers, res);
 		var destination = '/uploads/identitas/';
+		var dir = '/../views';
 		var filename;
 
 		var storage = multer.diskStorage({ //multers disk storage settings
 		  destination: function (req, file, cb) {
-		      cb(null, './views'+destination)
+		      cb(null, __dirname+dir+destination)
 		  },
 		  filename: function (req, file, cb) {
 		      var date = new Date();
