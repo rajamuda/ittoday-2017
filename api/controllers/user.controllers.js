@@ -5,6 +5,7 @@ var path = require('path');
 
 var sequelize = require('../connection');
 var jwt = require('../token');
+var mailer = require('../mailer.js');
 
 var User = sequelize.import(__dirname + "/../models/user.models");
 
@@ -210,6 +211,94 @@ function UserControllers(){
 					res.json({status: true, message: 'Upload success', filelocation: destination+filename});
 				}
 			})
+		}
+	}
+
+	this.resetpass = function(req, res) {
+		var mail = req.body.email_user;
+
+		if(!mail){
+			res.json({status: false, message: 'Please input your e-mail'});
+		}else{
+			var generateToken = function(){
+				var text = "";
+			  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789=&!@#$-_";
+
+			  for( var i=0; i < 7; i++ )
+			    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+			  return text;
+			}
+
+			User
+				.findOne({
+						where: {
+							email_user: mail
+						}
+				}).then(function(result){
+					if (result != null) {
+						let token = generateToken();
+						User
+							.update({
+								token_forgetpass_user: token
+							}, { 
+								where: { email_user: mail }
+							}).then(function(){
+									let options = {
+										mailto: mail,
+										subject: 'Reset Password',
+										template: 'reset_pass',
+										customVar: token
+									}
+									mailer.sendMail(options, res);
+							}).catch(function(err){
+								res.json({status: false, message: 'Mail Failed'});
+							});
+					} else {
+						res.json({status: false, message: 'User with this e-mail does not exist'});
+					}
+				}).catch(function(err){
+					res.json({status: false, message: 'Mail Failed'});
+				});
+		}
+	}
+
+	this.confirmresetpass = function(req, res){
+		var auth = req.headers.authorization;
+		var new_pass = req.body.pass_baru;
+		var new_pass_confirm = req.body.pass_baru2;
+
+		if(!auth){
+			res.json({status: false, message: 'Access Denied!'});
+		}else if(!new_pass || !new_pass_confirm){
+			res.json({status: false, message: 'Please, fill all fields'});
+		}else if(new_pass != new_pass_confirm){
+			res.json({status: false, message: 'Password and confirmation password does not match'});
+		}else{
+			User
+				.findOne({
+					where: {
+						token_forgetpass_user: auth
+					}
+				}).then(function(result){
+					if(result!=null){
+						User
+							.update({
+								password_user: crypto.createHash('sha256').update(new_pass).digest('hex'),
+								token_forgetpass_user: null
+							}, {
+								where: {token_forgetpass_user: auth}
+							}).then(function(){
+								res.json({status: true, message: 'Password succesfully reset'});
+							}).catch(function(err){
+								res.json({status: false, message: 'Reset password failed'});
+							})
+					}else{
+						res.json({status: false, message: 'Wrong reset password token'});
+					}
+				}).catch(function(err){
+					res.json({status: false, message: 'Reset password failed'});
+				})
 		}
 	}
 }

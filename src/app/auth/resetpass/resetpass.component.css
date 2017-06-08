@@ -1,0 +1,15 @@
+.card {
+  margin: 40px auto;
+  border: 1px solid #EBDB01;
+}
+
+.card-header {
+  background-color: #EBDB01;
+  font-weight: bold;
+}
+
+.btn-custom-form {
+  background-color: #E20302;
+  color: #fff;
+  float: right;
+}

@@ -19,6 +19,8 @@ export class DataService{
 	public urlEditProfile = this.baseUrl+'/api/user/editprofile';
 	public urlShowProfile = this.baseUrl+'/api/user/showprofile';
 	public urlUploadID = this.baseUrl+'/api/user/uploadid';
+	public urlResetPass = this.baseUrl+'/api/user/resetpass';
+	public urlConfirmResetPass = this.baseUrl+'/api/user/confirmresetpass';
 
 	/* AppsToday */
 	public urlHasRegistApps = this.baseUrl+'/api/appteam/user';

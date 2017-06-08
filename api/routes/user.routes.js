@@ -41,6 +41,14 @@ router.get('/showprofile/:id', function(req, res){
 
 router.post('/uploadid', function(req, res){
 	user.uploadID(req, res);
-})
+});
+
+router.post('/resetpass', function(req, res){
+  user.resetpass(req, res);
+});
+
+router.post('/confirmresetpass', function(req, res){
+  user.confirmresetpass(req, res);
+});
 
 module.exports = router;

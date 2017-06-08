@@ -11,7 +11,8 @@ module.exports = function(sequelize, DataTypes) {
     identitas_user: { type: DataTypes.STRING, defaultValue: null },
     institusi_user: { type: DataTypes.STRING, defaultValue: null },
     foto_user: { type: DataTypes.STRING, defaultValue: null },
-    status_user: { type: DataTypes.BOOLEAN, defaultValue: false }
+    status_user: { type: DataTypes.BOOLEAN, defaultValue: false },
+    token_forgetpass_user: { type: DataTypes.STRING, defaultValue: null }
   }, {
     getterMethods: {
       getNama: function() {

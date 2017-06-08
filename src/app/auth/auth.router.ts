@@ -4,7 +4,8 @@ const appRoutes: Routes = [
 	{ path: '', children: [
 		{ path: '', redirectTo: 'login' },
 		{ path: 'login', loadChildren: './login/login.module#LoginModule' },
-		{ path: 'register', loadChildren: './register/register.module#RegisterModule' }
+		{ path: 'register', loadChildren: './register/register.module#RegisterModule' },
+		{ path: 'resetpass', loadChildren: './resetpass/resetpass.module#ResetPassModule' }
 	]}
 ]
 
