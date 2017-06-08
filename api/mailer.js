@@ -8,7 +8,7 @@ var transporter = nodemailer.createTransport({
 	secure: true, // secure:true for port 465, secure:false for port 587
 	auth: {
 		user: 'ittodayipb2017@gmail.com',
-		pass: 'YOUR_KEY_HERE'
+		pass: 'YOUR KEY HERE'
 	}
 });
 
@@ -33,9 +33,11 @@ function Mailer(){
 
 		if (mailtemplate == 'reset_pass') {
 			mailhtml = `
-				<p> Kami menerima permintaan Anda untuk melakukan <i>reset password</i> </p>
-				<p> Silakan salin <b>token</b> di bawah ini dan masukan di laman <i><a href="https://ittoday.web.id/auth/resetpass">reset password</a></i>
-				<p> <b><i>Token: `+ options.customVar +` </i></b>
+				<p> Kami menerima permintaan Anda untuk melakukan <i>reset password</i>
+				Silakan salin <b>token</b> di bawah ini dan masukan di laman <i><a href="https://ittoday.web.id/auth/resetpass?confirm=true">reset password</a></i>
+				<p> <b><i>Token: `+ options.customVar +` </i></b> </p>
+
+				<p> <i>Catatan: Mohon abaikan e-mail ini jika Anda tidak meminta melakukan reset password</i> </p>
 			`;
 
 		} else if (mailtemplate == 'payment_reminder') {

@@ -1,1 +1,58 @@
-<h1> Ga Tau Mau dibikin apa ._. </h1>
+<div class="main-component">
+  <div class="container">
+    <div class="row login-form">
+      <div class="col col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header">
+            Reset Password
+          </div>
+          <div class="card-block" *ngIf="!resetpass.confirm">
+          	<form (ngSubmit)="submitMail()">
+          		<div class="form-group">
+                <label>Email</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">person</i></div>
+                  <input type="email" [(ngModel)]="resetpass.email" name="email" class="form-control" placeholder="Masukkan email">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-custom-form" [disabled]="!resetpass.email">Submit</button>
+          	</form>	
+        		<a routerLink="/auth/resetpass" [queryParams]="{confirm: true}"><button type="button" class="btn btn-default btn-custom-back">Already have token?</button></a>
+          </div>
+          <div class="card-block" *ngIf="resetpass.confirm">
+          	<form (ngSubmit)="confirmReset(1)" *ngIf="!resetpass.token_valid">
+          		<div class="form-group">
+                <label>Token</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">vpn_key</i></div>
+                  <input type="email" [(ngModel)]="resetpass.token" name="email" class="form-control" placeholder="Masukkan token reset password">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-custom-form" [disabled]="!resetpass.token">Submit</button>
+          	</form>	
+          	<form (ngSubmit)="confirmReset(0)" *ngIf="resetpass.token_valid">
+          		<h5>Reset password untuk akun "{{resetpass.name}}" ({{resetpass.email}})</h5>
+          		<div class="form-group">
+                <label>Password</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">lock</i></div>
+                  <input type="password" [(ngModel)]="resetpass.new_pass" name="password" #password="ngModel" class="form-control" placeholder="Masukkan password baru">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Confirm Password</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="material-icons">lock</i></div>
+                  <input type="password" [(ngModel)]="resetpass.new_pass_confirm" name="password2" #password_confirm="ngModel" class="form-control" placeholder="Masukkan password baru lagi">
+                </div>
+                <p [hidden]="password.untouched || (resetpass.new_pass_confirm != '' && resetpass.new_pass == resetpass.new_pass_confirm)" style="color: #E30203">Password tidak sama</p>
+              </div>
+              <button type="submit" class="btn btn-custom-form" [disabled]="!resetpass.new_pass || !resetpass.new_pass_confirm || resetpass.new_pass != resetpass.new_pass_confirm">Submit</button>
+          	</form>	
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

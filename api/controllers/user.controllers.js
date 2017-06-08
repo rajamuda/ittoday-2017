@@ -217,6 +217,8 @@ function UserControllers(){
 	this.resetpass = function(req, res) {
 		var mail = req.body.email_user;
 
+		console.log(req.body);
+
 		if(!mail){
 			res.json({status: false, message: 'Please input your e-mail'});
 		}else{
@@ -267,32 +269,41 @@ function UserControllers(){
 		var auth = req.headers.authorization;
 		var new_pass = req.body.pass_baru;
 		var new_pass_confirm = req.body.pass_baru2;
+		var check_token_only = req.body.check_token_only;
+
+		console.log(check_token_only);
 
 		if(!auth){
 			res.json({status: false, message: 'Access Denied!'});
-		}else if(!new_pass || !new_pass_confirm){
+		}else if(!check_token_only && (!new_pass || !new_pass_confirm)){
 			res.json({status: false, message: 'Please, fill all fields'});
-		}else if(new_pass != new_pass_confirm){
+		}else if(!check_token_only && new_pass != new_pass_confirm){
 			res.json({status: false, message: 'Password and confirmation password does not match'});
+		}else if(!check_token_only && new_pass.length < 6){
+			res.json({status: false, message: 'Password must have at least 6 characters'});
 		}else{
 			User
 				.findOne({
 					where: {
 						token_forgetpass_user: auth
-					}
+					}, attributes: ['nama_user', 'email_user']
 				}).then(function(result){
 					if(result!=null){
-						User
-							.update({
-								password_user: crypto.createHash('sha256').update(new_pass).digest('hex'),
-								token_forgetpass_user: null
-							}, {
-								where: {token_forgetpass_user: auth}
-							}).then(function(){
-								res.json({status: true, message: 'Password succesfully reset'});
-							}).catch(function(err){
-								res.json({status: false, message: 'Reset password failed'});
-							})
+						if(check_token_only){
+							res.json({status: true, message: 'Reset password token valid', data: result});
+						}else{
+							User
+								.update({
+									password_user: crypto.createHash('sha256').update(new_pass).digest('hex'),
+									token_forgetpass_user: null
+								}, {
+									where: {token_forgetpass_user: auth}
+								}).then(function(){
+									res.json({status: true, message: 'Password succesfully reset'});
+								}).catch(function(err){
+									res.json({status: false, message: 'Reset password failed'});
+								})
+						}
 					}else{
 						res.json({status: false, message: 'Wrong reset password token'});
 					}
