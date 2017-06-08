@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken');
-var key = 'ithariini2017';
+var key = 'YOUR_KEY_HERE';
 
 function Token(){
   this.createToken = function(data, res){
