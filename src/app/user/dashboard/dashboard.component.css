@@ -54,6 +54,22 @@
   border: 1px solid #EBDB01;
 }
 
+.btn-download-1 {
+  background-color: #FE0037;
+  color: #FFF;
+  font-weight: bold;
+  border-radius: 50px;
+  display: block;
+  margin: auto;
+}
+
+.btn-download-2 {
+  background-color: #FE0037;
+  color: #FFF;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 .event a {
   color: #7E0DF1;
 }
@@ -61,6 +77,7 @@
 .event a:hover {
   background-color: #EBDB01;
   color: #000;
+  text-decoration: none;
 }
 
 .event .tab-content {

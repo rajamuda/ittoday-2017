@@ -42,6 +42,11 @@
           <h3 *ngIf="registApps.has_regist == false">
             “Punya aplikasi keren dan bermanfaat? Tunjukkan aplikasimu disini"
           </h3>
+          <a href="https://drive.google.com/open?id=0B3butYiz43OBaTFyWkNGZzB6bDg" target="_blank">
+            <button class="btn btn-download-1" *ngIf="registApps.has_regist == false">
+              Download Rulebook
+            </button>
+          </a>
           <hr *ngIf="registApps.has_regist == false">
           <div class="row" *ngIf="registApps.has_regist == false">
             <div class="col-12 col-md-6 create-team">
@@ -85,7 +90,11 @@
               <span class="badge">{{registApps.leader}} (Ketua)</span>
               <span class="badge" *ngIf="registApps.member1 !== '-'">{{registApps.member1}}</span>
               <span class="badge" *ngIf="registApps.member2 !== '-'">{{registApps.member2}}</span>
-            </h5><hr>
+            </h5>
+            <hr>
+            <a href="https://drive.google.com/open?id=0B3butYiz43OBaTFyWkNGZzB6bDg" target="_blank">
+              <button class="btn btn-download-2">Download Rulebook</button>
+            </a>
             <div class="task" *ngIf="registApps.first_submission == true">
               <form (ngSubmit)="appsFirstSubmission()">
                 <div class="form-group">
@@ -127,6 +136,11 @@
           <h3 *ngIf="registHack.has_regist == false">
             “Merasa jago hacking? Tunjukkan kehebatanmu disini"
           </h3>
+          <a href="https://drive.google.com/open?id=0B3butYiz43OBb0tQMU9Fd2lWYmc" target="_blank">
+            <button class="btn btn-download-1" *ngIf="registHack.has_regist == false">
+              Download Rulebook
+            </button>
+          </a>
           <hr *ngIf="registHack.has_regist == false">
           <div class="row" *ngIf="registHack.has_regist == false">
             <div class="col-12 col-md-6 create-team">
@@ -170,7 +184,11 @@
               <span class="badge">{{registHack.leader}} (Ketua)</span>
               <span class="badge" *ngIf="registHack.member1 !== '-'">{{registHack.member1}}</span>
               <span class="badge" *ngIf="registHack.member2 !== '-'">{{registHack.member2}}</span>
-            </h5><hr>
+            </h5>
+            <hr>
+            <a href="https://drive.google.com/open?id=0B3butYiz43OBb0tQMU9Fd2lWYmc" target="_blank">
+              <button class="btn btn-download-2">Download Rulebook</button>
+            </a>
             <div class="task" *ngIf="registHack.writeup_submission == true">
               <form (submit)="writeupSubmission()">
                 <div class="form-group-file">

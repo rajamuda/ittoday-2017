@@ -38,6 +38,13 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+.btn-download {
+  background-color: #FE0037;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: bold;
+}
+
 .title-section {
   padding: 20px 0px;
 }
