@@ -93,14 +93,17 @@ export class DashboardComponent{
 					let data = res.json();
 					let profile = data.data[0];
 					this.user.nama_user = profile.nama_user;
-					this.user.tingkat_user = profile.tingkat_user;
-					if(profile.institusi_user == 'SMA'){
-						this.user.institusi_user = 'SMA/SMK';
-					}else if(profile.institusi_user == 'S1'){
-						this.user.institusi_user = 'Mahasiswa';
+
+					if(profile.tingkat_user == 'SMA'){
+						this.user.tingkat_user = 'SMA/SMK';
+					}else if(profile.tingkat_user == 'S1'){
+						this.user.tingkat_user = 'Mahasiswa';
 					}else{
-						this.user.institusi_user = 'Umum';
+						this.user.tingkat_user = 'Umum';
 					}
+
+					this.user.institusi_useer = profile.institusi_user;
+					
 					this.user.alamat_user = profile.alamat_user;
 					this.user.telepon_user = profile.telepon_user;
 					this.user.kelamin_user = profile.kelamin_user;
