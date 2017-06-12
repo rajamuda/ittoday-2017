@@ -35,7 +35,8 @@ export class DashboardComponent{
 		leader: '',
 		member1: '-',
 		member2: '-',
-		writeup_submission: this.dataService.writeUpSubmission
+		writeup_submission: this.dataService.writeUpSubmission,
+		url_rulebook: ''
 	};
 
 	public registApps: any = {
@@ -52,7 +53,8 @@ export class DashboardComponent{
 		member1: '-',
 		member2: '-',
 		first_submission: this.dataService.firstAppsSubmission,
-		second_submission: this.dataService.secondAppsSubmission
+		second_submission: this.dataService.secondAppsSubmission,
+		url_rulebook: ''
 	};
 
 	public registSeminar: any = {
@@ -79,6 +81,10 @@ export class DashboardComponent{
 		this.uploadService.progress$.subscribe(status => {
 			this.uploadProgress = status;
 		});
+
+		this.registApps.url_rulebook = this.dataService.urlRulebookApps;
+		this.registHack.url_rulebook = this.dataService.urlRulebookHack;
+
 		if(localStorage.getItem('token')){
 			let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
 			this.user.id_user = decode.id;
@@ -88,7 +94,13 @@ export class DashboardComponent{
 					let profile = data.data[0];
 					this.user.nama_user = profile.nama_user;
 					this.user.tingkat_user = profile.tingkat_user;
-					this.user.institusi_user = profile.institusi_user;
+					if(profile.institusi_user == 'SMA'){
+						this.user.institusi_user = 'SMA/SMK';
+					}else if(profile.institusi_user == 'S1'){
+						this.user.institusi_user = 'Mahasiswa';
+					}else{
+						this.user.institusi_user = 'Umum';
+					}
 					this.user.alamat_user = profile.alamat_user;
 					this.user.telepon_user = profile.telepon_user;
 					this.user.kelamin_user = profile.kelamin_user;

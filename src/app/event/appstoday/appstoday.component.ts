@@ -12,12 +12,15 @@ import { Title } from '@angular/platform-browser';
 })
 
 export class AppsTodayComponent{
+	private url_rulebook = '';
 
 	constructor(public title: Title, 
 							public http: Http, 
 							public router: Router, 
 							public dataService: DataService)
-	{}
+	{
+		this.url_rulebook = this.dataService.urlRulebookApps;
+	}
 
 	ngOnInit(){
 		window.scrollTo(0,0);

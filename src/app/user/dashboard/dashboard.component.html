@@ -10,13 +10,13 @@
       </div>
       <!-- Gambar berubah tergantung jenis kelamin dan tingkatan -->
       <div *ngIf="user.kelamin_user == 'L'">
-        <img *ngIf="user.tingkat_user == 'SMA'" src="assets/img/siswa.png">
-        <img *ngIf="user.tingkat_user == 'S1'" src="assets/img/mahasiswa.png">
+        <img *ngIf="user.tingkat_user == 'SMA/SMK'" src="assets/img/siswa.png">
+        <img *ngIf="user.tingkat_user == 'Mahasiswa'" src="assets/img/mahasiswa.png">
         <img *ngIf="user.tingkat_user == 'Umum'" src="assets/img/pria.png">
       </div>
       <div *ngIf="user.kelamin_user == 'P'">
-        <img *ngIf="user.tingkat_user == 'SMA'" src="assets/img/siswi.png">
-        <img *ngIf="user.tingkat_user == 'S1'" src="assets/img/mahasiswi.png">
+        <img *ngIf="user.tingkat_user == 'SMA/SMK'" src="assets/img/siswi.png">
+        <img *ngIf="user.tingkat_user == 'Mahasiswa'" src="assets/img/mahasiswi.png">
         <img *ngIf="user.tingkat_user == 'Umum'" src="assets/img/wanita.png">
       </div>
       <h1>{{user.nama_user}}</h1>
@@ -26,10 +26,10 @@
     </div>
     <div class="event">
       <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item" *ngIf="user.tingkat_user == 'SMA' || user.tingkat_user == 'S1'">
+        <li class="nav-item">
           <a class="nav-link active" data-toggle="pill" href="#apps">AppsToday</a>
         </li>
-        <li class="nav-item" *ngIf="user.tingkat_user == 'S1'">
+        <li class="nav-item" *ngIf="user.tingkat_user == 'Mahasiswa'">
           <a class="nav-link" data-toggle="pill" href="#hack">HackToday</a>
         </li>
         <li class="nav-item">
@@ -42,7 +42,7 @@
           <h3 *ngIf="registApps.has_regist == false">
             “Punya aplikasi keren dan bermanfaat? Tunjukkan aplikasimu disini"
           </h3>
-          <a href="https://drive.google.com/open?id=0B3butYiz43OBaTFyWkNGZzB6bDg" target="_blank">
+          <a href="{{registApps.url_rulebook}}" target="_blank">
             <button class="btn btn-download-1" *ngIf="registApps.has_regist == false">
               Download Rulebook
             </button>
@@ -92,7 +92,7 @@
               <span class="badge" *ngIf="registApps.member2 !== '-'">{{registApps.member2}}</span>
             </h5>
             <hr>
-            <a href="https://drive.google.com/open?id=0B3butYiz43OBaTFyWkNGZzB6bDg" target="_blank">
+            <a href="{{registApps.url_rulebook}}" target="_blank">
               <button class="btn btn-download-2">Download Rulebook</button>
             </a>
             <div class="task" *ngIf="registApps.first_submission == true">
@@ -136,7 +136,7 @@
           <h3 *ngIf="registHack.has_regist == false">
             “Merasa jago hacking? Tunjukkan kehebatanmu disini"
           </h3>
-          <a href="https://drive.google.com/open?id=0B3butYiz43OBb0tQMU9Fd2lWYmc" target="_blank">
+          <a href="{{registHack.url_rulebook}}" target="_blank">
             <button class="btn btn-download-1" *ngIf="registHack.has_regist == false">
               Download Rulebook
             </button>
@@ -186,7 +186,7 @@
               <span class="badge" *ngIf="registHack.member2 !== '-'">{{registHack.member2}}</span>
             </h5>
             <hr>
-            <a href="https://drive.google.com/open?id=0B3butYiz43OBb0tQMU9Fd2lWYmc" target="_blank">
+            <a href="{{registHack.url_rulebook}}" target="_blank">
               <button class="btn btn-download-2">Download Rulebook</button>
             </a>
             <div class="task" *ngIf="registHack.writeup_submission == true">
@@ -214,8 +214,9 @@
           <h3 *ngIf="registSeminar.has_regist == false">
             “Ingin tau berbagai informasi menarik tentang kemajuan teknologi? Ayo ikut"
           </h3>
-          <hr *ngIf="registSeminar.has_regist == false">
-          <button class="btn btn-custom-yellow" type="button" (click)="registSeminarSubmit()" *ngIf="registSeminar.has_regist == false">Ikut</button>
+          <hr *ngIf="registSeminar.has_regist == false">  
+          <h6><i>Pendaftaran seminar belum dibuka</i></h6>
+          <!-- <button class="btn btn-custom-yellow" type="button" (click)="registSeminarSubmit()" *ngIf="registSeminar.has_regist == false">Ikut</button> -->
           <div *ngIf="registSeminar.has_regist == true">
             <h5>Anda sudah terdaftar,</h5>
             <h6>Silahkan konfirmasi kehadiran Anda</h6><hr>
