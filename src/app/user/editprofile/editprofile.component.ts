@@ -16,13 +16,13 @@ import { Title } from '@angular/platform-browser';
 export class EditProfileComponent{
 	private criterion: any = [
 		{ value: '', display: 'Pilih Salah Satu', disabled: true },
-		{ value: 'SMA', display: 'SMA/SMK', disabled: false },
-		{ value: 'S1', display: 'Mahasiswa (Diploma/S1)', disabled: false },
+		{ value: 'SMA', display: 'SMA/SMK Sederajat', disabled: false },
+		{ value: 'S1', display: 'Mahasiswa', disabled: false },
 		{ value: 'Umum', display: 'Umum', disabled: false }
 	];
 	private genders: any = [
-		{ value: 'L', display: 'Male' },
-		{ value: 'P', display: 'Female' }
+		{ value: 'L', display: 'Laki-laki' },
+		{ value: 'P', display: 'Perempuan' }
 	];
 	private user: any = {
 		name: '',
@@ -101,17 +101,15 @@ export class EditProfileComponent{
     this.filesToUpload = <Array<File>> fileInput.target.files;
 
     /* Validasi tipe file */
-   	if(this.filesToUpload[0].type != "image/jpeg" || this.filesToUpload[0].type != "image/png"){
-   		this.filevalid = true;
-   	}else{
-   		this.filevalid = false;
-   	}
-
-   	/* Cek ukuran gambar */
-   	if(this.filesToUpload[0].size > 2097152){
+   	if(this.filesToUpload[0].type != "image/jpeg" && this.filesToUpload[0].type != "image/png"){
    		this.filevalid = false;
    	}else{
-   		this.filevalid = true;
+	   	/* Cek ukuran gambar */
+	   	if(this.filesToUpload[0].size > 2097152){
+	   		this.filevalid = false;
+	   	}else{
+	   		this.filevalid = true;
+	   	}
    	}
   }
 

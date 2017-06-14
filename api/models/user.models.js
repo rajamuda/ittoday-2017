@@ -7,12 +7,13 @@ module.exports = function(sequelize, DataTypes) {
     kelamin_user: { type: DataTypes.ENUM('L', 'P'), defaultValue: null },
     lahir_user: { type: DataTypes.DATE, defaultValue: null },
     alamat_user: { type: DataTypes.STRING, defaultValue: null },
-    tingkat_user: { type: DataTypes.ENUM('Pascasarjana', 'S1', 'D3', 'SMA', 'Umum'), defaultValue: null },
+    tingkat_user: { type: DataTypes.ENUM('S1', 'D3', 'SMA', 'Umum'), defaultValue: null },
     identitas_user: { type: DataTypes.STRING, defaultValue: null },
     institusi_user: { type: DataTypes.STRING, defaultValue: null },
     foto_user: { type: DataTypes.STRING, defaultValue: null },
     status_user: { type: DataTypes.BOOLEAN, defaultValue: false },
-    token_forgetpass_user: { type: DataTypes.STRING, defaultValue: null }
+    token_forgetpass_user: { type: DataTypes.STRING, defaultValue: null },
+    user_identity_null : { type: DataTypes.BOOLEAN, defaultValue: null }
   }, {
     getterMethods: {
       getNama: function() {

@@ -5,6 +5,8 @@ var crypto = require('crypto');
 var sequelize = require('../connection');
 var jwt = require('../token');
 
+var fs = require('fs');
+
 var HackTeam = sequelize.import(__dirname + "/../models/hackteam.models");
 var User = sequelize.import(__dirname + "/../models/user.models");
 
@@ -245,6 +247,10 @@ function HackTeamControllers() {
 		var filename;
 		var team = req.headers.team;
 
+		var MAGIC_NUMBERS = {
+		    pdf: '25504446'
+		}
+
 		var storage = multer.diskStorage({ //multers disk storage settings
 		  destination: function (req, file, cb) {
 		      cb(null, __dirname+dir+destination)
@@ -271,6 +277,11 @@ function HackTeamControllers() {
 		    limits: { fileSize: 5*1024*1024 } //5 MiB
 		}).single('writeup');
 		
+		var checkMagicNumbers = function(magic) {
+			if (magic == MAGIC_NUMBERS.pdf) 
+				return true
+		}
+		
 		if(auth == false){
 			res.json({status: false, message: "Authentication failed, please login again", err_code: 401});
 		}else{
@@ -284,22 +295,29 @@ function HackTeamControllers() {
 					else
 						res.json({status: false, err: err});
 				}else{
-					HackTeam
-						.update({
-							writeup_hack: destination+filename,
-						}, {
-							where: {
-								$or: [
-									{ketua_team: auth.id},
-									{anggota1_team: auth.id},
-									{anggota2_team: auth.id}
-								]
-							}
-						}).then(function(){
-							res.json({status: true, message: 'WriteUp upload success', filelocation: destination+filename});
-						}).catch(err => {
-							res.json({status: false, message: "WriteUp upload failed!", err_code: err});
-						});
+					var upload_pdf = fs.readFileSync(__dirname+dir+destination+filename).toString('hex',0,4);
+
+					if(!checkMagicNumbers(upload_pdf)){
+						fs.unlinkSync(__dirname+dir+destination+filename);
+						res.json({status: false, message: 'Oops, REAL pdf only, please!'});
+					}else{
+						HackTeam
+							.update({
+								writeup_hack: destination+filename,
+							}, {
+								where: {
+									$or: [
+										{ketua_team: auth.id},
+										{anggota1_team: auth.id},
+										{anggota2_team: auth.id}
+									]
+								}
+							}).then(function(){
+								res.json({status: true, message: 'WriteUp upload success', filelocation: destination+filename});
+							}).catch(err => {
+								res.json({status: false, message: "WriteUp upload failed!", err_code: err});
+							});
+					}
 				}
 			})
 		}

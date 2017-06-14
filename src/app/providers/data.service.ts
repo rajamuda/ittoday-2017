@@ -45,7 +45,9 @@ export class DataService{
 	public secondAppsSubmission = false;
 
 	public urlRulebookApps = 'https://bit.ly/appstoday_rb';
-	public urlRulebookHack = 'https://bit.ly/hacktoday_rb';
+	public urlRulebookHack = 'https://s.id/rE3';
+	public infoUpdateHack = 'Update 14/06/2017';
+	public infoUpdateApps = 'Update 12/06/2017';
 
 	loginAnnounced$ = this.isLoggedIn.asObservable();
 

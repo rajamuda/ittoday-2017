@@ -17,7 +17,7 @@
                 <p [hidden]="name.valid || name.pristine" style="color: #E20203">Name lengkap wajib diisi</p>
               </div>
               <div class="form-group">
-                <label>Gender</label><br>
+                <label>Jenis kelamin</label><br>
                 <div class="form-check form-check-inline" *ngFor="let gender of genders">
                   <!-- <div class="input-group-addon"><i class="material-icons">school</i></div> -->
                   <label class="form-check-label">
@@ -74,7 +74,7 @@
                 <div style="text-align: center; margin-top: 20px; "><img *ngIf="hasUpload" src="{{dataService.baseUrl}}{{filelocation}}" style="max-width: 60%;"></div>
               </div>
               
-              <a routerLink="/user/dashboard"><button class="btn btn-default btn-custom-back">Back to Dashboard</button></a>
+              <a routerLink="/user/dashboard"><button type="button" class="btn btn-default btn-custom-back">Back to Dashboard</button></a>
               <button type="submit" class="btn btn-custom-form" [disabled]="!user.name || !user.phone || !user.institution || !user.address || !user.criteria.value || !filevalid">Save</button>
             </form>
           </div>

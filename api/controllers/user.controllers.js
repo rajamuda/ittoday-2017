@@ -6,6 +6,7 @@ var path = require('path');
 var sequelize = require('../connection');
 var jwt = require('../token');
 var mailer = require('../mailer.js');
+var fs = require('fs');
 
 var User = sequelize.import(__dirname + "/../models/user.models");
 
@@ -113,7 +114,7 @@ function UserControllers(){
 
 	    	if (!nama_user || !telepon_user || !kelamin_user || !tingkat_user || !institusi_user || !identitas_user || !alamat_user) {
       		res.json({status: false, message: 'There is empty field!', err_code: 406});
-	    	} else if(check_telepon < 0 || check_telepon.length < 11){
+	    	} else if(check_telepon < 0 || check_telepon.toString().length < 11){
 		    	res.json({status: false, message: 'Not valid mobile phone number', err_code: 406});
 		    } else {
 		      	User
@@ -125,7 +126,8 @@ function UserControllers(){
 		        		institusi_user: institusi_user,
 		        		identitas_user: identitas_user,
 		        		alamat_user: alamat_user,
-		        		status_user: true
+		        		status_user: true,
+		        		user_identity_null: null,
 		        	}, {
 		        		where: { id: id_user }
 		        	})
@@ -151,7 +153,7 @@ function UserControllers(){
 		    	User
 		    		.findAll({
 		    			where: { id: id, email_user: auth.email_user },
-		    			attributes: ['nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'identitas_user', 'status_user']
+		    			attributes: ['nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'identitas_user', 'status_user', 'user_identity_null']
 		    		})
 		    		.then(function(user){
 		    			res.json({status: true, message: "Retrieve data success", data: user});					
@@ -169,14 +171,22 @@ function UserControllers(){
 		var dir = '/../views';
 		var filename;
 
+		var MAGIC_NUMBERS = {
+		    jpg: 'ffd8ffe0',
+		    jpg1: 'ffd8ffe1',
+		    png: '89504e47'
+		}
+
 		var storage = multer.diskStorage({ //multers disk storage settings
 		  destination: function (req, file, cb) {
 		      cb(null, __dirname+dir+destination)
 		  },
 		  filename: function (req, file, cb) {
 		      var date = new Date();
+		      var unique = date.getTime().toString() + auth.id.toString();
+		      var hash_date = crypto.createHash('sha1').update(unique).digest('hex');
 
-					filename =  file.fieldname + auth.id + '-' + (date.getMonth()+1) + date.getDate() + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
+					filename =  file.fieldname + auth.id + '-' + hash_date + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
 		      cb(null, filename)
 		  }
 		});
@@ -184,9 +194,9 @@ function UserControllers(){
 		var upload = multer({ //multer settings
 		    storage: storage,
 		    fileFilter: function (req, file, cb) {
-		        var ext = path.extname(file.originalname);
-
-		        if(file.mimetype != 'image/png' && file.mimetype != 'image/jpeg') {
+		        var ext = path.extname(file.originalname).toLowerCase();
+		        // console.log("extension: "+ext);
+		        if(file.mimetype != 'image/png' && file.mimetype != 'image/jpeg' && ext != '.jpg' && ext != '.png' && ext != '.jpeg') {
 		        		req.fileValidateError = "Only images are allowed";
 		            return cb(new Error('Only images are allowed'))
 		        }
@@ -195,11 +205,15 @@ function UserControllers(){
 		    limits: { fileSize: 2*1024*1024 } //2 MiB
 		}).single('idcard');
 		
+		var checkMagicNumbers = function(magic) {
+			if (magic == MAGIC_NUMBERS.jpg || magic == MAGIC_NUMBERS.jpg1 || magic == MAGIC_NUMBERS.png) 
+				return true
+		}
+
 		if(auth == false){
 			res.json({status: false, message: "Authentication failed, please login again", err_code: 401});
 		}else{
-			upload(req, res, function(err){
-				// console.log(req.fileValidateError);
+			upload(req, res, function(err){			
 				if(req.fileValidateError){
 					res.json({status: false, message: req.fileValidateError});
 				}else if(err){
@@ -208,7 +222,14 @@ function UserControllers(){
 					else
 						res.json({status: false, err: err});
 				}else{
-					res.json({status: true, message: 'Upload success', filelocation: destination+filename});
+					var upload_img = fs.readFileSync(__dirname+dir+destination+filename).toString('hex',0,4);
+
+					if(!checkMagicNumbers(upload_img)){
+						fs.unlinkSync(__dirname+dir+destination+filename);
+						res.json({status: false, message: 'Oops, REAL image only, please!'});
+					}else{
+						res.json({status: true, message: 'Upload success', filelocation: destination+filename});
+					}
 				}
 			})
 		}
@@ -216,8 +237,6 @@ function UserControllers(){
 
 	this.resetpass = function(req, res) {
 		var mail = req.body.email_user;
-
-		console.log(req.body);
 
 		if(!mail){
 			res.json({status: false, message: 'Please input your e-mail'});
@@ -270,8 +289,6 @@ function UserControllers(){
 		var new_pass = req.body.pass_baru;
 		var new_pass_confirm = req.body.pass_baru2;
 		var check_token_only = req.body.check_token_only;
-
-		console.log(check_token_only);
 
 		if(!auth){
 			res.json({status: false, message: 'Access Denied!'});

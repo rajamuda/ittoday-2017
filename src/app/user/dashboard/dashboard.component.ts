@@ -108,9 +108,13 @@ export class DashboardComponent{
 					this.user.telepon_user = profile.telepon_user;
 					this.user.kelamin_user = profile.kelamin_user;
 
+					console.log(profile.user_identity_null);
 					if(profile.status_user == false){
 						this.router.navigate(['/user/editprofile']);
 						this.toast.info('Please, complete your profile info', 'Information');
+					}else if(profile.user_identity_null == true){
+						this.router.navigate(['/user/editprofile']);
+						this.toast.info('Karena miskonfigurasi sistem upload, mohon upload kembali informasi kartu identitas Anda', 'Information');
 					}
 				}, err => {
 					this.toast.error('No internet connection', 'Failed');
@@ -237,17 +241,15 @@ export class DashboardComponent{
 
     /* Validasi tipe file */
    	if(this.writeupFile[0].type != "application/pdf"){
-   		this.writeupValid = true;
-   	}else{
-   		this.writeupValid = false;
-   	}
-
-   	/* Cek ukuran PDF */
-   	if(this.writeupFile[0].size > 5*1024*1024){
    		this.writeupValid = false;
    	}else{
-   		this.writeupValid = true;
-   	}		
+	  	/* Cek ukuran PDF */
+	   	if(this.writeupFile[0].size > 5*1024*1024){
+	   		this.writeupValid = false;
+	   	}else{
+	   		this.writeupValid = true;
+	   	}	
+   	}	
 	}
 
 	public writeupSubmission(){
@@ -279,17 +281,16 @@ export class DashboardComponent{
 
     /* Validasi tipe file */
    	if(this.proposalFile[0].type != "application/pdf"){
-   		this.proposalValid = true;
-   	}else{
    		this.proposalValid = false;
+   	}else{
+	   	/* Cek ukuran PDF */
+	   	if(this.proposalFile[0].size > 5*1024*1024){
+	   		this.proposalValid = false;
+	   	}else{
+	   		this.proposalValid = true;
+	   	}
    	}
 
-   	/* Cek ukuran PDF */
-   	if(this.proposalFile[0].size > 5*1024*1024){
-   		this.proposalValid = false;
-   	}else{
-   		this.proposalValid = true;
-   	}
   }
 
 	public appsFirstSubmission(){
