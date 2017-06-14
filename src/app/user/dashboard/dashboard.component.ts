@@ -102,7 +102,7 @@ export class DashboardComponent{
 						this.user.tingkat_user = 'Umum';
 					}
 
-					this.user.institusi_useer = profile.institusi_user;
+					this.user.institusi_user = profile.institusi_user;
 					
 					this.user.alamat_user = profile.alamat_user;
 					this.user.telepon_user = profile.telepon_user;
