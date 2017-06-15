@@ -109,7 +109,7 @@ function HackTeamControllers() {
 										{id: result.anggota2_team}
 									]
 								},
-								attributes: ['id', 'nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'identitas_user', 'status_user']
+								attributes: ['id', 'nama_user', 'email_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'identitas_user', 'status_user']
 							})
 							.then(function(info) {
 								var ketuaIndex = info.findIndex(x => x.id == result.ketua_team);

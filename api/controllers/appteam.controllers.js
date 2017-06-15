@@ -109,7 +109,7 @@ function AppTeamControllers() {
 										{id: result.anggota2_team}
 									]
 								},
-								attributes: ['id', 'nama_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'identitas_user', 'status_user']
+								attributes: ['id', 'nama_user', 'email_user', 'kelamin_user', 'telepon_user', 'tingkat_user', 'institusi_user', 'alamat_user', 'identitas_user', 'status_user']
 							})
 							.then(function(info) {
 								var ketuaIndex = info.findIndex(x => x.id == result.ketua_team);
@@ -364,6 +364,16 @@ function AppTeamControllers() {
 				})
 		} else {
 			res.json({status: false, message: "Access Denied", err_code: 403});
+		}
+	}
+
+	this.sendCustomMail = function(req, res){
+		var count = 0;
+		var str = "";
+		
+		for(i=0; i<4; i++){
+			if(opt.mailto[i]) str += opt.mailto[i];
+			if(i!=3 && opt.mailto[i+1]) str += ", ";
 		}
 	}
 

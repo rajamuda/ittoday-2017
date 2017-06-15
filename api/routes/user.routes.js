@@ -8,6 +8,14 @@ router.get('/', function(req, res) {
   res.json({status: false, message: 'none API implemented'});
 });
 
+router.get('/viewall', function(req, res) {
+  user.getAll(req, res);
+});
+
+router.get('/viewsingle/:id', function(req, res) {
+  user.getOne(req, res);
+});
+
 /* POST user registration. */
 router.post('/register', function(req, res) {
   user.register(req.body, res);

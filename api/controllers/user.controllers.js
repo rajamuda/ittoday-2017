@@ -9,6 +9,9 @@ var mailer = require('../mailer.js');
 var fs = require('fs');
 
 var User = sequelize.import(__dirname + "/../models/user.models");
+var AppTeam = sequelize.import(__dirname + "/../models/appteam.models");
+var HackTeam = sequelize.import(__dirname + "/../models/hackteam.models");
+var Seminar = sequelize.import(__dirname + "/../models/seminar.models");
 
 var validateEmail = function(mail){
 	var regexMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -16,6 +19,117 @@ var validateEmail = function(mail){
 }
 
 function UserControllers(){
+	// hanya admin yang bisa dapat list
+	this.getAll = function(req, res) {
+		var auth = jwt.validateToken(req.headers, res);
+
+		if (auth == false) {
+			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
+		} else if (auth.role == 'admin') {
+			User
+				.findAll({where: {status_user: true}})
+				.then(function(result) {
+					// console.log('Get all appteam successful!');
+					res.json({status: true, message: 'Get all user success', data: result});
+				})
+				.catch(function(err) {
+					// console.log('Failed to get all appteam!');
+					res.json({status: false, message: "Get all user failed!", err_code: 400, err: err});
+				});
+		} else {
+			res.json({status: false, message: "Access Denied", err_code: 403});
+		}
+	}
+
+	// hanya admin yang bisa dapat list
+	this.getOne = function(req, res) {
+		var auth = jwt.validateToken(req.headers, res);
+		var id = req.params.id;
+
+		if (auth == false) {
+			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
+		} else if (auth.role == 'admin') {
+			User
+    		.findAll({
+    			where: { id: id }
+    		})
+    		.then(function(user){
+    			var registered = {
+    				hack: false,
+    				team_hack_id: '',
+    				team_hack_name: '',
+    				apps: false,
+    				team_apps_id: '',
+    				team_apps_name: '',
+    				seminar: false,
+    			}
+    			var getHackStatus = function(){
+    				return HackTeam
+	    				.findOne({
+								where: {
+									$or: [
+										{ketua_team: id},
+										{anggota1_team: id},
+										{anggota2_team: id}
+									]
+								}
+							}).then(function(hack){
+								if(hack != null){
+									registered.hack = true;
+									registered.team_hack_id = hack.id;
+									registered.team_hack_name = hack.nama_team;
+								}
+							});
+					}
+
+					var getAppsStatus = function(){
+						return AppTeam
+							.findOne({
+									where: {
+										$or: [
+											{ketua_team: id},
+											{anggota1_team: id},
+											{anggota2_team: id}
+										]
+									}
+								}).then(function(apps){
+									if(apps != null){
+										registered.apps = true;
+										registered.team_apps_id = apps.id;
+										registered.team_apps_name = apps.nama_team;
+									}
+								});
+					}
+
+					var getSeminarStatus = function(){
+						return Seminar
+							.findOne({
+								where: {
+									id: id
+								}
+							})
+							.then(function(seminar) {
+								if(seminar != null)
+									registered.seminar = true;
+							})
+					}
+
+					getHackStatus().then(function(){
+						getAppsStatus().then(function(){
+							getSeminarStatus().then(function(){
+								res.json({status: true, message: "Retrieve data success", data: user, info: registered});
+							})		
+						})
+					})			
+    		})
+    		.catch(function(err) {
+		      res.json({status: false, message: "Retrieve data failed", err: err});
+		    })
+		} else {
+			res.json({status: false, message: "Access Denied", err_code: 403});
+		}
+	}
+
 	this.register = function(data, res){
 	  	var nama_user = data.nama_user;
 	  	var email_user = data.email_user;
