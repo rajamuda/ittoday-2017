@@ -60,7 +60,8 @@ export class DashboardComponent{
 	};
 
 	public registSeminar: any = {
-		has_regist: false
+		has_regist: false,
+		attend_confirm: null
 	};
 
 	private proposalFile: Array<File>;
@@ -236,6 +237,7 @@ export class DashboardComponent{
 
 				if(data.status){
 					this.toast.success(data.message, 'success');
+					this.registSeminar.attend_confirm = status;
 				}else{
 					this.toast.warning(data.message, 'Oops');
 				}

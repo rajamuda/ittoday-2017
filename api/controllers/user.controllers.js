@@ -105,7 +105,7 @@ function UserControllers(){
 						return Seminar
 							.findOne({
 								where: {
-									id: id
+									pendaftar_seminar: id
 								}
 							})
 							.then(function(seminar) {
@@ -162,7 +162,7 @@ function UserControllers(){
 		var email_admin = data.email_admin;
 		var password_admin = data.password_admin;
 
-		if (email_admin == 'admin@ittoday' && password_admin == '@ithariinikreatif') {
+		if (email_admin == 'admin@ittoday' && password_admin == 'ITTODAY2017') {
 			var signInTime = Math.floor(Date.now()/1000); // iat
     		var expired = signInTime + (1*60*60);
     		var data = { id: '0', role: 'admin', iat: signInTime, exp: expired };

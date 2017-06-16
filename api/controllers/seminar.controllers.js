@@ -7,6 +7,17 @@ var jwt = require('../token');
 var Seminar = sequelize.import(__dirname + "/../models/seminar.models");
 var User = sequelize.import(__dirname + "/../models/user.models");
 
+User.hasOne(Seminar, {
+  foreignKey: {
+    name: 'pendaftar_seminar'
+  }
+});
+Seminar.belongsTo(User, {
+	foreignKey: {
+		name: 'pendaftar_seminar'
+	}
+});
+
 function SeminarControllers() {
 	this.getAll = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
@@ -14,7 +25,13 @@ function SeminarControllers() {
 			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
 		} else if (auth.role == 'admin') {
 			Seminar
-				.findAll({order: [['createdAt', 'DESC']]})
+				.findAll({
+					include: [
+						{
+							model: User
+						}
+					]
+				})
 				.then(function(result) {
 					res.json({status: true, message: 'Get all seminar success', data: result});
 				})
@@ -26,29 +43,29 @@ function SeminarControllers() {
 		}
 	}
 
-	this.getById = function(req, res) {
-		var auth = jwt.validateToken(req.headers, res);
-		var id = req.body.id;
+	// this.getById = function(req, res) {
+	// 	var auth = jwt.validateToken(req.headers, res);
+	// 	var id = req.body.id;
 
-		if (auth == false) {
-			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
-		} else if (auth.role == 'admin') {
-			Seminar
-				.findOne({
-					where: {
-						id: id
-					}
-				})
-				.then(function(result) {
-					res.json({status: true, message: 'Get all news success', data: result});
-				})
-				.catch(function(err) {
-					res.json({status: false, message: "Get all news failed!", err_code: 400, err: err});
-				});
-		} else {
-			res.json({status: false, message: "Access Denied", err_code: 403});
-		}
-	}
+	// 	if (auth == false) {
+	// 		res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
+	// 	} else if (auth.role == 'admin') {
+	// 		Seminar
+	// 			.findOne({
+	// 				where: {
+	// 					id: id
+	// 				}
+	// 			})
+	// 			.then(function(result) {
+	// 				res.json({status: true, message: 'Get all news success', data: result});
+	// 			})
+	// 			.catch(function(err) {
+	// 				res.json({status: false, message: "Get all news failed!", err_code: 400, err: err});
+	// 			});
+	// 	} else {
+	// 		res.json({status: false, message: "Access Denied", err_code: 403});
+	// 	}
+	// }
 
 	this.get = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);

@@ -236,7 +236,9 @@
             <h5>Anda sudah terdaftar,</h5>
             <h6>Silahkan konfirmasi kehadiran Anda</h6><hr>
             <h6><i>Formulir konfirmasi kehadiran akan dibuka H-7 seminar</i></h6>
-            <!-- <div class="btn-group" data-toggle="buttons">
+            <!-- 
+              <h6 *ngIf="registSeminar.attend_confirm != null"><i>Anda <span *ngIf="registSeminar.attend_confirm == false">TIDAK</span> DAPAT menghadiri seminar</i></h6>
+              <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-default btn-on active" (click)="confirmAttendSeminar(true)">
               <input type="radio" name="attendance" checked="checked">Saya bisa hadir</label>
               <label class="btn btn-default btn-off" (click)="confirmAttendSeminar(false)">
