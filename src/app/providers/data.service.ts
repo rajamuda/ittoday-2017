@@ -38,6 +38,7 @@ export class DataService{
 	/* Seminar */
 	public urlHasRegistSeminar = this.baseUrl+'/api/seminar/user';
 	public urlRegistSeminar = this.baseUrl+'/api/seminar/register';
+	public urlAttendSeminar = this.baseUrl+'/api/seminar/attend';
 
 	/* custom VAR */
 	public writeUpSubmission = false;

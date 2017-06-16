@@ -36,7 +36,8 @@ export class DashboardComponent{
 		member1: '-',
 		member2: '-',
 		writeup_submission: this.dataService.writeUpSubmission,
-		url_rulebook: ''
+		url_rulebook: '',
+		disqualified: false
 	};
 
 	public registApps: any = {
@@ -54,7 +55,8 @@ export class DashboardComponent{
 		member2: '-',
 		first_submission: this.dataService.firstAppsSubmission,
 		second_submission: this.dataService.secondAppsSubmission,
-		url_rulebook: ''
+		url_rulebook: '',
+		disqualified: false
 	};
 
 	public registSeminar: any = {
@@ -228,7 +230,18 @@ export class DashboardComponent{
 	}
 
 	public confirmAttendSeminar(status: boolean){
-		console.log(status);
+		this.authHttp.post(this.dataService.urlAttendSeminar, {status: status})
+			.subscribe(res => {
+				let data = res.json();
+
+				if(data.status){
+					this.toast.success(data.message, 'success');
+				}else{
+					this.toast.warning(data.message, 'Oops');
+				}
+			}, err => {
+				this.toast.error('No internet connection', 'Failed');
+			});
 	}
 
 	hackWriteUpChange(fileInput: any){
@@ -356,6 +369,7 @@ export class DashboardComponent{
 						this.registApps.app_name = info.nama_app;
 						this.registApps.proposal = info.proposal_app;
 						this.registApps.video = info.video_app;
+						this.registApps.disqualified = info.diskualifikasi_team;
 
 						if(this.registApps.proposal){
 							this.proposalValid = true;
@@ -388,6 +402,7 @@ export class DashboardComponent{
 					this.registHack.team_name = info.nama_team;
 					this.registHack.finalist = info.finalis_team;
 					this.registHack.writeup = info.writeup_hack;
+					this.registHack.disqualified = info.diskualifikasi_team;
 
 					this.registHack.leader = data.leader[0].nama_user;
 					if(data.member[0]){

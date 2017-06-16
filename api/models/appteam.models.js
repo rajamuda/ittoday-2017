@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     deskripsi_app: { type: DataTypes.TEXT, defaultValue: null },
     proposal_app: { type: DataTypes.STRING, defaultValue: null },
     video_app: { type: DataTypes.STRING, defaultValue: null },
-    link_app: { type: DataTypes.STRING, defaultValue: null }
+    link_app: { type: DataTypes.STRING, defaultValue: null },
+    diskualifikasi_team: { type: DataTypes.BOOLEAN, defaultValue: false }
   });
 };

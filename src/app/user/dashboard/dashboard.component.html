@@ -21,7 +21,7 @@
       </div>
       <h1>{{user.nama_user}}</h1>
       <h5>{{user.tingkat_user}} - {{user.institusi_user}}</h5>
-      <h5>{{user.alamat_user}} - {{user.telepon_user}}</h5>
+      <h5>{{user.alamat_user}} - +62{{user.telepon_user}}</h5>
       <!-- <h5>{{user.email_user}}</h5> -->
     </div>
     <div class="event">
@@ -95,7 +95,7 @@
             <a href="{{registApps.url_rulebook}}" target="_blank">
               <button class="btn btn-download-2">Download Rulebook ({{dataService.infoUpdateApps}})</button>
             </a>
-            <div class="task" *ngIf="registApps.first_submission == true">
+            <div class="task" *ngIf="registApps.first_submission == true && !registApps.disqualified">
               <form (ngSubmit)="appsFirstSubmission()">
                 <div class="form-group">
                   <label><h4>Nama Aplikasi</h4></label>
@@ -116,8 +116,8 @@
                 <button [disabled]="!proposalValid || !registApps.app_name" type="submit" class="btn btn-custom-task">Save</button>
               </form>
             </div>
-            <div class="task" *ngIf="registApps.second_submission == true && registApps.semifinalist == true">
-              <h5>"Selamat, proposal Anda dinyakan lolos ke tahap berikutnya!"</h5>
+            <div class="task" *ngIf="registApps.second_submission == true && registApps.semifinalist == true && !registApps.disqualified">
+              <h5>"Selamat, proposal Anda dinyatakan lolos ke tahap berikutnya!"</h5>
               <form (submit)="updateAppsSubmission()">
                 <div class="form-group">
                   <label><h4>Video Aplikasi</h4></label>
@@ -127,8 +127,17 @@
                 <button type="submit" class="btn btn-custom-task">Save</button>
               </form>
             </div>
-            <div class="task" *ngIf="registApps.finalist == true">
+            <div class="task" *ngIf="registApps.second_submission && registApps.semifinalist == false && !registApps.disqualified">
+              <h5>"Mohon maaf, Anda belum dapat melanjutkan ke babak berikutnya."</h5>
+            </div>
+            <div class="task" *ngIf="!registApps.second_submission && registApps.finalist == true && !registApps.disqualified">
               <h5>"Selamat, tim Anda dinyatakan lolos ke babak Final!"</h5>
+            </div>
+            <div class="task" *ngIf="!registApps.second_submission && registApps.finalist == false && !registApps.disqualified">
+              <h5>"Mohon maaf, Anda belum dapat melanjutkan ke babak berikutnya."</h5>
+            </div>
+            <div class="task" *ngIf="registApps.disqualified">
+              <h5>"Tim Anda telah didiskualifikasi!"</h5>
             </div>
           </div>
         </div>
@@ -189,7 +198,7 @@
             <a href="{{registHack.url_rulebook}}" target="_blank">
               <button class="btn btn-download-2">Download Rulebook ({{dataService.infoUpdateHack}})</button>
             </a>
-            <div class="task" *ngIf="registHack.writeup_submission == true">
+            <div class="task" *ngIf="registHack.writeup_submission == true && !registHack.disqualified">
               <form (submit)="writeupSubmission()">
                 <div class="form-group-file">
                   <label><h4>Write-Up</h4></label>
@@ -205,8 +214,14 @@
                 <button [disabled]="!writeupValid" type="submit" class="btn btn-custom-task">Save</button>
               </form>
             </div>
-            <div class="task" *ngIf="registHack.finalist == true">
+            <div class="task" *ngIf="!registHack.writeup_submission && registHack.finalist == true && !registHack.disqualified">
               <h5>"Selamat, tim Anda dinyatakan lolos ke babak Final!"</h5>
+            </div>
+            <div class="task" *ngIf="!registHack.writeup_submission && registHack.finalist == false && !registHack.disqualified">
+              <h5>"Mohon maaf, Anda belum dapat melanjutkan ke babak berikutnya."</h5>
+            </div>
+            <div class="task" *ngIf="registHack.disqualified">
+              <h5>"Tim Anda telah didiskualifikasi!"</h5>
             </div>
           </div>
         </div>
@@ -215,7 +230,7 @@
             “Ingin tau berbagai informasi menarik tentang kemajuan teknologi? Ayo ikut"
           </h3>
           <hr *ngIf="registSeminar.has_regist == false">  
-          <h6><i>Pendaftaran seminar belum dibuka</i></h6>
+          <h6 *ngIf="registSeminar.has_regist == false"><i>Pendaftaran seminar belum dibuka</i></h6>
           <!-- <button class="btn btn-custom-yellow" type="button" (click)="registSeminarSubmit()" *ngIf="registSeminar.has_regist == false">Ikut</button> -->
           <div *ngIf="registSeminar.has_regist == true">
             <h5>Anda sudah terdaftar,</h5>

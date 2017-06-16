@@ -39,8 +39,12 @@ router.post('/submission', function(req, res) {
   appteam.submission(req, res);
 });
 
-router.delete('/delete', function(req, res) {
-  appteam.delete(req, res);
+router.post('/disqualify', function(req, res) {
+  appteam.disqualify(req, res);
+});
+
+router.post('/qualify', function(req, res) {
+  appteam.qualify(req, res);
 });
 
 module.exports = router;

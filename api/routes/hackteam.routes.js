@@ -36,8 +36,12 @@ router.post('/uploadwriteup', function(req, res) {
   hackteam.uploadWriteUp(req, res);
 });
 
-router.delete('/delete', function(req, res) {
-  hackteam.delete(req, res);
+router.post('/disqualify', function(req, res) {
+  hackteam.disqualify(req, res);
+});
+
+router.post('/qualify', function(req, res) {
+  hackteam.qualify(req, res);
 });
 
 module.exports = router;

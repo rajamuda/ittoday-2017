@@ -104,7 +104,7 @@ function SeminarControllers() {
 			Seminar
 				.destroy({
 					where: {
-						id: id
+						id: pendaftar_seminar
 					}
 				})
 				.then(function() {
@@ -119,23 +119,24 @@ function SeminarControllers() {
 	this.attend = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 		var pendaftar_seminar = auth.id;
+		var status = req.body.status;
 
 		if (auth == false) {
 			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
 		} else {
 			Seminar
 				.update({
-					hadir_seminar: true
+					hadir_seminar: status
 				}, {
 					where: {
-						id: id
+						id: pendaftar_seminar
 					}
 				})
 				.then(function() {
-					res.json({status: true, message: 'Attend seminar success!'});
+					res.json({status: true, message: 'Confirmation success!'});
 				})
 				.catch(function(err) {
-					res.json({status: false, message: 'Attend seminar failed!', err_code: 400, err: err});
+					res.json({status: false, message: 'Confirmation failed!', err_code: 400, err: err});
 				});
 		}
 	}

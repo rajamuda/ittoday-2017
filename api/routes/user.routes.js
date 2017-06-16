@@ -59,4 +59,8 @@ router.post('/confirmresetpass', function(req, res){
   user.confirmresetpass(req, res);
 });
 
+router.post('/inactivateuser', function(req, res){
+  user.inactivateUser(req, res);
+});
+
 module.exports = router;

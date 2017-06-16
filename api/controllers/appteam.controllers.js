@@ -343,25 +343,74 @@ function AppTeamControllers() {
 		}
 	}
 
-	/* AppsToday delete team (admin only) */
-	this.delete = function(req, res) {
+	/* AppsToday disqualify team (admin only) */
+	this.disqualify = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 		var id = req.body.id;
+		var status = req.body.status;
+
 		if (auth == false) {
 			res.json({status: false, message: 'Authentication failed', err_code: 401});
 		} else if (auth.role == 'admin') {
 			AppTeam
-				.destroy({
+				.update({
+					diskualifikasi_team: status,
+				},{
 					where: {
 						id: id
 					}
 				})
 				.then(function(){
-					res.json({status: true, message: 'Delete appteam success'});
+					res.json({status: true, message: 'Success'});
 				})
 				.catch(function(){
-					res.json({status: false, message: "Delete appteam failed!", err_code: 400});
+					res.json({status: false, message: "Failed!", err_code: 400});
 				})
+		} else {
+			res.json({status: false, message: "Access Denied", err_code: 403});
+		}
+	}
+
+	this.qualify = function(req, res){
+		var auth = jwt.validateToken(req.headers, res);
+		var id = req.body.id;
+		var qualify = req.body.qualify; /* 'FINAL' or 'SEMIFINAL' */
+		var status = req.body.status;
+
+		if (auth == false) {
+			res.json({status: false, message: 'Authentication failed', err_code: 401});
+		} else if (auth.role == 'admin') {
+			if(qualify === 'FINAL'){
+				AppTeam
+					.update({
+						finalis_team: status,
+					},{
+						where: {
+							id: id
+						}
+					})
+					.then(function(){
+						res.json({status: true, message: 'Success'});
+					})
+					.catch(function(){
+						res.json({status: false, message: "Failed", err_code: 400});
+					})
+			}else if(qualify == 'SEMIFINAL'){
+				AppTeam
+					.update({
+						semifinalis_team: status,
+					},{
+						where: {
+							id: id
+						}
+					})
+					.then(function(){
+						res.json({status: true, message: 'Success'});
+					})
+					.catch(function(){
+						res.json({status: false, message: "Failed", err_code: 400});
+					})
+			}
 		} else {
 			res.json({status: false, message: "Access Denied", err_code: 403});
 		}
