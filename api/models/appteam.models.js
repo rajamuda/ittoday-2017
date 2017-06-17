@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     status_team: { type: DataTypes.BOOLEAN, defaultValue: false},
     nama_app: { type: DataTypes.STRING, defaultValue: null },
     pembayaran_app: { type: DataTypes.STRING, defaultValue: null },
-    status_pembayaran_app: { type: DataTypes.TEXT, defaultValue: null },
+    status_pembayaran_app: { type: DataTypes.BOOLEAN, defaultValue: null },
     proposal_app: { type: DataTypes.STRING, defaultValue: null },
     video_app: { type: DataTypes.STRING, defaultValue: null },
     link_app: { type: DataTypes.STRING, defaultValue: null },
