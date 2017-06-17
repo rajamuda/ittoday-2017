@@ -20,6 +20,18 @@ var validateEmail = function(mail){
 
 function UserControllers(){
 	// hanya admin yang bisa dapat list
+	this.countAll = function(req, res) {
+		User.count({where: {status_user: true}}).then(user => {
+			HackTeam.count().then(hack => {
+				AppTeam.count().then(app => {
+					Seminar.count().then(seminar => {
+						res.json({status: true, user: user, hack: hack, app: app, seminar: seminar});
+					})
+				})
+			})
+		})
+	}
+
 	this.getAll = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);
 

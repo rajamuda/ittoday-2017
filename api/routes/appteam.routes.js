@@ -39,6 +39,10 @@ router.post('/uploadpayment', function(req, res) {
   appteam.uploadPayment(req, res);
 })
 
+router.post('/confirmpayment', function(req, res) {
+  appteam.confirmPayment(req, res);
+})
+
 router.post('/submission', function(req, res) {
   appteam.submission(req, res);
 });

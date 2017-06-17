@@ -428,6 +428,33 @@ function AppTeamControllers() {
 		}
 	}
 
+	this.confirmPayment = function(req, res){
+		var auth = jwt.validateToken(req.headers, res);
+		var id = req.body.id;
+		var status = req.body.status;
+
+		if (auth == false) {
+			res.json({status: false, message: 'Authentication failed', err_code: 401});
+		} else if (auth.role == 'admin') {
+			AppTeam
+				.update({
+					status_pembayaran_app: status,
+				},{
+					where: {
+						id: id
+					}
+				})
+				.then(function(){
+					res.json({status: true, message: 'Success'});
+				})
+				.catch(function(){
+					res.json({status: false, message: "Failed", err_code: 400});
+				})
+		} else {
+			res.json({status: false, message: "Access Denied", err_code: 403});
+		}
+	}
+
 	/* AppsToday disqualify team (admin only) */
 	this.disqualify = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);

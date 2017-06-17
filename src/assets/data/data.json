@@ -1,8 +1,8 @@
 {
 	"submission": {
 		"writeup_submission": false,
-		"proposal_submission": false,
-		"video_submission": true,
+		"proposal_submission": true,
+		"video_submission": false,
 		"apps_finalist_announcement": false,
 		"hack_finalist_announcement": false,
 		"seminar_open": false,

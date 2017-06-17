@@ -8,6 +8,10 @@ router.get('/', function(req, res) {
   res.json({status: false, message: 'none API implemented'});
 });
 
+router.get('/countall', function(req, res) {
+  user.countAll(req, res);
+});
+
 router.get('/viewall', function(req, res) {
   user.getAll(req, res);
 });
