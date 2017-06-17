@@ -35,6 +35,10 @@ router.post('/uploadproposal', function(req, res) {
   appteam.uploadProposal(req, res);
 });
 
+router.post('/uploadpayment', function(req, res) {
+  appteam.uploadPayment(req, res);
+})
+
 router.post('/submission', function(req, res) {
   appteam.submission(req, res);
 });

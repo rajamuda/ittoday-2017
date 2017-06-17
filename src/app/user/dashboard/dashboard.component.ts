@@ -35,8 +35,10 @@ export class DashboardComponent{
 		leader: '',
 		member1: '-',
 		member2: '-',
-		writeup_submission: this.dataService.writeUpSubmission,
+		writeup_submission: null,
+		hack_finalist_announcement: null,
 		url_rulebook: '',
+		update_rulebook: '',
 		disqualified: false
 	};
 
@@ -53,20 +55,30 @@ export class DashboardComponent{
 		leader: '',
 		member1: '-',
 		member2: '-',
-		first_submission: this.dataService.firstAppsSubmission,
-		second_submission: this.dataService.secondAppsSubmission,
+		proposal_submission: null,
+		video_submission: null,
+		apps_finalist_announcement: null,
 		url_rulebook: '',
+		update_rulebook: '',
+		payment_submit: false,
+		payment_confirm: false,
 		disqualified: false
 	};
 
 	public registSeminar: any = {
 		has_regist: false,
-		attend_confirm: null
+		attend_confirm: null,
+		seminar_open: false,
+		seminar_confirm_open: false
 	};
 
 	private proposalFile: Array<File>;
 	private proposalValid;
 	private proposalSubmit = false;
+
+	private paymentFile: Array<File>;
+	private paymentValid;
+	private paymentSubmit = false
 
 	private writeupFile: Array<File>;
 	private writeupValid;
@@ -85,8 +97,25 @@ export class DashboardComponent{
 			this.uploadProgress = status;
 		});
 
-		this.registApps.url_rulebook = this.dataService.urlRulebookApps;
-		this.registHack.url_rulebook = this.dataService.urlRulebookHack;
+		this.authHttp.get("assets/data/data.json")
+      .subscribe(res => {
+        let data = res.json();
+				this.registApps.url_rulebook = data.rulebook.appstoday;
+				this.registApps.proposal_submission = data.submission.proposal_submission;
+				this.registApps.video_submission = data.submission.video_submission;
+				this.registApps.apps_finalist_announcement = data.submission.apps_finalist_announcement;
+				this.registApps.update_rulebook = data.rulebook.appstoday_update;
+
+				this.registHack.url_rulebook = data.rulebook.hacktoday;
+				this.registHack.writeup_submission = data.submission.writeup_submission;
+				this.registHack.hack_finalist_announcement = data.submission.hack_finalist_announcement;
+				this.registHack.update_rulebook = data.rulebook.hacktoday_update;
+
+				this.registSeminar.seminar_open = data.submission.seminar_open;
+				this.registSeminar.seminar_confirm_open = data.submission.seminar_confirm_open;
+      }, err => {
+        console.log(err);
+      })
 
 		if(localStorage.getItem('token')){
 			let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
@@ -246,6 +275,51 @@ export class DashboardComponent{
 			});
 	}
 
+	appsPaymentChange(fileInput: any){
+		this.registApps.payment_submit = false;
+    this.paymentFile = <Array<File>> fileInput.target.files;
+
+
+    if(!this.paymentFile.length){
+    	this.paymentValid = false;
+    }
+
+    /* Validasi tipe file */
+   	if(this.paymentFile[0].type != "image/jpeg" && this.paymentFile[0].type != "image/png"){
+   		this.paymentValid = false;
+   	}else{
+	  	/* Cek ukuran Gambar */
+	   	if(this.paymentFile[0].size > 2*1024*1024){
+	   		this.paymentValid = false;
+	   	}else{
+	   		this.paymentValid = true;
+	   	}	
+   	}
+	}
+
+	appsPayment(){
+		this.paymentSubmit = true;
+		if(!this.registApps.payment_submit){
+			let params = {authorization: localStorage.getItem('token'), name: 'payment', team: this.registApps.team_name};
+			this.uploadService.makeFileRequest(this.dataService.urlAppsPayment, params, this.paymentFile).then((result: any) => {
+	      if(result.status){
+	      	this.toast.success(result.message, 'Success');
+	      	this.registApps.payment_submit = true;    
+	      }else{
+	      	if(result.message)
+	      		this.toast.warning(result.message, 'Failed');
+	      	else
+	      		this.toast.warning('Server error while uploading', 'Failed');
+	      	this.paymentSubmit = false;
+	      	this.uploadProgress = 0;
+	      }
+	    }, (error) => {
+	      console.error(error);
+	      this.paymentSubmit = false;
+	    });
+		}
+	}
+
 	hackWriteUpChange(fileInput: any){
 		this.registHack.writeup = '';
     this.writeupFile = <Array<File>> fileInput.target.files;
@@ -377,6 +451,14 @@ export class DashboardComponent{
 							this.proposalValid = true;
 						}
 
+						if(info.pembayaran_app){
+							this.registApps.payment_submit = true;
+						}
+
+						if(info.status_pembayaran_app){
+							this.registApps.payment_confirm = true;
+						}
+
 						this.registApps.leader = data.leader[0].nama_user;
 						if(data.member[0]){
 							this.registApps.member1 = data.member[0].nama_user;
@@ -426,6 +508,7 @@ export class DashboardComponent{
 
 				if(data.status){
 					this.registSeminar.has_regist = true;
+					this.registSeminar.attend_confirm = data.data.hadir_seminar;
 				}
 			}, err => {
 				this.toast.error('No internet connection', 'Failed');

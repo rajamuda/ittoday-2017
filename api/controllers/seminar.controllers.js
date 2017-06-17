@@ -83,7 +83,7 @@ function SeminarControllers() {
 					if(result == null) {
 						res.json({status: false, message: 'No seminar registrant with this ID'});
 					} else {
-						res.json({status: true, message: 'User has been registered'});
+						res.json({status: true, message: 'User has been registered', data: result});
 					}
 				})
 				.catch(function(err) {

@@ -1,0 +1,98 @@
+{
+	"submission": {
+		"writeup_submission": false,
+		"proposal_submission": false,
+		"video_submission": true,
+		"apps_finalist_announcement": false,
+		"hack_finalist_announcement": false,
+		"seminar_open": false,
+		"seminar_confirm_open": false
+	},
+	"rulebook": {
+		"hacktoday": "https://s.id/rE3",
+		"hacktoday_update": "Update 14/06/2017",
+		"appstoday": "https://bit.ly/appstoday_rb",
+		"appstoday_update": "Update 12/06/2017"
+	},
+	"event_desc": {
+		"hacktoday": "<b>HackToday</b> atau lebih dikenal dengan <i>Capture the Flag</i> (CTF) merupakan <i>Hacking Competition</i> yang sering diadakan dalam lomba keamanan teknologi informasi. Pada lomba ini para peserta diberi kebebasan mencari serta bereksplorasi terhadap celah-celah keamanan suatu jaringan untuk mendapatkan <i>flag</i> yang disediakan oleh panitia. Lomba ini bertujuan agar setiap peserta dapat menambah pengetahuan di bidang keamanan informasi. HackToday ditujukan untuk mahasiswa S1/sederajat.",
+		"appstoday": "<b>AppsToday</b> merupakan <i>creativity and innovation competition</i> dalam pembuatan aplikasi berbasis <i>platform</i> apa pun. Lomba ini bertujuan untuk mengeksplorasi kreatifitas dan inovasi developer Indonesia untuk memberikan solusi terhadap permasalahan-permasalahan yang ada di masyarakat. AppsToday ditujukan untuk seluruh penggiat pengembang aplikasi perangkat lunak baik itu SMA Sederajat, Mahasiswa, maupun Profesional.",
+		"seminar": "Seminar Informasi Teknologi merupakan kegiatan puncak dari semua rangkaian acara IT Today 2017. Seminar ini akan menghadirkan beragam pembicara yang kompeten di bidang IT dengan target peserta masyarakat umum yang memiliki <i>interest</i> di bidang IT. Seminar ini bertujuan mengembangkan ide dan kreatifitas peserta seminar untuk Indonesia yang lebih baik."
+	},
+	"event_date": {
+		"registrasi": {
+			"date": "5-26",
+			"month" : "Juni"
+		},
+		"final": {
+			"date": "16",
+			"month": "September"
+		},
+		"seminar": {
+			"date": "17",
+			"month": "September"
+		},
+		"hacktoday": {
+			"registrasi": {
+				"date": "5-26",
+				"month" : "Juni"
+			},
+			"penyisihan": {
+				"date": "5-6",
+				"month": "Agustus"
+			},
+			"pengumuman": {
+				"date": "12",
+				"month": "Agustus"
+			},
+			"final": {
+				"date": "16",
+				"month": "September"
+			}
+		},
+		"appstoday": {
+			"registrasi": {
+				"date": "5-26",
+				"month" : "Juni"
+			},
+			"pengumuman1": {
+				"date": "11",
+				"month": "Juli"
+			},
+			"video": {
+				"date": "11-18",
+				"month": "Juli"
+			},
+			"pengumuman2": {
+				"date": "27",
+				"month": "Juli"
+			},
+			"final": {
+				"date": "16-17",
+				"month": "September"
+			}
+		}
+	},
+	"event_reward": {
+		"hacktoday": {
+			"first": "",
+			"second": "",
+			"third": ""
+		},
+		"appstoday": {
+			"first": "",
+			"second": "",
+			"third": "",
+			"best_highschool": "",
+			"most_favorite": ""
+		}
+	},
+	"seminar_speaker": {
+		"keynote_speaker": "",
+		"speaker1": "",
+		"speaker2": "",
+		"moderator1": "",
+		"moderator2": "",
+		"theme": ""
+	}
+}

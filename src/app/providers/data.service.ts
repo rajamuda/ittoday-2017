@@ -10,7 +10,7 @@ export class DataService{
 	public isLoggedIn = new Subject<boolean>();
 
 	public baseTitle = 'IT Today IPB 2017 - CreativITy';
-	public baseUrl = 'http://localhost:4200';
+	public baseUrl = 'https://ittoday.web.id';
 
 	/* User */
 	public urlLogin = this.baseUrl+'/api/user/login';
@@ -28,6 +28,7 @@ export class DataService{
 	public urlRegistAppsMember = this.baseUrl+'/api/appteam/registermember';
 	public urlUploadProposal = this.baseUrl+'/api/appteam/uploadproposal';
 	public urlAppsSubmission = this.baseUrl+'/api/appteam/submission';
+	public urlAppsPayment = this.baseUrl+'/api/appteam/uploadpayment';
 
 	/* HackToday */
 	public urlHasRegistHack = this.baseUrl+'/api/hackteam/user';

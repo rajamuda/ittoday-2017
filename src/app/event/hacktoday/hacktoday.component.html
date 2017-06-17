@@ -6,11 +6,10 @@
       </div>
       <div class="col-sm-12 col-md-7 pull-md-5 hack-content">
         <hr class="hack-line" align="right">
-        <p>
-          <b>HackToday</b> atau lebih dikenal dengan <i>Capture the Flag</i> (CTF) merupakan <i>Hacking Competition</i> yang sering diadakan dalam lomba keamanan teknologi informasi. Pada lomba ini para peserta diberi kebebasan mencari serta bereksplorasi terhadap celah-celah keamanan suatu jaringan untuk mendapatkan <i>flag</i> yang disediakan oleh panitia. Lomba ini bertujuan agar setiap peserta dapat menambah pengetahuan di bidang keamanan informasi. HackToday ditujukan untuk mahasiswa S1/sederajat.
+        <p [innerHtml]="event_desc">
         </p>
         <a href="{{url_rulebook}}" target="_blank">
-          <button class="btn btn-download">Download Rulebook ({{dataService.infoUpdateHack}})</button>
+          <button class="btn btn-download">Download Rulebook ({{rulebook_update}})</button>
         </a>
       </div>
     </div>
@@ -48,21 +47,21 @@
 
 <div class="timeline-section">
   <div class="container">
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center" *ngIf="checker">
       <div class="col-sm-12 col-md-3">
-        <div class="time"><span>5-26</span><br>Juni</div>
+        <div class="time"><span>{{schedule.registrasi.date}}</span><br>{{schedule.registrasi.month}}</div>
         <div class="time-desc">Pendaftaran</div>
       </div>
       <div class="col-sm-12 col-md-3">
-        <div class="time"><span>5-6</span><br>Agustus</div>
+        <div class="time"><span>{{schedule.penyisihan.date}}</span><br>{{schedule.penyisihan.month}}</div>
         <div class="time-desc">Pelaksanaan Penyisihan</div>
       </div>
       <div class="col-sm-12 col-md-3">
-        <div class="time"><span>12</span><br>Agustus</div>
+        <div class="time"><span>{{schedule.pengumuman.date}}</span><br>{{schedule.pengumuman.month}}</div>
         <div class="time-desc">Pengumuman Finalis</div>
       </div>
       <div class="col-sm-12 col-md-3">
-        <div class="time"><span>16</span><br>September</div>
+        <div class="time"><span>{{schedule.final.date}}</span><br>{{schedule.final.month}}</div>
         <div class="time-desc">Final hackToday</div>
       </div>
     </div>

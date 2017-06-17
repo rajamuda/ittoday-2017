@@ -343,6 +343,91 @@ function AppTeamControllers() {
 		}
 	}
 
+	this.uploadPayment = function(req, res){
+		var auth = jwt.validateToken(req.headers, res);
+		var destination = '/uploads/payment/';
+		var dir = '/../views';
+		var filename;
+		var team = req.headers.team;
+
+		var MAGIC_NUMBERS = {
+		    jpg: 'ffd8ffe0',
+		    jpg1: 'ffd8ffe1',
+		    png: '89504e47'
+		}
+
+		var storage = multer.diskStorage({ //multers disk storage settings
+		  destination: function (req, file, cb) {
+		      cb(null, __dirname+dir+destination)
+		  },
+		  filename: function (req, file, cb) {
+		      var date = new Date();
+
+					filename =  file.fieldname + '_' + team + '-' + date.getTime() + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
+		      cb(null, filename)
+		  }
+		});
+
+		var upload = multer({ //multer settings
+		    storage: storage,
+		    fileFilter: function (req, file, cb) {
+		        var ext = path.extname(file.originalname).toLowerCase();
+		        // console.log("extension: "+ext);
+		        if(file.mimetype != 'image/png' && file.mimetype != 'image/jpeg' && ext != '.jpg' && ext != '.png' && ext != '.jpeg') {
+		        		req.fileValidateError = "Only images are allowed";
+		            return cb(new Error('Only images are allowed'))
+		        }
+		        cb(null, true)
+		    },
+		    limits: { fileSize: 2*1024*1024 } //2 MiB
+		}).single('payment');
+		
+		var checkMagicNumbers = function(magic) {
+			if (magic == MAGIC_NUMBERS.jpg || magic == MAGIC_NUMBERS.jpg1 || magic == MAGIC_NUMBERS.png) 
+				return true
+		}
+		
+		if(auth == false){
+			res.json({status: false, message: "Authentication failed, please login again", err_code: 401});
+		}else{
+			upload(req, res, function(err){
+				// console.log(req.fileValidateError);
+				if(req.fileValidateError){
+					res.json({status: false, message: req.fileValidateError});
+				}else if(err){
+					if(err.code == 'LIMIT_FILE_SIZE')
+						res.json({status: false, message: 'File size limit exceeded'});
+					else
+						res.json({status: false, err: err});
+				}else{
+					var upload_pay = fs.readFileSync(__dirname+dir+destination+filename).toString('hex',0,4);
+
+					if(!checkMagicNumbers(upload_pay)){
+						fs.unlinkSync(__dirname+dir+destination+filename);
+						res.json({status: false, message: 'Oops, REAL image only, please!'});
+					}else{
+						AppTeam
+							.update({
+								pembayaran_app: destination+filename
+							}, {
+								where: {
+									$or: [
+										{ketua_team: auth.id},
+										{anggota1_team: auth.id},
+										{anggota2_team: auth.id}
+									]
+								}
+							}).then(function(){
+								res.json({status: true, message: 'Upload bukti pembayaran berhasil'});
+							}).catch(function(err){
+								res.json({status: false, message: "Upload bukti pembayaran gagal", err_code: err});
+							})
+					}
+				}
+			})
+		}
+	}
+
 	/* AppsToday disqualify team (admin only) */
 	this.disqualify = function(req, res) {
 		var auth = jwt.validateToken(req.headers, res);

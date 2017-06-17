@@ -1,8 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Router } from '@angular/router';
-import { DataService } from '../../providers/data.service';
 import { Title } from '@angular/platform-browser';
+import { DataService } from '../../providers/data.service';
+import 'rxjs/add/operator/map'
 
 @Component({
 	selector: 'appstoday',
@@ -12,23 +13,35 @@ import { Title } from '@angular/platform-browser';
 })
 
 export class AppsTodayComponent{
-	private url_rulebook = '';
+	public url_rulebook = '';
+	public event_desc = '';
+	public rulebook_update = '';
+	public reward: any = {};
+	public schedule: any = {};
+	public checker = false;
 
 	constructor(public title: Title, 
 							public http: Http, 
-							public router: Router, 
+							public router: Router,
 							public dataService: DataService)
 	{
-		this.url_rulebook = this.dataService.urlRulebookApps;
+		this.http.get("assets/data/data.json")
+			.subscribe(res => {
+				let data = res.json();
+				this.url_rulebook = data.rulebook.appstoday;
+				this.event_desc = data.event_desc.appstoday;
+				this.rulebook_update = data.rulebook.appstoday_update;
+				this.reward = data.event_reward.appstoday;
+				this.schedule = data.event_date.appstoday;
+				this.checker = true;
+			}, err => {
+				console.log(err);
+			})
 	}
 
 	ngOnInit(){
 		window.scrollTo(0,0);
 		this.title.setTitle('AppsToday | '+this.dataService.baseTitle);
-	}
-
-	public submit(){
-		console.log("hello");
 	}
 
 }

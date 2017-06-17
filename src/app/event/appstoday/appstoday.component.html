@@ -6,11 +6,9 @@
       </div>
       <div class="col-sm-12 col-md-7 apps-content">
         <hr class="apps-line" align="left">
-        <p>
-          <b>AppsToday</b> merupakan <i>creativity and innovation competition</i> dalam pembuatan aplikasi berbasis <i>platform</i> apa pun. Lomba ini bertujuan untuk mengeksplorasi kreatifitas dan inovasi developer Indonesia untuk memberikan solusi terhadap permasalahan-permasalahan yang ada di masyarakat. AppsToday ditujukan untuk seluruh penggiat pengembang aplikasi perangkat lunak baik itu SMA Sederajat, Mahasiswa, maupun Profesional.
-        </p>
+        <p [innerHtml]="event_desc"></p>
         <a href="{{url_rulebook}}" target="_blank">
-          <button class="btn btn-download">Download Rulebook ({{dataService.infoUpdateApps}})</button>
+          <button class="btn btn-download">Download Rulebook ({{rulebook_update}})</button>
         </a>
       </div>
     </div>
@@ -48,25 +46,25 @@
 
 <div class="timeline-section">
   <div class="container">
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center" *ngIf="checker">
       <div class="col-sm-12 col-md-2">
-        <div class="time"><span>5-26</span><br>Juni</div>
+        <div class="time"><span>{{schedule.registrasi.date}}</span><br>{{schedule.registrasi.month}}</div>
         <div class="time-desc">Pendaftaran dan Pengumpulan Proposal</div>
       </div>
       <div class="col-sm-12 col-md-2">
-        <div class="time"><span>11</span><br>Juli</div>
+        <div class="time"><span>{{schedule.pengumuman1.date}}</span><br>{{schedule.pengumuman1.month}}</div>
         <div class="time-desc">Pengumuman Proposal</div>
       </div>
       <div class="col-sm-12 col-md-2">
-        <div class="time"><span>11-18</span><br>Juli</div>
+        <div class="time"><span>{{schedule.video.date}}</span><br>{{schedule.video.month}}</div>
         <div class="time-desc">Pengumpulan Video</div>
       </div>
       <div class="col-sm-12 col-md-2">
-        <div class="time"><span>27</span><br>Juli</div>
+        <div class="time"><span>{{schedule.pengumuman2.date}}</span><br>{{schedule.pengumuman2.month}}</div>
         <div class="time-desc">Pengumuman Finalis</div>
       </div>
       <div class="col-sm-12 col-md-2">
-        <div class="time"><span>16-17</span><br>September</div>
+        <div class="time"><span>{{schedule.final.date}}</span><br>{{schedule.final.month}}</div>
         <div class="time-desc">Final AppsToday</div>
       </div>
     </div>

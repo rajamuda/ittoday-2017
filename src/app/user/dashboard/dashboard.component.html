@@ -21,7 +21,7 @@
       </div>
       <h1>{{user.nama_user}}</h1>
       <h5>{{user.tingkat_user}} - {{user.institusi_user}}</h5>
-      <h5>{{user.alamat_user}} - +62{{user.telepon_user}}</h5>
+      <h5>{{user.alamat_user}} - 0{{user.telepon_user}}</h5>
       <!-- <h5>{{user.email_user}}</h5> -->
     </div>
     <div class="event">
@@ -44,7 +44,7 @@
           </h3>
           <a href="{{registApps.url_rulebook}}" target="_blank">
             <button class="btn btn-download-1" *ngIf="registApps.has_regist == false">
-              Download Rulebook ({{dataService.infoUpdateApps}})
+              Download Rulebook ({{registApps.update_rulebook}})
             </button>
           </a>
           <hr *ngIf="registApps.has_regist == false">
@@ -93,9 +93,9 @@
             </h5>
             <hr>
             <a href="{{registApps.url_rulebook}}" target="_blank">
-              <button class="btn btn-download-2">Download Rulebook ({{dataService.infoUpdateApps}})</button>
+              <button class="btn btn-download-2">Download Rulebook ({{registApps.update_rulebook}})</button>
             </a>
-            <div class="task" *ngIf="registApps.first_submission == true && !registApps.disqualified">
+            <div class="task" *ngIf="registApps.proposal_submission == true && !registApps.disqualified">
               <form (ngSubmit)="appsFirstSubmission()">
                 <div class="form-group">
                   <label><h4>Nama Aplikasi</h4></label>
@@ -116,24 +116,46 @@
                 <button [disabled]="!proposalValid || !registApps.app_name" type="submit" class="btn btn-custom-task">Save</button>
               </form>
             </div>
-            <div class="task" *ngIf="registApps.second_submission == true && registApps.semifinalist == true && !registApps.disqualified">
+            <div class="task" *ngIf="registApps.video_submission == true && registApps.semifinalist == true && !registApps.disqualified">
               <h5>"Selamat, proposal Anda dinyatakan lolos ke tahap berikutnya!"</h5>
-              <form (submit)="updateAppsSubmission()">
-                <div class="form-group">
-                  <label><h4>Video Aplikasi</h4></label>
-                  <small class="form-text text-muted">Tuliskan link video yang menggambarkan aplikasi tim Anda</small>
-                  <input type="text" [(ngModel)]="registApps.video" name="video_app" class="form-control" placeholder="Link Video">
+              <div class="row">
+                <div class="col-md-6">
+                  <form (submit)="updateAppsSubmission()">
+                    <div class="form-group">
+                      <label><h4>Video Aplikasi</h4></label>
+                      <small class="form-text text-muted">Tuliskan link video yang menggambarkan aplikasi tim Anda</small>
+                      <input type="text" [(ngModel)]="registApps.video" name="video_app" class="form-control" placeholder="Link Video">
+                    </div>
+                    <button type="submit" class="btn btn-custom-task">Save</button>
+                  </form>
                 </div>
-                <button type="submit" class="btn btn-custom-task">Save</button>
-              </form>
+                <div class="col-md-6">
+                  <form (submit)="appsPayment()" *ngIf="!registApps.payment_submit">
+                    <div class="form-group">
+                      <label><h4>Konfirmasi Pembayaran</h4></label>
+                      <input type="file" (change)="appsPaymentChange($event)" name="payment" accept="image/jpeg, image/png" class="form-control-file" placeholder="Upload bukti pembayaran...">
+                      <small class="form-text text-muted">Lampirkan bukti pembayaran Anda dalam format jpg/png (maks: 2 MB)</small>
+                      <div class="progress" *ngIf="paymentSubmit && !registApps.payment_submit">
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress/100)*100 + '%'" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{uploadProgress}} %</div>
+                      </div>
+                    </div>
+                    <button [disabled]="!paymentValid " type="submit" class="btn btn-custom-task">Submit</button>
+                  </form>
+                  <div *ngIf="registApps.payment_submit" style="padding-top: 20px; text-align: center">
+                    <label><h4>Konfirmasi Pembayaran</h4></label>
+                    <h5 *ngIf="!registApps.payment_confirm" class="btn btn-custom-task">"Bukti bayar akan segera kami konfirmasi"</h5>
+                    <h5 *ngIf="registApps.payment_confirm" class="btn btn-custom-task">"Pembayaran terkonfirmasi"</h5>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="task" *ngIf="registApps.second_submission && registApps.semifinalist == false && !registApps.disqualified">
+            <div class="task" *ngIf="registApps.video_submission && registApps.semifinalist == false && !registApps.disqualified">
               <h5>"Mohon maaf, Anda belum dapat melanjutkan ke babak berikutnya."</h5>
             </div>
-            <div class="task" *ngIf="!registApps.second_submission && registApps.finalist == true && !registApps.disqualified">
+            <div class="task" *ngIf="registApps.apps_finalist_announcement && registApps.finalist == true && !registApps.disqualified">
               <h5>"Selamat, tim Anda dinyatakan lolos ke babak Final!"</h5>
             </div>
-            <div class="task" *ngIf="!registApps.second_submission && registApps.finalist == false && !registApps.disqualified">
+            <div class="task" *ngIf="registApps.apps_finalist_announcement && registApps.semifinalist == true && registApps.finalist == false && !registApps.disqualified">
               <h5>"Mohon maaf, Anda belum dapat melanjutkan ke babak berikutnya."</h5>
             </div>
             <div class="task" *ngIf="registApps.disqualified">
@@ -147,7 +169,7 @@
           </h3>
           <a href="{{registHack.url_rulebook}}" target="_blank">
             <button class="btn btn-download-1" *ngIf="registHack.has_regist == false">
-              Download Rulebook ({{dataService.infoUpdateHack}})
+              Download Rulebook ({{registHack.update_rulebook}})
             </button>
           </a>
           <hr *ngIf="registHack.has_regist == false">
@@ -196,7 +218,7 @@
             </h5>
             <hr>
             <a href="{{registHack.url_rulebook}}" target="_blank">
-              <button class="btn btn-download-2">Download Rulebook ({{dataService.infoUpdateHack}})</button>
+              <button class="btn btn-download-2">Download Rulebook ({{registHack.update_rulebook}})</button>
             </a>
             <div class="task" *ngIf="registHack.writeup_submission == true && !registHack.disqualified">
               <form (submit)="writeupSubmission()">
@@ -214,10 +236,10 @@
                 <button [disabled]="!writeupValid" type="submit" class="btn btn-custom-task">Save</button>
               </form>
             </div>
-            <div class="task" *ngIf="!registHack.writeup_submission && registHack.finalist == true && !registHack.disqualified">
+            <div class="task" *ngIf="registHack.hack_finalist_announcement && registHack.finalist == true && !registHack.disqualified">
               <h5>"Selamat, tim Anda dinyatakan lolos ke babak Final!"</h5>
             </div>
-            <div class="task" *ngIf="!registHack.writeup_submission && registHack.finalist == false && !registHack.disqualified">
+            <div class="task" *ngIf="registHack.hack_finalist_announcement && registHack.finalist == false && !registHack.disqualified">
               <h5>"Mohon maaf, Anda belum dapat melanjutkan ke babak berikutnya."</h5>
             </div>
             <div class="task" *ngIf="registHack.disqualified">
@@ -230,20 +252,30 @@
             “Ingin tau berbagai informasi menarik tentang kemajuan teknologi? Ayo ikut"
           </h3>
           <hr *ngIf="registSeminar.has_regist == false">  
-          <h6 *ngIf="registSeminar.has_regist == false"><i>Pendaftaran seminar belum dibuka</i></h6>
-          <!-- <button class="btn btn-custom-yellow" type="button" (click)="registSeminarSubmit()" *ngIf="registSeminar.has_regist == false">Ikut</button> -->
+          <div *ngIf="registSeminar.has_regist == false">
+            <h6 *ngIf="!registSeminar.seminar_open"><i>Pendaftaran seminar belum dibuka</i></h6>
+            <button class="btn btn-custom-yellow" type="button" (click)="registSeminarSubmit()" *ngIf="registSeminar.seminar_open">Ikut</button>
+          </div>
           <div *ngIf="registSeminar.has_regist == true">
             <h5>Anda sudah terdaftar,</h5>
             <h6>Silahkan konfirmasi kehadiran Anda</h6><hr>
-            <h6><i>Formulir konfirmasi kehadiran akan dibuka H-7 seminar</i></h6>
-            <!-- 
-              <h6 *ngIf="registSeminar.attend_confirm != null"><i>Anda <span *ngIf="registSeminar.attend_confirm == false">TIDAK</span> DAPAT menghadiri seminar</i></h6>
-              <div class="btn-group" data-toggle="buttons">
-              <label class="btn btn-default btn-on active" (click)="confirmAttendSeminar(true)">
-              <input type="radio" name="attendance" checked="checked">Saya bisa hadir</label>
-              <label class="btn btn-default btn-off" (click)="confirmAttendSeminar(false)">
-              <input type="radio" name="attendance">Saya berhalangan <br class="hidden-md-up">hadir</label>
-            </div> -->
+            <h6 *ngIf="!registSeminar.seminar_confirm_open"><i>Formulir konfirmasi kehadiran akan dibuka H-7 seminar</i></h6>
+            
+              <!-- <h6 *ngIf="registSeminar.attend_confirm != null"><i>Anda <span *ngIf="registSeminar.attend_confirm == false">TIDAK</span> DAPAT menghadiri seminar</i></h6> -->
+            <div *ngIf="registSeminar.seminar_confirm_open" class="btn-group" data-toggle="buttons">
+              <div *ngIf="registSeminar.attend_confirm == true">
+                <label class="btn btn-default btn-on active" (click)="confirmAttendSeminar(true)">
+                <input type="radio" name="attendance" checked="checked">Saya bisa hadir</label>
+                <label class="btn btn-default btn-off" (click)="confirmAttendSeminar(false)">
+                <input type="radio" name="attendance">Saya berhalangan <br class="hidden-md-up">hadir</label>
+              </div>
+              <div *ngIf="registSeminar.attend_confirm == false">
+                <label class="btn btn-default btn-off" (click)="confirmAttendSeminar(true)">
+                <input type="radio" name="attendance">Saya bisa hadir</label>
+                <label class="btn btn-default btn-on active" (click)="confirmAttendSeminar(false)">
+                <input type="radio" name="attendance" checked="checked">Saya berhalangan <br class="hidden-md-up">hadir</label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
