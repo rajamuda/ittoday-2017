@@ -7,8 +7,12 @@ var News = sequelize.import(__dirname + "/../models/news.models");
 
 function NewsControllers() {
 	this.getAll = function(req, res) {
+		var page = (req.query.page - 1) || 0;
+		var limit = 3;
+		var offset = limit * page;
+
 		News
-			.findAll({order: [['createdAt', 'DESC']]})
+			.findAll({order: [['updatedAt', 'DESC']], limit: limit, offset: offset})
 			.then(function(result) {
 				res.json({status: true, message: 'Get all news success', data: result});
 			})

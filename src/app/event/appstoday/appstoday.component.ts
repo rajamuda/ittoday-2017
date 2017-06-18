@@ -1,9 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { DataService } from '../../providers/data.service';
-import 'rxjs/add/operator/map'
 
 @Component({
 	selector: 'appstoday',
@@ -25,9 +24,8 @@ export class AppsTodayComponent{
 							public router: Router,
 							public dataService: DataService)
 	{
-		this.http.get("assets/data/data.json")
-			.subscribe(res => {
-				let data = res.json();
+		this.dataService.getData()
+			.subscribe(data => {
 				this.url_rulebook = data.rulebook.appstoday;
 				this.event_desc = data.event_desc.appstoday;
 				this.rulebook_update = data.rulebook.appstoday_update;

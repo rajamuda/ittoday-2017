@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Subject }    from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+
+// Import RxJs required methods
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class DataService{
@@ -10,7 +16,8 @@ export class DataService{
 	public isLoggedIn = new Subject<boolean>();
 
 	public baseTitle = 'IT Today IPB 2017 - CreativITy';
-	public baseUrl = 'https://ittoday.web.id';
+	// public baseUrl = 'https://ittoday.web.id';
+	public baseUrl = 'http://localhost:4200';
 
 	/* User */
 	public urlLogin = this.baseUrl+'/api/user/login';
@@ -41,21 +48,16 @@ export class DataService{
 	public urlRegistSeminar = this.baseUrl+'/api/seminar/register';
 	public urlAttendSeminar = this.baseUrl+'/api/seminar/attend';
 
-	/* custom VAR */
-	public writeUpSubmission = false;
-	public firstAppsSubmission = true;
-	public secondAppsSubmission = false;
-
-	public urlRulebookApps = 'https://bit.ly/appstoday_rb';
-	public urlRulebookHack = 'https://s.id/rE3';
-	public infoUpdateHack = 'Update 14/06/2017';
-	public infoUpdateApps = 'Update 12/06/2017';
-
 	loginAnnounced$ = this.isLoggedIn.asObservable();
+
+	constructor(public http: Http){}
 
 	public loginState(state){
 			this.isLoggedIn.next(state);
 	}
 
+	public getData(){
+		return this.http.get('assets/data/data.json').map(res => res.json()).catch(err => Observable.throw(err.json().error || 'Error'))
+	}
 
 }

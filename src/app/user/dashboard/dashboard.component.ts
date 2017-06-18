@@ -97,9 +97,8 @@ export class DashboardComponent{
 			this.uploadProgress = status;
 		});
 
-		this.authHttp.get("assets/data/data.json")
-      .subscribe(res => {
-        let data = res.json();
+		this.dataService.getData()
+      .subscribe(data => {
 				this.registApps.url_rulebook = data.rulebook.appstoday;
 				this.registApps.proposal_submission = data.submission.proposal_submission;
 				this.registApps.video_submission = data.submission.video_submission;

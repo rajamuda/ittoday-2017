@@ -17,15 +17,14 @@ export class HomeComponent implements OnInit {
               public http: Http,
               public dataService: DataService)
   {
-    this.http.get("assets/data/data.json")
-      .subscribe(res => {
-        let data = res.json();
+    this.dataService.getData()
+      .subscribe(data => {
         this.event_desc = data.event_desc;
         this.schedule = data.event_date;
         this.checker = true;
       }, err => {
         console.log(err);
-      })
+      });
   }
 
   ngOnInit() {

@@ -1,0 +1,23 @@
+<div class="main-component">
+  <div class="container">
+    <div class="row">
+      <!-- Blog Entries Column -->
+      <div class="col-md-12">
+        <!-- <h1 class="my-4">Page Heading <small>Secondary Text</small></h1> -->
+
+        <!-- Blog Post -->
+        <div class="card mb-4">
+            <!-- <img class="card-img-top img-fluid" src="http://placehold.it/750x300" alt="Card image cap"> -->
+            <div class="card-block">
+                <h2 class="card-title">{{article.title}}</h2>
+                
+            <div class="card-footer text-muted">
+                Posted on {{article.publish | date:'longDate'}} <span *ngIf="article.publish != article.modified">(Updated at {{article.modified | date:'longDate'}})</span> by <a href="#">Admin</a>
+            </div>
+                <p class="card-text" [innerHtml]="article.content"></p>
+                <!-- <a href="#" class="btn btn-primary">Read More &rarr;</a> -->
+            </div>
+        </div>
+      </div>
+  </div>
+</div>

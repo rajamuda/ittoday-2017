@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
   news.getAll(req, res);
 });
 
-/* GET all news. */
+/* GET a news. */
 router.get('/:id', function(req, res) {
   news.getOne(req.params.id, res);
 });

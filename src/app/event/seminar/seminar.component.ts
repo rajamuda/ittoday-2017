@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { DataService } from '../../providers/data.service';
 import { Title } from '@angular/platform-browser';
@@ -22,9 +22,8 @@ export class SeminarComponent{
 							public router: Router, 
 							public dataService: DataService)
 	{
-		this.http.get("assets/data/data.json")
-			.subscribe(res => {
-				let data = res.json();
+		this.dataService.getData()
+			.subscribe(data => {
 				this.event_desc = data.event_desc.seminar;
 				this.speaker = data.seminar_speaker;
 				this.schedule = data.event_date.seminar;
