@@ -1,25 +1,39 @@
-<div class="main-component">
+<div class="news-page">
   <div class="container">
     <div class="row">
       <!-- Blog Entries Column -->
       <div class="col-md-12">
-        <h1 class="my-4">Page Heading <small>Secondary Text</small></h1>
-
+        <h1>Daftar Artikel</h1>
+        <hr class="red-line">
+        
         <!-- Blog Post -->
-        <div *ngFor="let article of articles" class="card mb-4" infiniteScroll
-            [infiniteScrollDistance]="5"
-            [infiniteScrollThrottle]="500"
-            (scrolled)="scrolled()">
-            <!-- <img class="card-img-top img-fluid" src="http://placehold.it/750x300" alt="Card image cap"> -->
-            <div class="card-block">
-                <h2 class="card-title">{{article.getJudul}}</h2>
+        <div *ngFor="let article of articles" class="card my-4" infiniteScroll
+          [infiniteScrollDistance]="5"
+          [infiniteScrollThrottle]="500"
+          (scrolled)="scrolled()">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-sm-12 col-md-2 mt-1 hidden-sm-down">
+                <img class="news-img" src="assets/img/article.png">
+              </div>
+              <div class="col-sm-12 col-md-10 justify">
+                <a [routerLink]="['/news', article.id]">
+                  <h2 class="card-title my-0">{{article.getJudul}}</h2>
+                </a>
+                <small class="text-muted">
+                  Posted on {{article.createdAt | date:'longDate'}} 
+                  <span *ngIf="article.createdAt != article.updatedAt">(Updated)</span> by 
+                  <a href="#">Admin</a>
+                </small>
+                <hr class="my-1">
+                <img class="news-img hidden-md-up my-2" src="assets/img/article.png">
                 <p class="card-text" [innerHtml]="article.getIsi | truncate:50"></p>
-                <a [routerLink]="['/news', article.id]" class="btn btn-primary">Read More &rarr;</a>
+                <a [routerLink]="['/news', article.id]" class="btn btn-custom-news">Read More &rarr;</a>
+              </div>
             </div>
-            <div class="card-footer text-muted">
-                Posted on {{article.createdAt | date:'longDate'}} <span *ngIf="article.createdAt != article.updatedAt">(Updated)</span> by <a href="#">Admin</a>
-            </div>
+          </div>
         </div>
       </div>
+    </div>
   </div>
 </div>

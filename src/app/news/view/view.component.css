@@ -1,0 +1,35 @@
+.justify {
+  text-align: justify;
+} 
+
+.news-view {
+  background-color: #EBDB01;
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+
+.card-title {
+  color: #FE0037;
+  font-weight: bold;
+  text-shadow: 2px 2px #EBDB01;
+}
+
+@media (min-width: 768px) {
+  .news-view {
+    min-height: 500px;
+  }
+
+  .card-block {
+    padding: 30px 60px;
+  }
+
+  .card-title {
+    text-align: center;
+    font-size: 36px;
+  }
+
+  .card-block .text-muted {
+    display: inherit;
+    text-align: center;
+  }
+}

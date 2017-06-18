@@ -22,3 +22,17 @@
 select.form-control {
   padding: .75rem .75rem;
 }
+
+.main-component {
+  background-color: #ECEEEF;
+}
+
+@media (min-width: 768px) {
+  .card {
+    margin: 60px auto;
+  }
+
+  .main-component {
+    min-height: 500px;
+  }
+}
