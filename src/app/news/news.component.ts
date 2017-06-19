@@ -16,9 +16,11 @@ export class NewsComponent {
   public articles: Array<Object> = [];
   public new: Array<Object> = [];
   public page = 1;
+  public loadArticle = false;
   public endOfPost = false;
   public isEnd = new Subject<boolean>();
   public endOfPostAnnounced$ = this.isEnd.asObservable();
+  public scrollDistance = 8000000;
 
   constructor(public title: Title, 
               public http: Http,
@@ -45,12 +47,15 @@ export class NewsComponent {
   }
 
   scrolled(){
+    this.loadArticle = true;
     setTimeout(() => {
       if(!this.endOfPost){
         this.page = this.page+1;
+        console.log(this.page);
         this.http.get(this.dataService.baseUrl+'/api/news?page='+this.page)
           .subscribe(res => {
             let content = res.json();
+            this.loadArticle = false;
             if(content.data.length)
               this.articles = this.articles.concat(content.data);
             else
@@ -59,7 +64,7 @@ export class NewsComponent {
       }else{
         console.log("Habis gan");
       }
-      },500)
+      },1000)
   }
 
 }

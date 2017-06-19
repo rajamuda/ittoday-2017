@@ -16,7 +16,7 @@
               <a href="#">Admin</a>
             </small>
             <hr>
-            <p class="card-text justify" [innerHtml]="article.content"></p>
+            <p class="card-text justify" [innerHtml]="article.content | safe: 'html'"></p>
           </div>
         </div>
       </div>

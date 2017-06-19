@@ -8,7 +8,7 @@ var News = sequelize.import(__dirname + "/../models/news.models");
 function NewsControllers() {
 	this.getAll = function(req, res) {
 		var page = (req.query.page - 1) || 0;
-		var limit = 3;
+		var limit = 10;
 		var offset = limit * page;
 
 		News

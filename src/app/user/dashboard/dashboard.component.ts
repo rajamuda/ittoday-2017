@@ -22,7 +22,8 @@ export class DashboardComponent{
 		institusi_user: '',
 		alamat_user: '',
 		telepon_user: '',
-		kelamin_user: ''
+		kelamin_user: '',
+		status_user: false,
 	};
 
 	public registHack: any = {
@@ -139,7 +140,7 @@ export class DashboardComponent{
 					this.user.telepon_user = profile.telepon_user;
 					this.user.kelamin_user = profile.kelamin_user;
 
-					console.log(profile.user_identity_null);
+					this.user.status_user = profile.status_user;
 					if(profile.status_user == false){
 						this.router.navigate(['/user/editprofile']);
 						this.toast.info('Please, complete your profile info', 'Information');

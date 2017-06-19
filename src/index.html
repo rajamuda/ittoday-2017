@@ -47,6 +47,22 @@
       right: 0px;
       left: 0px;
     }
+    .back-to-top {
+      cursor: pointer;
+      position: fixed;
+      bottom: 40px;
+      right: 70px;
+      display:none;
+      z-index:99999;
+      border: 1px solid #fe0037;
+    }
+
+    @media(max-width: 768px){
+      .back-to-top {
+        bottom: 30px;
+        right: 30px;
+      }
+    }
   </style>
 
   <!-- Onestyd, Rajamuda, Abdurrohim -->
@@ -54,12 +70,12 @@
 </head>
 
 <body>
-
   <app>
     <div class="preboot">
       <img src="assets/img/spinner.svg" alt="Loading icon" />
     </div>
   </app>
+  <a id="back-to-top" href="#" class="btn btn-lg btn-custom back-to-top" role="button" title="Klik untuk kembali ke atas" data-toggle="tooltip" data-placement="left"><i class="material-icons">keyboard_arrow_up</i></a>
 
   <script type="text/javascript">
     var clip_apps = new Clipboard('.copy-apps');
@@ -86,6 +102,29 @@
       $(this).addClass("active");
     });
   </script>
+      
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+        } else {
+            $('#back-to-top').fadeOut();
+        }
+      });
+      // scroll body to 0px on click
+      $('#back-to-top').click(function () {
+        $('#back-to-top').tooltip('hide');
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+      });
+      
+      $('#back-to-top').tooltip('show');
+    });
+  </script>
+
 
   <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->
   <script>
@@ -102,7 +141,5 @@
   <!-- Webpack Dev Server reload -->
   <script src="/webpack-dev-server.js"></script>
   <% } %>
-
-
 </body>
 </html>

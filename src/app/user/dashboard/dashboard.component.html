@@ -24,7 +24,7 @@
       <h5>{{user.alamat_user}} - 0{{user.telepon_user}}</h5>
       <!-- <h5>{{user.email_user}}</h5> -->
     </div>
-    <div class="event">
+    <div class="event" *ngIf="user.status_user">
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="pill" href="#apps">AppsToday</a>
@@ -280,5 +280,8 @@
         </div>
       </div>
     </div>
+    <!-- <div class="event" *ngIf="!user.status_user">
+      <h4>Mohon lengkapi profil Anda terlebih dahulu <a [routerLink]="['/user/editprofile']">di halaman ini</a></h4>
+    </div> -->
   </div>
 </div>

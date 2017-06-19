@@ -6,12 +6,13 @@ import { NewsComponent } from './news.component';
 import { ViewComponent } from './view/view.component';
 
 import { TruncatePipe } from './truncate';
+import { SafePipe } from './safe-pipe';
 
 import { Routing } from './news.router';
 
 @NgModule({
   imports: [ Routing, CommonModule, FormsModule, InfiniteScrollModule  ],
-  declarations: [ NewsComponent, ViewComponent, TruncatePipe ]
+  declarations: [ NewsComponent, ViewComponent, TruncatePipe, SafePipe ]
 })
 
 export class NewsModule{
