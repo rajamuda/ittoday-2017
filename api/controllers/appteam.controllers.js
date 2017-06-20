@@ -10,6 +10,13 @@ var fs = require('fs');
 var AppTeam = sequelize.import(__dirname + "/../models/appteam.models");
 var User = sequelize.import(__dirname + "/../models/user.models");
 
+User.hasOne(AppTeam, {foreignKey:'ketua_team'})
+AppTeam.belongsTo(User, {as: 'ketua', foreignKey: 'ketua_team', targetKey: 'id'})
+User.hasOne(AppTeam, {foreignKey:'anggota1_team'})
+AppTeam.belongsTo(User, {as: 'anggota1', foreignKey: 'anggota1_team', targetKey: 'id'})
+User.hasOne(AppTeam, {foreignKey:'anggota2_team'})
+AppTeam.belongsTo(User, {as: 'anggota2', foreignKey: 'anggota2_team', targetKey: 'id'})
+
 function AppTeamControllers() {
 	// hanya admin yang bisa dapat list
 	this.getAll = function(req, res) {
@@ -19,7 +26,10 @@ function AppTeamControllers() {
 			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
 		} else if (auth.role == 'admin') {
 			AppTeam
-				.findAll({order: [['createdAt', 'DESC']]})
+				.findAll({
+					include: [{model: User, as: 'ketua', attributes: ['nama_user']},{model: User, as: 'anggota1', attributes: ['nama_user']},{model: User, as: 'anggota2', attributes: ['nama_user']}],
+					order: [['createdAt', 'DESC']]
+				})
 				.then(function(result) {
 					// console.log('Get all appteam successful!');
 					res.json({status: true, message: 'Get all appteam success', data: result});
@@ -281,6 +291,7 @@ function AppTeamControllers() {
 		var dir = '/../views';
 		var filename;
 		var team = req.headers.team;
+		team = team.replace(/[^a-zA-Z0-1 ]/g, "");
 
 		var MAGIC_NUMBERS = {
 		    pdf: '25504446'
@@ -349,6 +360,7 @@ function AppTeamControllers() {
 		var dir = '/../views';
 		var filename;
 		var team = req.headers.team;
+		team = team.replace(/[^a-zA-Z0-1 ]/g, "");
 
 		var MAGIC_NUMBERS = {
 		    jpg: 'ffd8ffe0',

@@ -10,6 +10,13 @@ var fs = require('fs');
 var HackTeam = sequelize.import(__dirname + "/../models/hackteam.models");
 var User = sequelize.import(__dirname + "/../models/user.models");
 
+User.hasOne(HackTeam, {foreignKey:'ketua_team'})
+HackTeam.belongsTo(User, {as: 'ketua', foreignKey: 'ketua_team', targetKey: 'id'})
+User.hasOne(HackTeam, {foreignKey:'anggota1_team'})
+HackTeam.belongsTo(User, {as: 'anggota1', foreignKey: 'anggota1_team', targetKey: 'id'})
+User.hasOne(HackTeam, {foreignKey:'anggota2_team'})
+HackTeam.belongsTo(User, {as: 'anggota2', foreignKey: 'anggota2_team', targetKey: 'id'})
+
 function HackTeamControllers() {
 	// hanya admin yang bisa dapat list
 	this.getAll = function(req, res) {
@@ -19,7 +26,10 @@ function HackTeamControllers() {
 			res.json({status: false, message: 'Authentication failed, please login again!', err_code: 401});
 		} else if (auth.role == 'admin') {
 			HackTeam
-				.findAll({order: [['createdAt', 'DESC']]})
+				.findAll({
+					include: [{model: User, as: 'ketua', attributes: ['nama_user']},{model: User, as: 'anggota1', attributes: ['nama_user']},{model: User, as: 'anggota2', attributes: ['nama_user']}],
+					order: [['createdAt', 'DESC']]
+				})
 				.then(function(result) {
 					// console.log('Get all hackteam successful!');
 					res.json({status: true, message: 'Get all hackteam success', data: result});
@@ -246,6 +256,7 @@ function HackTeamControllers() {
 		var dir = '/../views';
 		var filename;
 		var team = req.headers.team;
+		team = team.replace(/[^a-zA-Z0-1 ]/g, "");
 
 		var MAGIC_NUMBERS = {
 		    pdf: '25504446'
