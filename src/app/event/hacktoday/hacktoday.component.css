@@ -65,7 +65,7 @@
   padding-bottom: 20px;
 }
 
-.prize-section img {
+/*.prize-section img {
   display: block;
   margin: auto;
 }
@@ -78,6 +78,42 @@
   margin-top: 100px;
   color: #EBDB01;
   text-shadow: 5px 5px #FE0037;
+}*/
+
+.prize-section .win-1 img {
+  display: block;
+  margin: auto;
+  height: 150px;
+}
+
+.prize-section .win-2 img {
+  display: block;
+  margin: auto;
+  height: 125px;
+}
+
+.prize-section .win-3 img {
+  display: block;
+  margin: auto;
+  height: 100px;
+}
+
+.prize-section h1,
+.prize-section h2,
+.prize-section h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: #EBDB01;
+  text-shadow: 3px 3px #FE0037;
+  text-align: center;
+}
+
+.prize-section h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
 }
 
 .timeline-section {
@@ -120,6 +156,11 @@
     margin-left: 10%;
   }
 
+  .btn-download {
+    display: block;
+    margin: auto;
+  }
+
   .title-section h1 {
     font-size: 24px;
   }
@@ -128,13 +169,37 @@
     padding-top: 20px;
   }
 
-  .prize-section img {
+  /*.prize-section img {
     width: 100%;
   } 
 
   .prize-section h1 {
     font-size: 36px;
     margin-top: 20px;
+    text-shadow: 2px 2px #FE0037;
+    text-align: center;
+  }*/
+
+  .prize-section h1 {
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px #FE0037;
+    text-align: center;
+  }
+
+  .prize-section h2 {
+    font-size: 27px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px #FE0037;
+    text-align: center;
+  }
+
+  .prize-section h3 {
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 30px;
     text-shadow: 2px 2px #FE0037;
     text-align: center;
   }

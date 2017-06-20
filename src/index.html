@@ -32,14 +32,17 @@
       font-family: Palanquin;
       src: url("assets/fonts/palanquin-regular.ttf");
     }
+
     @font-face{
       font-family: Palanquin;
       src: url("assets/fonts/palanquin-bold.ttf");
       font-weight: bold;
     }
+
     body {
       font-family: Palanquin !important;
     }
+
     .preboot{
       position: absolute;
       text-align: center;
@@ -47,14 +50,26 @@
       right: 0px;
       left: 0px;
     }
+
+    .btn-top {
+      background-color: #EBDB01;
+      border-radius: 50%;
+    }
+
     .back-to-top {
+      font-weight: bold;
+      font-size: 30px;
+      padding-top: 0px;
       cursor: pointer;
       position: fixed;
       bottom: 40px;
       right: 70px;
-      display:none;
-      z-index:99999;
-      border: 1px solid #fe0037;
+      display: none;
+      z-index: 99999;
+      border-top: 1px solid #fe0037;
+      border-right: 3px solid #fe0037;
+      border-bottom: 3px solid #fe0037;
+      border-left: 1px solid #fe0037;
     }
 
     @media(max-width: 768px){
@@ -75,7 +90,7 @@
       <img src="assets/img/spinner.svg" alt="Loading icon" />
     </div>
   </app>
-  <a id="back-to-top" href="#" class="btn btn-lg btn-custom back-to-top" role="button" title="Klik untuk kembali ke atas" data-toggle="tooltip" data-placement="left"><i class="material-icons">keyboard_arrow_up</i></a>
+  <a id="back-to-top" href="#" class="btn btn-top back-to-top" role="button" title="Klik untuk kembali ke atas" data-toggle="tooltip" data-placement="left">^</a>
 
   <script type="text/javascript">
     var clip_apps = new Clipboard('.copy-apps');
