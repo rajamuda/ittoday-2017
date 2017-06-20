@@ -16,8 +16,8 @@ export class DataService{
 	public isLoggedIn = new Subject<boolean>();
 
 	public baseTitle = 'IT Today IPB 2017 - CreativITy';
-	// public baseUrl = 'https://ittoday.web.id';
-	public baseUrl = 'http://localhost:4200';
+	public baseUrl = 'https://ittoday.web.id';
+	// public baseUrl = 'http://localhost:4200';
 
 	/* User */
 	public urlLogin = this.baseUrl+'/api/user/login';

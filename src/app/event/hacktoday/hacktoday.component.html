@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<!-- <div class="prize-section">
+<div class="prize-section" *ngIf="reward.tba">
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-6">
@@ -37,25 +37,25 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
-<div class="prize-section">
+<div class="prize-section" *ngIf="!reward.tba">
   <div class="container">
     <div class="row align-items-center">
       <div class="win-1 col-sm-12 col-md-5 push-md-4">
         <img src="assets/img/trophy.png">
         <h5>Juara 1</h5>
-        <h1>Rp. 9.000.000,-</h1>
+        <h1>{{reward.first}}</h1>
       </div>
       <div class="win-2 col-sm-12 col-md-4 pull-md-5">
         <img src="assets/img/trophy2.png">
         <h5>Juara 2</h5>
-        <h2>Rp. 6.000.000,-</h2>
+        <h2>{{reward.second}}</h2>
       </div>
       <div class="win-3 col-sm-12 col-md-3">
         <img src="assets/img/trophy3.png">
         <h5>Juara 3</h5>
-        <h3>Rp. 3.000.000,-</h3>
+        <h3>{{reward.third}}</h3>
       </div>
     </div>
   </div>

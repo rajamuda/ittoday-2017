@@ -12,7 +12,7 @@ import { Title } from '@angular/platform-browser';
 })
 
 export class HackTodayComponent{
-	private url_rulebook = '';
+	public url_rulebook = '';
 	public event_desc = '';
 	public rulebook_update = '';
 	public reward: any = {};

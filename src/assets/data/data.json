@@ -75,16 +75,18 @@
 	},
 	"event_reward": {
 		"hacktoday": {
-			"first": "",
-			"second": "",
-			"third": ""
+			"first": "Rp. 9.000.000,-",
+			"second": "Rp. 6.000.000,-",
+			"third": "Rp. 3.000.000,-",
+			"tba": true
 		},
 		"appstoday": {
-			"first": "",
-			"second": "",
-			"third": "",
-			"best_highschool": "",
-			"most_favorite": ""
+			"first": "Rp. 9.000.000,-",
+			"second": "Rp. 6.000.000,-",
+			"third": "Rp. 3.000.000,-",
+			"best_highschool": "Rp. 1.000.000,-",
+			"most_favorite": "Rp. 1.000.000,-",
+			"tba": true
 		}
 	},
 	"seminar_speaker": {
