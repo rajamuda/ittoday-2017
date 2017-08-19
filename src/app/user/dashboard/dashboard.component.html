@@ -249,11 +249,21 @@
         </div>
         <div class="tab-pane" id="seminar">
           <h3 *ngIf="registSeminar.has_regist == false">
-            “Ingin tau berbagai informasi menarik tentang kemajuan teknologi? Ayo ikut"
+            “Ingin tau berbagai informasi menarik tentang kemajuan teknologi? Ayo ikut"<br/>Free Registration!
           </h3>
           <hr *ngIf="registSeminar.has_regist == false">  
           <div *ngIf="registSeminar.has_regist == false">
-            <h6 *ngIf="!registSeminar.seminar_open"><i>Pendaftaran seminar belum dibuka</i></h6>
+            <div *ngIf="!registSeminar.seminar_open"><!-- <i>Pendaftaran seminar belum dibuka</i> -->
+              <b>Daftar melalui:</b> 
+              <a href="{{registSeminar.seminar_link.eventbrite}}" style="padding:5px"><img src="assets/img/ticket/eventbrite.png" style="height: 30px" title="Eventbrite"></a> | <a href="{{registSeminar.seminar_link.goers}}" style="padding:5px"><img src="assets/img/ticket/goers2.png" style="height: 35px; width: 150px" title="Goers (Belum tersedia)"></a>
+              <div style="text-align: left">
+                <ul> 
+                  <li>Paralel 1: Mobile Apps "Clean Code"</li>
+                  <li>Paralel 2: Game "Gaming with DayDream"</li>
+                  <li>Paralel 3: Cyber Security "Ransomware"</li>
+                </ul>
+              </div>
+            </div>
             <button class="btn btn-custom-yellow" type="button" (click)="registSeminarSubmit()" *ngIf="registSeminar.seminar_open">Ikut</button>
           </div>
           <div *ngIf="registSeminar.has_regist == true">

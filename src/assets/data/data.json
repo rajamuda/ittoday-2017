@@ -1,18 +1,22 @@
 {
 	"submission": {
 		"writeup_submission": false,
-		"proposal_submission": true,
+		"proposal_submission": false,
 		"video_submission": false,
 		"apps_finalist_announcement": false,
 		"hack_finalist_announcement": false,
 		"seminar_open": false,
-		"seminar_confirm_open": false
+		"seminar_confirm_open": false,
+		"seminar_link": {
+			"eventbrite": "https://www.eventbrite.com/e/national-it-seminar-tickets-35437815460",
+			"goers": "#"
+		}
 	},
 	"rulebook": {
-		"hacktoday": "https://s.id/rE3",
-		"hacktoday_update": "Update 14/06/2017",
-		"appstoday": "https://bit.ly/appstoday_rb",
-		"appstoday_update": "Update 12/06/2017"
+		"hacktoday": "http://s.id/CoM",
+		"hacktoday_update": "NEW! 06/08",
+		"appstoday": "https://s.id/wET",
+		"appstoday_update": "17/07/2017"
 	},
 	"event_desc": {
 		"hacktoday": "<b>HackToday</b> atau lebih dikenal dengan <i>Capture the Flag</i> (CTF) merupakan <i>Hacking Competition</i> yang sering diadakan dalam lomba keamanan teknologi informasi. Pada lomba ini para peserta diberi kebebasan mencari serta bereksplorasi terhadap celah-celah keamanan suatu jaringan untuk mendapatkan <i>flag</i> yang disediakan oleh panitia. Lomba ini bertujuan agar setiap peserta dapat menambah pengetahuan di bidang keamanan informasi. HackToday ditujukan untuk mahasiswa S1/sederajat.",
@@ -21,8 +25,8 @@
 	},
 	"event_date": {
 		"registrasi": {
-			"date": "5-26",
-			"month" : "Juni"
+			"date": "5 Juni-",
+			"month" : "19 Juli"
 		},
 		"final": {
 			"date": "16",
@@ -34,8 +38,8 @@
 		},
 		"hacktoday": {
 			"registrasi": {
-				"date": "5-26",
-				"month" : "Juni"
+				"date": "5 Juni-",
+				"month" : "19 Juli"
 			},
 			"penyisihan": {
 				"date": "5-6",
@@ -52,20 +56,20 @@
 		},
 		"appstoday": {
 			"registrasi": {
-				"date": "5-26",
-				"month" : "Juni"
+				"date": "5 Juni-",
+				"month" : "19 Juli"
 			},
 			"pengumuman1": {
-				"date": "11",
+				"date": "23",
 				"month": "Juli"
 			},
 			"video": {
-				"date": "11-18",
+				"date": "24-29",
 				"month": "Juli"
 			},
 			"pengumuman2": {
-				"date": "27",
-				"month": "Juli"
+				"date": "6",
+				"month": "Agustus"
 			},
 			"final": {
 				"date": "16-17",
@@ -75,18 +79,18 @@
 	},
 	"event_reward": {
 		"hacktoday": {
-			"first": "Rp. 9.000.000,-",
-			"second": "Rp. 6.000.000,-",
-			"third": "Rp. 3.000.000,-",
-			"tba": true
+			"first": "Rp. 5.000.000,-",
+			"second": "Rp. 3.000.000,-",
+			"third": "Rp. 2.000.000,-",
+			"tba": false
 		},
 		"appstoday": {
-			"first": "Rp. 9.000.000,-",
-			"second": "Rp. 6.000.000,-",
-			"third": "Rp. 3.000.000,-",
-			"best_highschool": "Rp. 1.000.000,-",
-			"most_favorite": "Rp. 1.000.000,-",
-			"tba": true
+			"first": "Rp. 5.000.000,-",
+			"second": "Rp. 3.000.000,-",
+			"third": "Rp. 2.000.000,-",
+			"best_highschool": "",
+			"most_favorite": "",
+			"tba": false
 		}
 	},
 	"seminar_speaker": {

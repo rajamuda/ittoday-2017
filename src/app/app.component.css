@@ -99,7 +99,7 @@ a {
 }
 
 .article-footer {
-  border-right: 3px solid #FFF;
+  /*border-right: 3px solid #FFF;*/
 }
 
 .article-list h3 {
@@ -117,6 +117,11 @@ a {
 
 .contact-button img {
   margin-right: 10px;
+}
+
+.contact-button{
+  padding-top:10px;
+  padding-bottom: 10px;
 }
 
 .copyright {
@@ -138,29 +143,52 @@ a {
   }
 
   .article-list {
-    background: url("../assets/img/sberitaartikel.png") no-repeat left;
-    height: 200px;
+    background: url("../assets/img/sberitaartikel.png") no-repeat top left;
+    height: 350px;
   }
 
   .article-footer {
     margin-left: 120px;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    /*margin-top: 20px;*/
+    margin-bottom: 20px;
     min-height: 140px;
   }
 
   .contact-list {
-    background: url("../assets/img/skontakkami.png") no-repeat right;
-    height: 200px;
+    background: url("../assets/img/skontakkami.png") no-repeat top right;
+    height: 350px;
   }
   
   .contact-footer {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    /*margin-top: 30px;*/
+    margin-bottom: 20px;
+  }
+
+  .main-sponsor img{
+    width: 350px;
+    /*margin-bottom: 5px;*/
+  }
+
+  .s-sponsor-left img, .s-sponsor-right img{
+    width: 150px;
+  }
+
+  .sponsor-list{
+    padding-left:150px;
+    padding-top:10px;
+  }
+
+  .medpart-list{
+    padding-right:200px;
+    padding-top:10px;
   }
 }
 
 @media (max-width: 767px) {
+  .footer{
+    color: #fff;
+  }
+
   .article-footer {
     border-right: none;
     text-align: center;
@@ -171,4 +199,33 @@ a {
     text-align: center;
     margin: 20px auto;
   }
+
+  .main-sponsor img{
+    width: 250px;
+    margin-bottom: 10px;
+  }
+
+  .s-sponsor{
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .s-sponsor-left img, .s-sponsor-right img{
+    width: 100px;
+    margin-bottom: 10px;
+  }
+
+  .sponsor-list{
+    text-align: center;
+  }
+
+  .medpart-list{
+    text-align: center;
+  }
+
+}
+
+.main-sponsor{
+  text-align: center;
+  /*margin-bottom: 2px !important;*/
 }

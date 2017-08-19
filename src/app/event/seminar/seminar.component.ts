@@ -16,6 +16,7 @@ export class SeminarComponent{
 	public event_desc: any = {};
 	public schedule: any = {};
 	public checker = false;
+	public link: any = {};
 
 	constructor(public title: Title, 
 							public http: Http, 
@@ -27,6 +28,7 @@ export class SeminarComponent{
 				this.event_desc = data.event_desc.seminar;
 				this.speaker = data.seminar_speaker;
 				this.schedule = data.event_date.seminar;
+				this.link = data.submission.seminar_link;
 				this.checker = true;
 			}, err => {
 				console.log(err);

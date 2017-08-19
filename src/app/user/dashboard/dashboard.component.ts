@@ -70,7 +70,8 @@ export class DashboardComponent{
 		has_regist: false,
 		attend_confirm: null,
 		seminar_open: false,
-		seminar_confirm_open: false
+		seminar_confirm_open: false,
+		seminar_link: null
 	};
 
 	private proposalFile: Array<File>;
@@ -113,6 +114,7 @@ export class DashboardComponent{
 
 				this.registSeminar.seminar_open = data.submission.seminar_open;
 				this.registSeminar.seminar_confirm_open = data.submission.seminar_confirm_open;
+				this.registSeminar.seminar_link = data.submission.seminar_link;
       }, err => {
         console.log(err);
       })
