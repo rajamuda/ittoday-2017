@@ -2,6 +2,11 @@ a {
   color: #FE0037;
 }
 
+.btn-custom {
+  background-color: #EBDB01;
+  border-radius: 25px;
+}
+
 .navbar {
   background-color: #FE0037;
   -moz-box-shadow:0 3px 5px rgba(182, 182, 182, 0.75);
@@ -61,66 +66,63 @@ a {
   font-size: 16px;
 }
 
-/*.navbar-brand {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-  text-align: center;
-  margin: auto;
-  padding: 0px;
-}
-
-.navbar-nav {
-  z-index: 999;
-}
-
-@media (max-width: 991px) {
-  .navbar-brand {
-    position: relative;
-  }
-}
-
-@media (min-width: 991px) {
-  .logo {
-    width: 100px;
-    height: 100px;
-    margin: -20px auto 0px;
-    padding: 30px 0px;
-    background-color: #7E0DF1;
-    border-radius: 50%;
-  }
-}*/
-
 /*============================================*/
+
+.footer {
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
 
 .footer-content {
   background-color: #7E0DF1;
+  padding: 20px;
 }
 
-.article-footer {
-  /*border-right: 3px solid #FFF;*/
+.sponsor-img {
+  text-align: center;
 }
 
-.article-list h3 {
-  font-weight: 900;
+.sponsor-list .f-img {
+  width: 100%;
+  margin: 5px auto;
 }
 
-.contact-list h3 {
-  font-weight: 900;
+.sponsor-list .s-img {
+  width: 70%;
+  margin: 5px auto;
 }
 
-.btn-custom {
-  background-color: #EBDB01;
-  border-radius: 25px;
+.sponsor-list .t-img {
+  width: 40%;
+  margin: 5px auto;
+}
+
+.medpar-list img {
+  width: 100%;
+}
+
+.collab-list td {
+  padding: 5px 10px;
+}
+
+.collab-list .ticketing img {
+  height: 30px;
+}
+
+.collab-list .community img {
+  height: 40px;
+}
+
+.collab-list .agsn img {
+  height: 50px;
 }
 
 .contact-button img {
   margin-right: 10px;
 }
 
-.contact-button{
-  padding-top:10px;
+.contact-button {
+  padding-top : 10px;
   padding-bottom: 10px;
 }
 
@@ -133,8 +135,6 @@ a {
 
 @media (min-width: 768px) {
   .footer {
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -142,90 +142,18 @@ a {
     z-index: 999;
   }
 
-  .article-list {
-    background: url("../assets/img/sberitaartikel.png") no-repeat top left;
-    height: 350px;
-  }
-
-  .article-footer {
-    margin-left: 120px;
-    /*margin-top: 20px;*/
-    margin-bottom: 20px;
-    min-height: 140px;
-  }
-
-  .contact-list {
-    background: url("../assets/img/skontakkami.png") no-repeat top right;
-    height: 350px;
-  }
-  
-  .contact-footer {
-    /*margin-top: 30px;*/
-    margin-bottom: 20px;
-  }
-
-  .main-sponsor img{
-    width: 350px;
-    /*margin-bottom: 5px;*/
-  }
-
-  .s-sponsor-left img, .s-sponsor-right img{
-    width: 150px;
-  }
-
-  .sponsor-list{
-    padding-left:150px;
-    padding-top:10px;
-  }
-
-  .medpart-list{
-    padding-right:200px;
-    padding-top:10px;
+  .collab-list {
+    background: url("../assets/img/logo-violet.png") no-repeat bottom right;
+    background-size: 100%;
   }
 }
 
 @media (max-width: 767px) {
-  .footer{
-    color: #fff;
+  .footer-content {
+    padding: 20px 0px;
   }
 
-  .article-footer {
-    border-right: none;
-    text-align: center;
-    margin: 20px auto;
+  .sponsor-list, .medpar-list {
+    margin-bottom: 40px;
   }
-
-  .contact-footer {
-    text-align: center;
-    margin: 20px auto;
-  }
-
-  .main-sponsor img{
-    width: 250px;
-    margin-bottom: 10px;
-  }
-
-  .s-sponsor{
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  .s-sponsor-left img, .s-sponsor-right img{
-    width: 100px;
-    margin-bottom: 10px;
-  }
-
-  .sponsor-list{
-    text-align: center;
-  }
-
-  .medpart-list{
-    text-align: center;
-  }
-
-}
-
-.main-sponsor{
-  text-align: center;
-  /*margin-bottom: 2px !important;*/
 }
