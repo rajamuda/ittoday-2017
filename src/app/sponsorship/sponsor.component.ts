@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 
 @Component({
 	selector: 'sponsor',
-	templateUrl: './sponsor.component.html'
+	templateUrl: './sponsor.component.html',
+	styleUrls: [ './sponsor.component.css' ],
 })
 
 export class SponsorComponent{

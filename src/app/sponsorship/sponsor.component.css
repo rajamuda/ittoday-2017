@@ -1,0 +1,82 @@
+.main-component {
+  background: #EBDB01;
+  padding-top: 40px;
+  padding-bottom: 200px;
+}
+
+.sponsor-img {
+  text-align: center;
+}
+
+.sponsor-list .main-img {
+  width: 30%;
+  margin: 5px auto;
+}
+
+.sponsor-list .fst-img {
+  width: 30%;
+  margin: 5px auto;
+}
+
+.sponsor-list .snd-img {
+  width: 30%;
+  margin: 5px auto;
+}
+
+.medpar-list img {
+  width: 100%;
+}
+
+.collab-list td {
+  padding: 5px 10px;
+}
+
+.collab-list .ticketing img {
+  height: 30px;
+}
+
+.collab-list .community img {
+  height: 40px;
+}
+
+.collab-list .agsn img {
+  height: 50px;
+}
+
+.title{
+  text-align: center;
+  color: #000;
+}
+
+
+@media (min-width: 768px) {
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 999;
+  }
+
+  .collab-list {
+    /*background: url("../assets/img/logo-violet.png") no-repeat bottom right;*/
+    /*background-size: 100%;*/
+    padding-top:50px;
+  }
+
+  .container .row{
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 10px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-component {
+    padding: 20px 0px;
+  }
+
+  .sponsor-list, .medpar-list {
+    margin-bottom: 40px;
+  }
+}
